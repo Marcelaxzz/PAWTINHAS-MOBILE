@@ -1,0 +1,2 @@
+// Mesma configuração de campos do site (pages/panel/Formularios.jsx).
+export { NovoBanho as default } from '../../../../web/pages/panel/Formularios/Formularios.jsx'

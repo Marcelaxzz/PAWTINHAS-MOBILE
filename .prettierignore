@@ -1,0 +1,4 @@
+src/web/
+node_modules/
+dist/
+.expo/
