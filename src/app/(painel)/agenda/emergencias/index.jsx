@@ -64,7 +64,7 @@ export default function Emergencias() {
       {loading && <LoadingState />}
       {error ? <ErrorState message={error} onRetry={reload} /> : null}
 
-      {data && (
+      {Boolean(data) && (
         <>
           <Filtros>
             <BuscaFiltro value={busca} onChange={setBusca} placeholder="Filtrar por nome do pet ou tutor..." />
@@ -130,7 +130,7 @@ export default function Emergencias() {
             {count('Alta médica')} com alta médica.
           </SummaryBar>
 
-          {selected && (
+          {Boolean(selected) && (
             <RecordDialog
               open={Boolean(selectedId)}
               eventoId={selectedId}

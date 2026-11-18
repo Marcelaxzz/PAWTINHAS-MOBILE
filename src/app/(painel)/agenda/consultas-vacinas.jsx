@@ -110,7 +110,7 @@ export default function ConsultasVacinas() {
       {loading && <LoadingState />}
       {error ? <ErrorState message={error} onRetry={reload} /> : null}
 
-      {data && (
+      {Boolean(data) && (
         <>
           <Grade colunas={2} quebras={{ 1000: 1 }} gap={24} esticar={false}>
             <View style={estilos.coluna} onLayout={(e) => (posicoes.current.consultas = e.nativeEvent.layout.y)}>
@@ -227,7 +227,7 @@ export default function ConsultasVacinas() {
             </SummaryBar>
           </Grade>
 
-          {consulta && (
+          {Boolean(consulta) && (
             <RecordDialog
               open={Boolean(consultaId)}
               eventoId={consultaId}
@@ -255,7 +255,7 @@ export default function ConsultasVacinas() {
             />
           )}
 
-          {vacina && (
+          {Boolean(vacina) && (
             <RecordDialog
               open={Boolean(vacinaId)}
               eventoId={vacinaId}
@@ -281,7 +281,7 @@ export default function ConsultasVacinas() {
             />
           )}
 
-          {comprovante && (
+          {Boolean(comprovante) && (
             <Dialog
               open={Boolean(comprovanteId)}
               onClose={() => setComprovanteId(null)}

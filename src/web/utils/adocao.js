@@ -36,3 +36,14 @@ export const FILTROS = [
 export function visivelNoCatalogo(animal) {
   return animal.status === 'Disponível' || animal.status === 'Em processo'
 }
+
+/** Mensagem de interesse que o visitante manda pelo WhatsApp, com o nome do animal. */
+export function mensagemInteresse(animal) {
+  const femea = /f[eê]mea/i.test(animal.sexo ?? '')
+  const artigo = femea ? 'a' : 'o'
+  const pronome = femea ? 'ela' : 'ele'
+  return (
+    `Oi! 🐾 Vi ${artigo} ${animal.nome} no site do Pawtinhas e me apaixonei. ` +
+    `Quero muito saber como faço para adotar ${pronome}! Pode me contar como funciona? 💛`
+  )
+}

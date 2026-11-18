@@ -27,7 +27,7 @@ export function ErrorState({ message, onRetry }) {
     <View style={[estilos.estado, estilos.estadoErro]} accessibilityRole="alert">
       <AlertIcon size={28} color={cores.erro} />
       <Texto style={[estilos.estadoTexto, { color: cores.erro }]}>{message}</Texto>
-      {onRetry && (
+      {Boolean(onRetry) && (
         <Pressable onPress={onRetry} accessibilityRole="button" style={[estilos.tentar, { borderColor: cores.erro }]}>
           <Texto peso={600} style={{ color: cores.erro }}>
             Tentar novamente

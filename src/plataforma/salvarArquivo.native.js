@@ -2,7 +2,7 @@ import { File, Paths } from 'expo-file-system'
 import * as Sharing from 'expo-sharing'
 
 /**
- * Grava um arquivo gerado pelo app (backup, STL da prótese) e abre o compartilhamento do
+ * Grava um arquivo gerado pelo app (backup, relatórios) e abre o compartilhamento do
  * sistema: dá para salvar em Arquivos/Drive, mandar por e-mail ou abrir no app da impressora.
  */
 export async function salvarArquivo(conteudo, nome, tipo = 'application/octet-stream') {

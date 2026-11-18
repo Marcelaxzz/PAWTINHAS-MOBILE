@@ -41,7 +41,9 @@ export function AlarmeForm() {
           Ele pode ter sido excluído.
         </EmptyState>
       )}
-      {data && (!editing || alarme) && <AlarmeFormContent key={id ?? 'novo'} pets={data.pets} alarme={alarme} />}
+      {Boolean(data) && (!editing || alarme) && (
+        <AlarmeFormContent key={id ?? 'novo'} pets={data.pets} alarme={alarme} />
+      )}
     </Page>
   )
 }
@@ -212,7 +214,7 @@ function AlarmeFormContent({ pets, alarme }) {
       </View>
 
       <View style={estilosForm.acoes}>
-        {alarme && (
+        {Boolean(alarme) && (
           <PillButton
             variant="perigo"
             onPress={() => setConfirming(true)}

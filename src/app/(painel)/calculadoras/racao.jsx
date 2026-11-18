@@ -15,13 +15,14 @@ import { dataService } from '../../../web/services/dataService.js'
 import { formatNumber, maskDecimal, parseDecimal } from '../../../web/utils/numbers.js'
 import { CALCULADORAS_TABS } from '../../../web/pages/calculadoras/calculadorasTabs.js'
 import {
-  calc,
   CheckItem,
+  ComoCalcula,
   GradeNumeros,
   Mensagem,
   Numero,
   Pendencias,
   Secao,
+  calc,
 } from '../../../telas/calculadoras/comum.jsx'
 import { Grade } from '../../../componentes/ui/Grade.jsx'
 
@@ -206,7 +207,7 @@ function RacaoForm({ pets, racoes, fatores }) {
               onChange={(v) => set('pesoAtualKg', maskDecimal(v, 6))}
               error={errosCampo.pesoAtualKg}
             />
-            {usaMeta && (
+            {Boolean(usaMeta) && (
               <Field
                 label={personalizado ? 'Peso para o cálculo (kg)' : 'Peso ideal (kg)'}
                 required={!personalizado}
@@ -240,7 +241,7 @@ function RacaoForm({ pets, racoes, fatores }) {
           )}
         </Secao>
 
-        {especieValida && (
+        {Boolean(especieValida) && (
           <>
             <Secao titulo="Condição" numero={2}>
               <FieldGrid>
@@ -258,7 +259,7 @@ function RacaoForm({ pets, racoes, fatores }) {
                   error={errosCampo.condicao}
                   hint={condicao ? `Fonte: ${condicao.fonte}` : undefined}
                 />
-                {ajustavel && (
+                {Boolean(ajustavel) && (
                   <Field
                     label={`Fator (${faixa(condicao)})`}
                     inputMode="decimal"
@@ -269,7 +270,7 @@ function RacaoForm({ pets, racoes, fatores }) {
                     error={errosCampo.fatorPersonalizado}
                   />
                 )}
-                {personalizado && (
+                {Boolean(personalizado) && (
                   <Field
                     label="Fator (0,5 a 8)"
                     required
@@ -302,7 +303,7 @@ function RacaoForm({ pets, racoes, fatores }) {
                   onChange={(v) => set('racaoId', v)}
                   error={errosCampo.racaoId}
                 />
-                {manual && (
+                {Boolean(manual) && (
                   <>
                     <Field
                       label="Nome da ração"
@@ -413,17 +414,19 @@ function RacaoForm({ pets, racoes, fatores }) {
             </View>
             {errosCampo.petId ? <Texto style={calc.formula}>{errosCampo.petId}</Texto> : null}
 
-            <Texto style={calc.formula}>
-              Gramas por dia = MER ÷ energia da ração (kcal/kg) × 1.000. O resultado é um ponto de partida: ajuste a
-              quantidade acompanhando o peso e o escore corporal, como recomendam as fontes abaixo.
-            </Texto>
-            <View style={calc.fontes}>
-              {result.fontes.map((fonte) => (
-                <Texto key={fonte} style={calc.fonteMed}>
-                  • {fonte}
-                </Texto>
-              ))}
-            </View>
+            <ComoCalcula>
+              <Texto style={calc.formula}>
+                Gramas por dia = MER ÷ energia da ração (kcal/kg) × 1.000. O resultado é um ponto de partida: ajuste a
+                quantidade acompanhando o peso e o escore corporal, como recomendam as fontes abaixo.
+              </Texto>
+              <View style={calc.fontes}>
+                {result.fontes.map((fonte) => (
+                  <Texto key={fonte} style={calc.fonteMed}>
+                    • {fonte}
+                  </Texto>
+                ))}
+              </View>
+            </ComoCalcula>
           </View>
         )}
       </View>

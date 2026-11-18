@@ -61,7 +61,7 @@ export default function Alarmes() {
       {loading && <LoadingState />}
       {error ? <ErrorState message={error} onRetry={reload} /> : null}
 
-      {data && (
+      {Boolean(data) && (
         <>
           <View style={[estilos.iot, sombras.suave]} accessibilityLabel="Dispositivo ESP32">
             <View style={estilos.iotLinha}>

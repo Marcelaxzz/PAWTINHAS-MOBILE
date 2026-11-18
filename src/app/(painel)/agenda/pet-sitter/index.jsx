@@ -63,7 +63,7 @@ export default function PetSitter() {
       {loading && <LoadingState />}
       {error ? <ErrorState message={error} onRetry={reload} /> : null}
 
-      {data && (
+      {Boolean(data) && (
         <>
           {visitas.length === 0 ? (
             <EmptyState
@@ -90,7 +90,7 @@ export default function PetSitter() {
                       <>
                         {pet?.idade ? <Chip size="sm">{pet.idade}</Chip> : null}
                         <StatusChip status={visita.status} size="xs" />
-                        {futura && (
+                        {Boolean(futura) && (
                           <Chip tone="tag" size="xs">
                             A partir de {formatDateBr(visita.dataInicio)}
                           </Chip>
@@ -107,7 +107,7 @@ export default function PetSitter() {
                           style={[estilos.marcar, concluida && estilos.marcado, inativo && { opacity: 0.55 }]}
                         >
                           <View style={[estilos.caixa, concluida && estilos.caixaMarcada]}>
-                            {concluida && <CheckIcon size={12} strokeWidth={3.2} color={cores.branco} />}
+                            {Boolean(concluida) && <CheckIcon size={12} strokeWidth={3.2} color={cores.branco} />}
                           </View>
                           <Texto peso={600} style={{ fontSize: 16, color: concluida ? cores.sucesso : cores.cafe }}>
                             {concluida ? 'Concluída' : 'Marcar como visitada'}
@@ -151,7 +151,7 @@ export default function PetSitter() {
             {deHoje.length === 1 ? 'visita concluída' : 'visitas concluídas'} hoje.
           </SummaryBar>
 
-          {selected && (
+          {Boolean(selected) && (
             <RecordDialog
               open={Boolean(selectedId)}
               eventoId={selectedId}

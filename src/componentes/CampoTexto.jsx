@@ -46,7 +46,7 @@ export const CampoTexto = forwardRef(function CampoTexto(
         {label}
       </Texto>
       <View style={[estilos.caixa, foco && estilos.caixaFoco, error && estilos.caixaErro]}>
-        {Icon && <Icon size={15} color={cores.cafe} />}
+        {Boolean(Icon) && <Icon size={15} color={cores.cafe} />}
         <TextInput
           key={isPassword && visible ? 'senha-visivel' : 'senha-oculta'}
           ref={entrada}

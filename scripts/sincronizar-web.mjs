@@ -1,5 +1,5 @@
 // Copia do site (Pawtinhas-Front) tudo o que o app usa sem mudar: contratos da API, validações,
-// regras da agenda, cálculos da prótese, hooks de dados, ícones e imagens. Assim uma mudança no
+// regras da agenda, hooks de dados, ícones e imagens. Assim uma mudança no
 // site chega ao app rodando `npm run sincronizar` (roda sozinho antes do `npm start`).
 //
 // Os arquivos copiados ficam em src/web/ e não devem ser editados à mão: mude no site e sincronize.
@@ -45,14 +45,11 @@ const MODULOS = [
   'utils/painel.js',
   'utils/alarmes.js',
   'pages/calculadoras/Catalogos/estoque.js',
+  'pages/calculadoras/Catalogos/caixaRemedio.js',
   'components/ResourceForm/constants.js',
   'pages/calculadoras/calculadorasTabs.js',
   'pages/panel/agendaTabs.js',
   'pages/panel/pacientesTabs.js',
-  'pages/protese/proteseTabs.js',
-  'pages/protese/visao/geometria.js',
-  'pages/protese/impressao/modeloProtese.js',
-  'pages/protese/impressao/vista3d.js',
   'pages/panel/Alarmes/ligacoesAlarme.js',
   // Telas que são só configuração (o ResourceForm e o roteador são trocados pelos do app).
   'pages/panel/Formularios/Formularios.jsx',
@@ -86,12 +83,6 @@ const ler = (relativo) => fs.readFileSync(path.join(site, relativo), 'utf8')
 
 for (const modulo of MODULOS) gravar(modulo, CABECALHO + ler(modulo))
 
-// O worker de visão computacional roda dentro de uma WebView (ou iframe, no navegador):
-// vai como texto, para virar um Worker por Blob lá dentro.
-gravar(
-  'pages/protese/visao/visaoWorkerFonte.js',
-  `${CABECALHO}export const VISAO_WORKER_FONTE = ${JSON.stringify(ler('pages/protese/visao/visao-worker.js'))}\n`,
-)
 
 // Ícones: o mesmo desenho, com os elementos do react-native-svg no lugar dos do HTML.
 gravar('components/Icons/Icons.jsx', CABECALHO + iconesNativos(ler('components/Icons/Icons.jsx')))

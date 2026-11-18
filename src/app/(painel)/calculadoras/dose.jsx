@@ -23,13 +23,14 @@ import {
 import { CALCULADORAS_TABS } from '../../../web/pages/calculadoras/calculadorasTabs.js'
 import { alarmeTocando } from '../../../alarmes/estado.js'
 import {
-  calc,
   CheckItem,
+  ComoCalcula,
   GradeNumeros,
   Mensagem,
   Numero,
   Pendencias,
   Secao,
+  calc,
 } from '../../../telas/calculadoras/comum.jsx'
 import { Grade } from '../../../componentes/ui/Grade.jsx'
 
@@ -63,7 +64,7 @@ export default function CalculoDose() {
     <Page width="largo" title="Dose de medicamento" tabs={CALCULADORAS_TABS}>
       {loading && <LoadingState />}
       {error ? <ErrorState message={error} onRetry={reload} /> : null}
-      {data && <DoseForm pets={data.pets} medicamentos={data.medicamentos} />}
+      {Boolean(data) && <DoseForm pets={data.pets} medicamentos={data.medicamentos} />}
     </Page>
   )
 }
@@ -249,7 +250,7 @@ function DoseForm({ pets, medicamentos }) {
               hint={pet && !pet.peso ? 'Este paciente ainda não tem peso na ficha.' : undefined}
             />
           </FieldGrid>
-          {pesoDiferente && (
+          {Boolean(pesoDiferente) && (
             <View style={calc.checks}>
               <CheckItem
                 checked={values.atualizarPeso}
@@ -276,7 +277,7 @@ function DoseForm({ pets, medicamentos }) {
               onChange={escolherMedicamento}
               error={errosCampo.medicamentoId}
             />
-            {manual && (
+            {Boolean(manual) && (
               <>
                 <Field
                   span={2}
@@ -322,7 +323,7 @@ function DoseForm({ pets, medicamentos }) {
               />
             </View>
           )}
-          {med && (
+          {Boolean(med) && (
             <View style={calc.info}>
               <Texto style={calc.infoTexto}>
                 <Forte>{formatNumber(med.concentracao, 3)}</Forte> {CONCENTRACAO[med.unidade]}
@@ -337,7 +338,7 @@ function DoseForm({ pets, medicamentos }) {
               </Texto>
             </View>
           )}
-          {med && (med.observacoes || med.fonte) ? (
+          {Boolean(med) && (med.observacoes || med.fonte) ? (
             <View style={calc.referencia}>
               {med.observacoes ? <Texto style={calc.referenciaTexto}>{med.observacoes}</Texto> : null}
               {med.fonte ? <Texto style={calc.fonteMed}>Fonte: {med.fonte}</Texto> : null}
@@ -397,7 +398,7 @@ function DoseForm({ pets, medicamentos }) {
               error={errosCampo.inicio}
             />
             <Field
-              label="Horário da 1ª dose"
+              label="Hora da 1ª dose"
               icon={ClockIcon}
               inputMode="numeric"
               placeholder="hh:mm"
@@ -508,11 +509,13 @@ function DoseForm({ pets, medicamentos }) {
             </View>
             {errosCampo.petId ? <Texto style={calc.formula}>{errosCampo.petId}</Texto> : null}
 
-            <Texto style={calc.formula}>
-              Dose (mg) = peso × dose (mg/kg). Quantidade = dose ÷ concentração, arredondada para o que dá para
-              administrar: 1/4 de comprimido sulcado, cápsula ou gota inteira, 0,01 mL abaixo de 1 mL e 0,1 mL acima.
-              Confira sempre a bula do produto.
-            </Texto>
+            <ComoCalcula>
+              <Texto style={calc.formula}>
+                Dose (mg) = peso × dose (mg/kg). Quantidade = dose ÷ concentração, arredondada para o que dá para
+                administrar: 1/4 de comprimido sulcado, cápsula ou gota inteira, 0,01 mL abaixo de 1 mL e 0,1 mL acima.
+                Confira sempre a bula do produto.
+              </Texto>
+            </ComoCalcula>
           </View>
         )}
       </View>

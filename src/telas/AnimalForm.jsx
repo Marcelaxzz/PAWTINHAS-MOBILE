@@ -143,7 +143,7 @@ export function AnimalForm({ animal, variant = 'pagina', onSubmit, onCancel, sav
   return (
     <View>
       <View style={[estilos.foto, modal && estilos.fotoModal]}>
-        {modal && (
+        {Boolean(modal) && (
           <Texto peso={700} style={estilos.rotuloFoto}>
             FOTO DO ANIMAL
           </Texto>
@@ -157,7 +157,7 @@ export function AnimalForm({ animal, variant = 'pagina', onSubmit, onCancel, sav
           hint={modal ? 'PNG, JPG até 5MB' : 'PNG ou JPG de até 5MB'}
           variant={modal ? 'upload' : 'camera'}
         />
-        {modal && (
+        {Boolean(modal) && (
           <Field
             span={2}
             ref={(el) => {
@@ -282,7 +282,7 @@ export function AnimalForm({ animal, variant = 'pagina', onSubmit, onCancel, sav
           value={values.status}
           onChange={set('status')}
         />
-        {modal && (
+        {Boolean(modal) && (
           <Field
             ref={(el) => {
               refs.current.dataEntrada = el
@@ -297,7 +297,7 @@ export function AnimalForm({ animal, variant = 'pagina', onSubmit, onCancel, sav
             error={errors.dataEntrada}
           />
         )}
-        {modal && (
+        {Boolean(modal) && (
           <Field
             span={2}
             label="Informações adicionais"

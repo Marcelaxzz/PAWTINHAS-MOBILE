@@ -44,7 +44,9 @@ export function PacienteForm() {
           action={<PillButton to="/pacientes">Voltar aos pacientes</PillButton>}
         />
       )}
-      {data && (!editing || pet) && <PacienteFormContent key={id ?? 'novo'} pet={pet} tutoresIniciais={data.tutores} />}
+      {Boolean(data) && (!editing || pet) && (
+        <PacienteFormContent key={id ?? 'novo'} pet={pet} tutoresIniciais={data.tutores} />
+      )}
     </Page>
   )
 }
@@ -236,7 +238,7 @@ function PacienteFormContent({ pet, tutoresIniciais }) {
           onChange={set('tutorId')}
           error={errors.tutorId}
         />
-        {newTutor && (
+        {Boolean(newTutor) && (
           <>
             <Field
               ref={(el) => {

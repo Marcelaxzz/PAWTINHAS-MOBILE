@@ -63,7 +63,7 @@ export default function Agenda() {
       {loading && <LoadingState />}
       {error ? <ErrorState message={error} onRetry={reload} /> : null}
 
-      {summaries && (
+      {Boolean(summaries) && (
         <>
           <Grade
             colunas={3}

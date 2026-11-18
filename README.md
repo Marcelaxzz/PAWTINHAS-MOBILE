@@ -7,9 +7,8 @@ App do Pawtinhas para Android e iOS em **React Native com Expo (SDK 57)**. Tem a
 - **Painel:**
   - início com o resumo do dia;
   - agenda (consultas, vacinas, cirurgias, banho e tosa, pet sitter, emergências), com formulários, detalhes, troca de status e relatórios;
-  - pacientes, ficha, tutores, tratamentos, planos alimentares e medições;
+  - pacientes, ficha, tutores, tratamentos e planos alimentares;
   - alarmes, calculadoras de dose e de ração, catálogos de medicamentos e rações;
-  - prótese 3D: câmera, medição por foto com detecção do cartão, modelo e arquivo STL;
   - administração de adoções e configurações.
 - **Só no app:** os alarmes tocam no próprio celular, mesmo com a tela bloqueada (veja [Alarmes](#alarmes)).
 
@@ -27,23 +26,20 @@ Sem `.env`, o app procura a API e o site **no mesmo computador que roda o `npm s
 | Serviço | Endereço usado | Como subir para o celular enxergar |
 | --- | --- | --- |
 | API | `http://<ip-do-pc>:5135/api` | `dotnet run --urls http://0.0.0.0:5135` (em `Pawtinhas-Back/src/Pawtinhas.API`) |
-| Site (OpenCV.js da medição) | `http://<ip-do-pc>:5173` | `npm run dev -- --host` (em `Pawtinhas-Front`) |
 
-O Firewall do Windows precisa liberar as portas 5135 e 5173 na rede privada. Para outro endereço, copie `.env.example` para `.env`:
+O Firewall do Windows precisa liberar a porta 5135 na rede privada. Para outro endereço, copie `.env.example` para `.env`:
 
 ```ini
 EXPO_PUBLIC_API_URL=https://pawtinhas.exemplo.com.br/api
-EXPO_PUBLIC_SITE_URL=https://pawtinhas.exemplo.com.br
 EXPO_PUBLIC_WHATSAPP=5534999990000
 ```
 
 No navegador (`npm run web`, porta 8081), a API precisa aceitar a origem: `Cors__Origens__0=http://localhost:8081`.
 
-Com o site e a API publicados no Railway, use o domínio do site nos dois endereços (o site repassa `/api` para a API):
+O APK publicado usa o site da Vercel, que repassa `/api` para a API no Railway (perfil `preview` do `eas.json`):
 
 ```ini
-EXPO_PUBLIC_API_URL=https://<dominio-do-site>.up.railway.app/api
-EXPO_PUBLIC_SITE_URL=https://<dominio-do-site>.up.railway.app
+EXPO_PUBLIC_API_URL=https://pawtinhas.vercel.app/api
 ```
 
 No iPhone, o Expo Go só abre o projeto com a mesma conta Expo logada no celular e no computador (`npx expo login`).
@@ -106,7 +102,6 @@ src/
 ├── componentes/    Botões, campos, janelas, cabeçalho, página e formulário configurável
 ├── telas/          Telas usadas por mais de uma rota (ficha, formulários, adoção...)
 ├── alarmes/        Agendamento dos alarmes no aparelho e tela "Alarme tocando"
-├── protese/        Foto da medição, visão computacional (WebView) e ajudantes
 ├── adocao/         Card e favoritos
 ├── plataforma/     Versões nativas de http, cookies, fotos, imagens, impressão e arquivos
 ├── web/            Copiado do site (não editar)
@@ -125,7 +120,6 @@ src/
 
 **Fotos**
 - As fotos de pacientes e animais são reduzidas e regravadas em JPEG antes do envio, o que descarta a localização e os demais metadados.
-- A foto da medição da prótese não sai do aparelho: a análise roda numa WebView local e só as medidas vão para a ficha.
 
 **Configuração**
 - Não há segredo no código. O `.env` só tem endereços públicos.

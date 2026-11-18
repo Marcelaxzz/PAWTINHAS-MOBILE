@@ -1,4 +1,4 @@
-import { forwardRef, useEffect, useRef, useState } from 'react'
+import { forwardRef, useRef } from 'react'
 import { KeyboardAvoidingView, Platform, Pressable, RefreshControl, ScrollView, StyleSheet, View } from 'react-native'
 import { usePathname, useRouter } from 'expo-router'
 import { LinearGradient } from 'expo-linear-gradient'
@@ -64,7 +64,7 @@ export const Page = forwardRef(function Page(
           }}
         >
           <PageHeading title={title} subtitle={subtitle} />
-          {tabs && <Abas tabs={tabs} titulo={title} />}
+          {Boolean(tabs) && <Abas tabs={tabs} titulo={title} />}
           {actions ? <View style={estilos.acoes}>{actions}</View> : null}
           <View
             style={[estilos.corpo, contentStyle]}
@@ -84,20 +84,13 @@ export const Page = forwardRef(function Page(
 })
 
 /**
- * Abas da seção (pílula com a aba atual em café). Numa linha só: quando não cabem, rolam para
- * o lado e a aba atual vem para o meio, como no site em telas de celular.
+ * Abas da seção (pílula com a aba atual em café). Ficam numa linha centralizada e, quando não cabem
+ * (celular estreito, letra grande), quebram para a linha de baixo. Sem ScrollView horizontal: no
+ * Android ele cresce até ocupar a tela inteira e escondia o conteúdo.
  */
 export function Abas({ tabs, titulo }) {
   const pathname = usePathname()
   const router = useRouter()
-  const rolagem = useRef(null)
-  const [medidas, setMedidas] = useState({ largura: 0, ativa: null })
-
-  useEffect(() => {
-    const { largura, ativa } = medidas
-    if (!largura || !ativa) return
-    rolagem.current?.scrollTo({ x: Math.max(0, ativa.x - (largura - ativa.width) / 2), animated: false })
-  }, [medidas])
 
   return (
     <View
@@ -105,59 +98,38 @@ export function Abas({ tabs, titulo }) {
       accessibilityRole="tablist"
       accessibilityLabel={titulo ? `Seções de ${titulo}` : undefined}
     >
-      <ScrollView
-        ref={rolagem}
-        horizontal
-        showsHorizontalScrollIndicator={false}
-        contentContainerStyle={estilos.abasLinha}
-        onLayout={(e) => {
-          const largura = e.nativeEvent.layout.width
-          setMedidas((m) => (m.largura === largura ? m : { ...m, largura }))
-        }}
-      >
-        {tabs.map((tab) => {
-          const caminho = tab.to.split(/[?#]/)[0]
-          const ativa = pathname === caminho
-          return (
-            <Pressable
-              key={tab.to}
-              onPress={() => !ativa && router.replace(tab.to)}
-              accessibilityRole="tab"
-              accessibilityState={{ selected: ativa }}
-              style={estilos.abaToque}
-              onLayout={
-                ativa
-                  ? (e) => {
-                      const { x, width } = e.nativeEvent.layout
-                      setMedidas((m) =>
-                        m.ativa?.x === x && m.ativa?.width === width ? m : { ...m, ativa: { x, width } },
-                      )
-                    }
-                  : undefined
-              }
-            >
-              {ativa ? (
-                <LinearGradient
-                  colors={gradientes.cafe}
-                  start={{ x: 0, y: 0.5 }}
-                  end={{ x: 1, y: 0.5 }}
-                  style={[estilos.aba, sombras.botao]}
-                >
-                  <Texto peso={600} style={[estilos.abaTexto, { color: cores.branco }]}>
-                    {tab.label}
-                  </Texto>
-                </LinearGradient>
-              ) : (
-                <View style={estilos.aba}>
-                  <Texto peso={600} style={estilos.abaTexto}>
-                    {tab.label}
-                  </Texto>
-                </View>
-              )}
-            </Pressable>
-          )
-        })}
-      </ScrollView>
+      {tabs.map((tab) => {
+        const caminho = tab.to.split(/[?#]/)[0]
+        const ativa = pathname === caminho
+        return (
+          <Pressable
+            key={tab.to}
+            onPress={() => !ativa && router.replace(tab.to)}
+            accessibilityRole="tab"
+            accessibilityState={{ selected: ativa }}
+            style={estilos.abaToque}
+          >
+            {ativa ? (
+              <LinearGradient
+                colors={gradientes.cafe}
+                start={{ x: 0, y: 0.5 }}
+                end={{ x: 1, y: 0.5 }}
+                style={[estilos.aba, sombras.botao]}
+              >
+                <Texto peso={600} style={[estilos.abaTexto, { color: cores.branco }]}>
+                  {tab.label}
+                </Texto>
+              </LinearGradient>
+            ) : (
+              <View style={estilos.aba}>
+                <Texto peso={600} style={estilos.abaTexto}>
+                  {tab.label}
+                </Texto>
+              </View>
+            )}
+          </Pressable>
+        )
+      })}
     </View>
   )
 }
@@ -166,16 +138,20 @@ const estilos = StyleSheet.create({
   tela: { flex: 1, backgroundColor: cores.cremeClaro },
   pagina: { paddingTop: 28, paddingHorizontal: MARGEM },
   abas: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    justifyContent: 'center',
+    alignItems: 'center',
     alignSelf: 'center',
     maxWidth: '100%',
+    gap: 6,
     marginTop: 24,
+    padding: 5,
     borderWidth: 1,
     borderColor: cores.borda,
-    borderRadius: 999,
+    borderRadius: 26,
     backgroundColor: cores.superficie,
-    overflow: 'hidden',
   },
-  abasLinha: { flexGrow: 1, justifyContent: 'center', gap: 6, padding: 5 },
   abaToque: { borderRadius: 999 },
   aba: { paddingVertical: 8, paddingHorizontal: 18, borderRadius: 999 },
   abaTexto: { fontSize: 16, lineHeight: 20, color: cores.taupe },

@@ -13,7 +13,6 @@ import {
   PawOutline,
   PencilIcon,
   PillIcon,
-  RulerIcon,
   TrashIcon,
 } from '../../../../web/components/Icons/Icons.jsx'
 import { useClinic } from '../../../../web/hooks/useClinic.js'
@@ -22,7 +21,7 @@ import { dataService } from '../../../../web/services/dataService.js'
 import { relatoriosService } from '../../../../web/services/gestaoService.js'
 import { formatDateBr } from '../../../../web/utils/dates.js'
 import { formatNumber, formatQuantidade } from '../../../../web/utils/numbers.js'
-import { Alimentacao, Medicoes, Tratamentos } from '../../../../telas/CuidadosPaciente.jsx'
+import { Alimentacao, Tratamentos } from '../../../../telas/CuidadosPaciente.jsx'
 import { cores, sombras } from '../../../../tema.js'
 import { Grade, useAte } from '../../../../componentes/ui/Grade.jsx'
 
@@ -33,7 +32,6 @@ const HISTORY = [
   'banhos',
   'visitas',
   'emergencias',
-  'medicoes',
   'prescricoes',
   'planosAlimentares',
 ]
@@ -80,15 +78,6 @@ function historyOf(data, petId) {
     ...data.emergencias
       .filter((x) => x.petId === petId)
       .map((x) => ({ id: x.id, data: x.data, hora: x.hora, tipo: 'Emergência', texto: x.motivo, status: x.status })),
-    ...data.medicoes
-      .filter((x) => x.petId === petId)
-      .map((x) => ({
-        id: x.id,
-        data: x.criadoEm.slice(0, 10),
-        hora: x.criadoEm.slice(11, 16),
-        tipo: 'Prótese 3D',
-        texto: `Membro ${formatNumber(x.comprimentoMembro, 1)} cm · Altura ${formatNumber(x.alturaChao, 1)} cm · Pata ${formatNumber(x.larguraPata, 1)} cm`,
-      })),
     ...data.prescricoes
       .filter((x) => x.petId === petId)
       .map((x) => ({
@@ -237,10 +226,6 @@ export default function PacienteFicha() {
               <PillIcon size={15} />
               Calcular dose
             </PillButton>
-            <PillButton variant="contorno" to={`/protese-3d?pet=${encodeURIComponent(pet.id)}`}>
-              <RulerIcon size={15} />
-              Medir prótese 3D
-            </PillButton>
             <PillButton variant="contorno" onPress={baixarFicha} loading={baixando}>
               <DownloadIcon size={15} />
               Ficha em PDF
@@ -262,12 +247,6 @@ export default function PacienteFicha() {
         <Alimentacao
           pet={pet}
           planos={data.planosAlimentares.filter((p) => p.petId === pet.id)}
-          patchLocal={patchLocal}
-        />
-        <Medicoes
-          inteiro
-          pet={pet}
-          medicoes={data.medicoes.filter((m) => m.petId === pet.id)}
           patchLocal={patchLocal}
         />
       </Grade>

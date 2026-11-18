@@ -19,8 +19,8 @@ const CARTOES = [
     destaque: true,
   },
   {
-    titulo: 'Próteses sob medida',
-    texto: 'Para animais que perderam um membro, a Dra. Carolina mede pela foto e imprime a prótese em 3D, sob medida.',
+    titulo: 'Alarmes de medicação',
+    texto: 'Cada remédio prescrito ganha um alarme no celular, no painel e na caixinha da clínica, para nenhuma dose passar.',
   },
 ]
 

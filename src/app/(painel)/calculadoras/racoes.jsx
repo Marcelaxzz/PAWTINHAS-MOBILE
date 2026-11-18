@@ -67,7 +67,7 @@ export default function CatalogoRacoes() {
     <Page width="largo" title="Catálogo de rações" tabs={CALCULADORAS_TABS} onRefresh={reload}>
       {loading && <LoadingState />}
       {error ? <ErrorState message={error} onRetry={reload} /> : null}
-      {data && (
+      {Boolean(data) && (
         <>
           <ResumoEstoque itens={estoque.itens} filtro={filtro} onFiltro={setFiltro} />
           {estoque.erro ? <Texto style={calc.itemApoio}>Estoque indisponível: {estoque.erro}</Texto> : null}

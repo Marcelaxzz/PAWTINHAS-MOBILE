@@ -300,25 +300,6 @@ export const ADAPTADORES = {
     campos: { localizacao: 'cidade', situacao: 'status', tracos: 'personalidade', pesoKg: 'peso', fotoUrl: 'foto' },
   },
 
-  // ---------- Prótese 3D ----------
-
-  medicoes: {
-    caminho: '/medicoes',
-    de: (m) => ({ ...m, id: String(m.id), petId: String(m.animalId) }),
-    para: (v) => ({
-      animalId: idNumero(v.petId),
-      membro: v.membro || null,
-      comprimentoMembro: numero(v.comprimentoMembro),
-      alturaChao: numero(v.alturaChao),
-      larguraPata: numero(v.larguraPata),
-      larguraEncaixe: numero(v.larguraEncaixe),
-      metodo: v.metodo || null,
-      leituras: v.leituras ?? 1,
-      criadoEm: v.criadoEm || null,
-    }),
-    campos: { animalId: 'petId' },
-  },
-
   // ---------- Catálogos e cálculos ----------
 
   medicamentos: {

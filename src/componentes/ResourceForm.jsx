@@ -104,7 +104,7 @@ export function ResourceForm({
           Ele pode ter sido excluído.
         </EmptyState>
       )}
-      {data && (!editing || record) && (
+      {Boolean(data) && (!editing || record) && (
         <ResourceFormContent
           key={recordId ?? 'novo'}
           {...props}

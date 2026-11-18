@@ -13,7 +13,7 @@ import { dataService } from '../../../web/services/dataService.js'
 import { formatNumber, intervaloCurto, intervaloLabel, maskDecimal, parseDecimal } from '../../../web/utils/numbers.js'
 import { CALCULADORAS_TABS } from '../../../web/pages/calculadoras/calculadorasTabs.js'
 import { calc, CheckItem, ProdutoTopo } from '../../../telas/calculadoras/comum.jsx'
-import { fotoDoMedicamento } from '../../../telas/calculadoras/fotosCatalogo.js'
+import { CaixaRemedio } from '../../../telas/calculadoras/CaixaRemedio.jsx'
 import { Grade } from '../../../componentes/ui/Grade.jsx'
 import { CATEGORIA } from '../../../web/services/gestaoService.js'
 import { FILTROS_ESTOQUE, useEstoque } from '../../../web/pages/calculadoras/Catalogos/estoque.js'
@@ -86,7 +86,7 @@ export default function CatalogoMedicamentos() {
     <Page width="largo" title="Catálogo de medicamentos" tabs={CALCULADORAS_TABS} onRefresh={reload}>
       {loading && <LoadingState />}
       {error ? <ErrorState message={error} onRetry={reload} /> : null}
-      {data && (
+      {Boolean(data) && (
         <>
           <ResumoEstoque itens={estoque.itens} filtro={filtro} onFiltro={setFiltro} />
           {estoque.erro ? <Texto style={calc.itemApoio}>Estoque indisponível: {estoque.erro}</Texto> : null}
@@ -110,7 +110,7 @@ export default function CatalogoMedicamentos() {
                 .filter((m) => filtro === 'todos' || testeFiltro(estoque.itens?.[m.id]))
                 .map((m) => (
                   <View key={m.id} style={calc.item}>
-                    <ProdutoTopo source={fotoDoMedicamento(m)} etiquetas={[m.forma]}>
+                    <ProdutoTopo ilustracao={<CaixaRemedio medicamento={m} />} etiquetas={[m.forma]}>
                       <Titulo peso={800} style={calc.itemNome}>
                         {m.nome}
                       </Titulo>

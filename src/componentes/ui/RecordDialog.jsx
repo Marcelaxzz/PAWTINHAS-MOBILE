@@ -58,13 +58,13 @@ export function RecordDialog({
         description={subtitle}
         footer={
           <>
-            {onDelete && (
+            {Boolean(onDelete) && (
               <PillButton variant="perigo" size="md" onPress={() => setConfirming(true)} disabled={busy}>
                 <TrashIcon size={15} />
                 {deleteLabel}
               </PillButton>
             )}
-            {editTo && (
+            {Boolean(editTo) && (
               <PillButton variant="contorno" size="md" to={editTo} onPress={onClose}>
                 <PencilIcon size={15} />
                 Editar

@@ -12,7 +12,6 @@ import {
   HeartIcon,
   PillIcon,
   PlusIcon,
-  RulerIcon,
   StethoscopeIcon,
   UsersIcon,
 } from '../../web/components/Icons/Icons.jsx'
@@ -22,6 +21,7 @@ import { useToast } from '../../web/hooks/useToast.js'
 import { estoqueService, relatoriosService } from '../../web/services/gestaoService.js'
 import { montarPainel, RECURSOS_PAINEL, saudacao, TOM_SERVICO } from '../../web/utils/painel.js'
 import { qtd, SITUACOES } from '../../web/pages/calculadoras/Catalogos/estoque.js'
+import { photoSrc } from '../../plataforma/imagens.js'
 import pets from '../../web/assets/images/pets-inicio.webp'
 import { cores, gradientes, MARGEM, sombras } from '../../tema.js'
 import { Forte, Texto, Titulo } from '../../componentes/Texto.jsx'
@@ -36,7 +36,7 @@ const TOM = (tom) => ({ cor: cores[`${tom}Texto`] ?? cores.cafe, fundo: cores[`$
 const ATALHOS = [
   { to: '/agenda/consultas/nova', rotulo: 'Nova consulta', icone: StethoscopeIcon },
   { to: '/pacientes/novo', rotulo: 'Novo paciente', icone: PlusIcon },
-  { to: '/protese-3d', rotulo: 'Medir prótese', icone: RulerIcon },
+  { to: '/alarmes/novo', rotulo: 'Novo alarme', icone: ClockIcon },
   { to: '/calculadoras/dose', rotulo: 'Calcular dose', icone: PillIcon },
 ]
 
@@ -162,31 +162,63 @@ export default function Inicio() {
           ) : null}
         </View>
       )}
+    </View>
+  )
 
-      <View style={estilos.semana} accessibilityLabel="Atendimentos nos próximos 7 dias">
-        <Texto peso={800} style={{ color: cores.cafeEscuro }}>
-          Próximos 7 dias
-        </Texto>
-        <View style={estilos.barras}>
-          {painel.semana.map((d, i) => (
-            <View key={d.iso} style={estilos.barraDia}>
-              <Texto peso={800} style={estilos.barraValor}>
-                {d.total}
-              </Texto>
-              <View style={estilos.barraTrilho}>
-                <LinearGradient
-                  colors={i === 0 ? ['#e9c193', cores.ferrugem] : [cores.caramelo, cores.cafe]}
-                  style={[estilos.barraNivel, { height: `${Math.max(5, (d.total / painel.maxSemana) * 100)}%` }]}
-                />
-              </View>
-              <Texto peso={700} style={estilos.barraRotulo}>
-                {d.rotulo}
-              </Texto>
-              <Texto style={estilos.barraDiaNum}>{d.dia}</Texto>
+  const semana = painel && (
+    <View style={[estilos.cartao, sombras.suave]} accessibilityLabel="Atendimentos nos próximos 7 dias">
+      <Cabecalho titulo="Próximos 7 dias" apoio="Atendimentos marcados por dia" />
+      <View style={estilos.barras}>
+        {painel.semana.map((d, i) => (
+          <View key={d.iso} style={estilos.barraDia}>
+            <Texto peso={800} style={estilos.barraValor}>
+              {d.total}
+            </Texto>
+            <View style={estilos.barraTrilho}>
+              <LinearGradient
+                colors={i === 0 ? ['#e9c193', cores.ferrugem] : [cores.caramelo, cores.cafe]}
+                style={[estilos.barraNivel, { height: `${Math.max(5, (d.total / painel.maxSemana) * 100)}%` }]}
+              />
             </View>
-          ))}
-        </View>
+            <Texto peso={700} style={estilos.barraRotulo}>
+              {d.rotulo}
+            </Texto>
+            <Texto style={estilos.barraDiaNum}>{d.dia}</Texto>
+          </View>
+        ))}
       </View>
+    </View>
+  )
+
+  // Pacientes com foto primeiro, como no site.
+  const pacientes = painel && data?.pets?.length > 0 && (
+    <View style={[estilos.cartao, sombras.suave]}>
+      <Cabecalho titulo="Pacientes" apoio="Os pawtinhas da clínica" to="/pacientes" rotulo="Ver todos" />
+      <Grade colunas={4} quebras={{ 560: 3 }} gap={10}>
+        {[...data.pets]
+          .sort((a, b) => Number(Boolean(photoSrc(b.foto))) - Number(Boolean(photoSrc(a.foto))))
+          .slice(0, 12)
+          .map((p) => (
+            <Pressable
+              key={p.id}
+              onPress={() => router.push(`/pacientes/${encodeURIComponent(p.id)}`)}
+              accessibilityRole="link"
+              style={({ pressed }) => [estilos.pet, pressed && { borderColor: cores.caramelo }]}
+            >
+              {photoSrc(p.foto) ? (
+                <Image source={{ uri: photoSrc(p.foto) }} style={estilos.petFoto} contentFit="cover" />
+              ) : (
+                <View style={[estilos.petFoto, estilos.petInicial]}>
+                  <Titulo style={{ fontSize: 30, lineHeight: 36, color: cores.cafe }}>{p.nome.slice(0, 1)}</Titulo>
+                </View>
+              )}
+              <Texto peso={700} numberOfLines={1} style={{ color: cores.cafeEscuro }}>
+                {p.nome}
+              </Texto>
+              <Texto style={estilos.petEspecie}>{p.especie}</Texto>
+            </Pressable>
+          ))}
+      </Grade>
     </View>
   )
 
@@ -354,7 +386,7 @@ export default function Inicio() {
           </Texto>
         ) : null}
 
-        {painel && (
+        {Boolean(painel) && (
           <Grade colunas={4} quebras={{ 1100: 2 }} gap={celular ? 12 : 18}>
             {painel.indicadores.map((ind) => {
               const Icone = ICONES[ind.id]
@@ -389,16 +421,22 @@ export default function Inicio() {
           </Grade>
         )}
 
-        {painel &&
+        {Boolean(painel) &&
           (largo ? (
             <View style={{ flexDirection: 'row', alignItems: 'flex-start', gap: 24 }}>
-              <View style={{ flex: 1.55 }}>{agenda}</View>
+              <View style={{ flex: 1.55, gap: 20 }}>
+                {agenda}
+                {semana}
+                {pacientes}
+              </View>
               <View style={{ flex: 1 }}>{lateral}</View>
             </View>
           ) : (
             <View style={{ gap: 20 }}>
               {agenda}
+              {semana}
               {lateral}
+              {pacientes}
             </View>
           ))}
       </View>
@@ -518,14 +556,19 @@ const estilos = StyleSheet.create({
   linhaPet: { fontSize: 18, color: cores.cafeEscuro },
   linhaDetalhe: { fontSize: 16, color: cores.taupeEscuro },
   mais: { alignSelf: 'center', fontSize: 16, color: cores.cafe },
-  semana: {
-    gap: 12,
-    marginTop: 4,
-    paddingTop: 16,
-    borderTopWidth: 1,
-    borderStyle: 'dashed',
-    borderTopColor: cores.bordaForte,
+  pet: {
+    alignItems: 'center',
+    gap: 2,
+    paddingBottom: 10,
+    overflow: 'hidden',
+    borderWidth: 1,
+    borderColor: cores.borda,
+    borderRadius: 16,
+    backgroundColor: cores.branco,
   },
+  petFoto: { width: '100%', aspectRatio: 1, marginBottom: 6 },
+  petInicial: { alignItems: 'center', justifyContent: 'center', backgroundColor: cores.areia },
+  petEspecie: { fontSize: 15, color: cores.taupe },
   barras: { flexDirection: 'row', gap: 8 },
   barraDia: { flex: 1, alignItems: 'center', gap: 4 },
   barraValor: { fontSize: 16, color: cores.cafeEscuro },

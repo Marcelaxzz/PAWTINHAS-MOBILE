@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { Linking, Pressable, StyleSheet, View } from 'react-native'
 import { Image } from 'expo-image'
+import * as Clipboard from 'expo-clipboard'
 import { LinearGradient } from 'expo-linear-gradient'
 import { useLocalSearchParams, useRouter } from 'expo-router'
 import {
@@ -17,8 +18,9 @@ import { Page } from '../../../componentes/Page.jsx'
 import { Texto, Titulo } from '../../../componentes/Texto.jsx'
 import { dataService } from '../../../web/services/dataService.js'
 import { photoSrc } from '../../../plataforma/imagens.js'
-import { whatsappLink } from '../../../config.js'
-import { categoria } from '../../../web/utils/adocao.js'
+import { whatsappLevaMensagem, whatsappLink } from '../../../config.js'
+import { categoria, mensagemInteresse } from '../../../web/utils/adocao.js'
+import { useToast } from '../../../web/hooks/useToast.js'
 import { useFavorites } from '../../../adocao/useFavorites.js'
 import { cores, sombras } from '../../../tema.js'
 import { Grade } from '../../../componentes/ui/Grade.jsx'
@@ -33,6 +35,8 @@ export default function AnimalDetalhe() {
   const { id } = useLocalSearchParams()
   const router = useRouter()
   const [state, setState] = useState({ id: null, animal: null, error: '' })
+  const [copiada, setCopiada] = useState(false)
+  const toast = useToast()
   const { isFavorite, toggle } = useFavorites()
 
   useEffect(() => {
@@ -65,7 +69,23 @@ export default function AnimalDetalhe() {
 
   const foto = photoSrc(animal.foto)
   const favorito = isFavorite(animal.id)
-  const whatsapp = whatsappLink(`Olá! Vi ${animal.nome} no Pawtinhas e gostaria de saber mais sobre a adoção.`)
+  const mensagem = mensagemInteresse(animal)
+  const whatsapp = whatsappLink(mensagem)
+
+  // O link do QR não leva texto: a mensagem vai para a área de transferência, pronta para colar.
+  const copiar = async (indoParaWhatsapp) => {
+    try {
+      await Clipboard.setStringAsync(mensagem)
+      setCopiada(true)
+      toast.success(indoParaWhatsapp ? 'Mensagem copiada: é só colar no WhatsApp.' : 'Mensagem copiada!')
+    } catch {
+      if (!indoParaWhatsapp) toast.error('Não deu para copiar a mensagem.')
+    }
+  }
+  const irParaWhatsapp = async () => {
+    if (!whatsappLevaMensagem) await copiar(true)
+    Linking.openURL(whatsapp).catch(() => toast.error('Não foi possível abrir o WhatsApp.'))
+  }
   const icone = { size: 26, strokeWidth: 1.6, color: cores.cafe }
   const infos = [
     { label: 'Idade', value: animal.idade, icon: <CakeIcon {...icone} /> },
@@ -112,10 +132,17 @@ export default function AnimalDetalhe() {
               <>
                 <Titulo style={estilos.contatoTitulo}>Quer saber mais sobre {animal.nome}?</Titulo>
                 <Texto style={estilos.contatoTexto}>
-                  Entre em contato pelo WhatsApp para tirar dúvidas, conhecer o animal e entender o processo de adoção.
+                  {whatsappLevaMensagem
+                    ? 'Mande uma mensagem pelo WhatsApp: ela já vai escrita, é só enviar.'
+                    : 'A mensagem abaixo é copiada quando você toca em "Ir para o WhatsApp": é só colar na conversa.'}
                 </Texto>
+                {!whatsappLevaMensagem ? (
+                  <Texto selectable style={estilos.mensagem}>
+                    {mensagem}
+                  </Texto>
+                ) : null}
                 <Pressable
-                  onPress={() => Linking.openURL(whatsapp)}
+                  onPress={irParaWhatsapp}
                   accessibilityRole="link"
                   style={({ pressed }) => [estilos.whatsapp, pressed && { opacity: 0.9 }]}
                 >
@@ -124,6 +151,17 @@ export default function AnimalDetalhe() {
                     Ir para o WhatsApp
                   </Texto>
                 </Pressable>
+                {!whatsappLevaMensagem ? (
+                  <Pressable
+                    onPress={() => copiar(false)}
+                    accessibilityRole="button"
+                    style={({ pressed }) => [estilos.copiar, pressed && { opacity: 0.8 }]}
+                  >
+                    <Texto peso={700} style={{ color: cores.branco }}>
+                      {copiada ? 'Mensagem copiada!' : 'Copiar mensagem'}
+                    </Texto>
+                  </Pressable>
+                ) : null}
               </>
             ) : (
               // Sem WhatsApp configurado, o visitante ainda tem um próximo passo.
@@ -247,6 +285,26 @@ const estilos = StyleSheet.create({
     paddingHorizontal: 22,
     borderRadius: 999,
     backgroundColor: '#24d366',
+  },
+  mensagem: {
+    marginTop: 14,
+    paddingVertical: 12,
+    paddingHorizontal: 14,
+    overflow: 'hidden',
+    borderRadius: 14,
+    backgroundColor: 'rgba(255, 255, 255, 0.14)',
+    lineHeight: 24,
+    color: cores.branco,
+  },
+  copiar: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    minHeight: 46,
+    marginTop: 10,
+    paddingHorizontal: 20,
+    borderWidth: 1,
+    borderColor: 'rgba(255, 255, 255, 0.6)',
+    borderRadius: 999,
   },
   comoAdotar: {
     alignSelf: 'flex-start',

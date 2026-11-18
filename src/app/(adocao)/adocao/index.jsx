@@ -65,6 +65,7 @@ export default function Catalogo() {
               ref={trilho}
               horizontal
               pagingEnabled
+              style={{ flexGrow: 0 }}
               showsHorizontalScrollIndicator={false}
               onMomentumScrollEnd={(e) => setSlide(Math.round(e.nativeEvent.contentOffset.x / largura))}
               onScroll={(e) => setSlide(Math.round(e.nativeEvent.contentOffset.x / largura))}
@@ -149,12 +150,12 @@ export default function Catalogo() {
         </LinearGradient>
       )}
 
-      {data && (
+      {Boolean(data) && (
         <View accessibilityLabel="Animais para adoção">
           <ScrollView
             horizontal
             showsHorizontalScrollIndicator={false}
-            style={{ marginRight: -MARGEM, marginTop: 0 }}
+            style={{ flexGrow: 0, marginRight: -MARGEM, marginTop: 0 }}
             contentContainerStyle={estilos.filtros}
             accessibilityLabel="Filtrar animais"
           >

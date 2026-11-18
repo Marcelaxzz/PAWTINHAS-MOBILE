@@ -71,7 +71,7 @@ export const Field = forwardRef(function Field(
             error && estilos.caixaErro,
           ]}
         >
-          {Icon && <Icon size={16} color={cores.cafe} />}
+          {Boolean(Icon) && <Icon size={16} color={cores.cafe} />}
           <TextInput
             ref={ref}
             value={value ?? ''}
@@ -142,7 +142,7 @@ function Seletor({ label, value, options, placeholder, onChange, error, icon: Ic
           disabled && { opacity: 0.7 },
         ]}
       >
-        {Icon && <Icon size={16} color={cores.cafe} />}
+        {Boolean(Icon) && <Icon size={16} color={cores.cafe} />}
         <Texto numberOfLines={1} style={[estilos.valor, !atual && { color: cores.taupe }]}>
           {atual?.label ?? placeholder ?? ''}
         </Texto>
@@ -195,7 +195,7 @@ export function FolhaOpcoes({ aberto, onFechar, titulo, options, value, onChange
               <CloseIcon size={20} color={cores.cafeEscuro} />
             </Pressable>
           </View>
-          {comBusca && (
+          {Boolean(comBusca) && (
             <View style={estilos.busca}>
               <SearchIcon size={16} color={cores.taupe} />
               <TextInput
@@ -233,7 +233,7 @@ export function FolhaOpcoes({ aberto, onFechar, titulo, options, value, onChange
                   <Texto peso={marcado ? 700 : 500} style={estilos.opcaoTexto}>
                     {item.label}
                   </Texto>
-                  {marcado && <CheckIcon size={18} color={cores.cafe} strokeWidth={2.6} />}
+                  {Boolean(marcado) && <CheckIcon size={18} color={cores.cafe} strokeWidth={2.6} />}
                 </Pressable>
               )
             }}

@@ -10,7 +10,6 @@ const LINKS = [
   { to: '/pacientes', label: 'Pacientes' },
   { to: '/alarmes', label: 'Alarmes' },
   { to: '/calculadoras', label: 'Calculadoras' },
-  { to: '/protese-3d', label: 'Prótese 3D' },
   { to: '/admin/adocoes', label: 'Adoção', match: (path) => path.startsWith('/admin') },
   { to: '/configuracoes', label: 'Configurações' },
 ]

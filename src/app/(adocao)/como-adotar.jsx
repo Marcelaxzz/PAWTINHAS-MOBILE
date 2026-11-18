@@ -78,7 +78,7 @@ export default function ComoAdotar() {
           <Pressable onPress={() => router.push('/adocao')} accessibilityRole="link" style={estilos.ctaBotao}>
             <Texto peso={700}>Ver animais disponíveis</Texto>
           </Pressable>
-          {WHATSAPP_DUVIDAS && (
+          {Boolean(WHATSAPP_DUVIDAS) && (
             <Pressable
               onPress={() => Linking.openURL(WHATSAPP_DUVIDAS)}
               accessibilityRole="link"

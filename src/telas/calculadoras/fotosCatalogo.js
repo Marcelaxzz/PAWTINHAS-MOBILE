@@ -13,11 +13,6 @@ import premierGatos from '../../web/assets/images/racao-premier-gatos.webp'
 import granPlusGatos from '../../web/assets/images/racao-granplus-gatos.webp'
 import quatreeGatos from '../../web/assets/images/racao-quatree-gatos.webp'
 import pedigreeSache from '../../web/assets/images/racao-pedigree-sache.webp'
-import remedioAmoxicilina from '../../web/assets/images/remedio-amoxicilina.webp'
-import remedioMeloxicam from '../../web/assets/images/remedio-meloxicam.webp'
-import remedioDipirona from '../../web/assets/images/remedio-dipirona.webp'
-import remedioOmeprazol from '../../web/assets/images/remedio-omeprazol.webp'
-import remedioMetronidazol from '../../web/assets/images/remedio-metronidazol.webp'
 import materialSeringa from '../../web/assets/images/material-seringa.webp'
 import materialAgulha from '../../web/assets/images/material-agulha.webp'
 import materialLuvas from '../../web/assets/images/material-luvas.webp'
@@ -32,11 +27,6 @@ import materialSoro from '../../web/assets/images/material-soro.webp'
 import materialEquipo from '../../web/assets/images/material-equipo.webp'
 import materialSutura from '../../web/assets/images/material-sutura.webp'
 import materialCateter from '../../web/assets/images/material-cateter.webp'
-import remedioComprimido from '../../web/assets/images/remedio-comprimido.webp'
-import remedioCapsula from '../../web/assets/images/remedio-capsula.webp'
-import remedioGotas from '../../web/assets/images/remedio-gotas.webp'
-import remedioOral from '../../web/assets/images/remedio-oral.webp'
-import remedioInjetavel from '../../web/assets/images/remedio-injetavel.webp'
 
 const ehGato = (r) => r.especie === 'Gato'
 const umida = (r) => r.tipo === 'Úmida'
@@ -81,31 +71,6 @@ export function fotoDaRacao(r) {
   if (propria) return { uri: propria }
   const marca = MARCAS.find(([padrao]) => padrao.test(r.nome ?? ''))
   return marca ? marca[1](r) : embalagemParecida(r)
-}
-
-// Princípio ativo (no nome ou no campo próprio) -> foto da caixa desse remédio.
-const REMEDIOS = [
-  [/amoxicilin/i, remedioAmoxicilina],
-  [/meloxicam|maxicam/i, remedioMeloxicam],
-  [/dipiron|metamizol/i, remedioDipirona],
-  [/omeprazol/i, remedioOmeprazol],
-  [/metronidazol/i, remedioMetronidazol],
-]
-
-const POR_FORMA = {
-  Comprimido: remedioComprimido,
-  Cápsula: remedioCapsula,
-  Gotas: remedioGotas,
-  'Solução oral': remedioOral,
-  'Suspensão oral': remedioOral,
-  Injetável: remedioInjetavel,
-}
-
-/** Foto da caixa do medicamento; sem caixa conhecida, uma foto real da apresentação (comprimido, gotas…). */
-export function fotoDoMedicamento(m) {
-  const texto = `${m.nome ?? ''} ${m.principioAtivo ?? ''}`
-  const caixa = REMEDIOS.find(([padrao]) => padrao.test(texto))
-  return caixa ? caixa[1] : (POR_FORMA[m.forma] ?? remedioComprimido)
 }
 
 // Palavra no nome do material -> foto real dele. A ordem importa: "equipo" antes de "soro".

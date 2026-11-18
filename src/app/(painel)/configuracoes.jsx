@@ -454,7 +454,7 @@ function ConfigContent({ settings, usuarios, patchLocal }) {
             />
           </FieldGrid>
           <View style={estilos.conviteAcoes}>
-            {editingUser && (
+            {Boolean(editingUser) && (
               <PillButton variant="contorno" onPress={resetInvite} disabled={inviting}>
                 Cancelar edição
               </PillButton>

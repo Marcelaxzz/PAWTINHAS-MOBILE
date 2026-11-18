@@ -88,7 +88,7 @@ export function SiteHeader({ links, homePath = '/', showBack = false, backFallba
   return (
     <View style={[estilos.cabecalho, { paddingTop: insets.top, height: topoPainel }]}>
       <View style={estilos.esquerda}>
-        {showBack && <BackButton fallback={backFallback} />}
+        {Boolean(showBack) && <BackButton fallback={backFallback} />}
         <Pressable onPress={() => ir(homePath)} accessibilityRole="link" accessibilityLabel="Pawtinhas, página inicial">
           <Image source={logo} style={estilos.logo} contentFit="contain" />
         </Pressable>
@@ -148,14 +148,14 @@ export function SiteHeader({ links, homePath = '/', showBack = false, backFallba
                 accessibilityState={{ selected: marcado }}
                 style={({ pressed }) => [estilos.link, (marcado || pressed) && estilos.linkAtivo]}
               >
-                {marcado && <View style={estilos.marcador} />}
+                {Boolean(marcado) && <View style={estilos.marcador} />}
                 <Texto peso={600} style={[estilos.linkTexto, marcado && { color: cores.cafeEscuro }]}>
                   {link.label}
                 </Texto>
               </Pressable>
             )
           })}
-          {search && (
+          {Boolean(search) && (
             <View style={estilos.busca}>
               <SearchIcon size={16} color={cores.taupe} />
               <TextInput

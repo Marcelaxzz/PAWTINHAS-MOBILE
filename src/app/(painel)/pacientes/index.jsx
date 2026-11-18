@@ -43,7 +43,7 @@ export default function Pacientes() {
       {loading && <LoadingState />}
       {error ? <ErrorState message={error} onRetry={reload} /> : null}
 
-      {data && (
+      {Boolean(data) && (
         <>
           <Filtros>
             <BuscaFiltro

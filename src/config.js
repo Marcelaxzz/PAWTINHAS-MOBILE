@@ -4,7 +4,6 @@ import { Platform } from 'react-native'
 /**
  * Endereços do app. Em produção, defina no .env (veja .env.example):
  *   EXPO_PUBLIC_API_URL=https://pawtinhas.exemplo.com.br/api
- *   EXPO_PUBLIC_SITE_URL=https://pawtinhas.exemplo.com.br
  * No desenvolvimento, sem .env, o app usa o mesmo computador que roda o Expo
  * (API na porta 5135 e site na 5173), como no "npm run dev" do site.
  */
@@ -24,19 +23,25 @@ const host = hostDoDesenvolvimento()
 
 export const API_URL = semBarraFinal(process.env.EXPO_PUBLIC_API_URL || `http://${host}:5135/api`)
 
-/** Site do Pawtinhas: o app usa o OpenCV.js publicado nele (/vendor/opencv.js) na medição da prótese. */
-export const SITE_URL = semBarraFinal(
-  process.env.EXPO_PUBLIC_SITE_URL || (process.env.EXPO_PUBLIC_API_URL ? origemDe(API_URL) : `http://${host}:5173`),
-)
-
 /**
  * WhatsApp da clínica (somente dígitos, com DDI e DDD, ex.: 5534999990000).
  * Sem um número válido, os botões de WhatsApp não aparecem (igual ao site).
  */
-const whatsapp = (process.env.EXPO_PUBLIC_WHATSAPP ?? '').replace(/\D/g, '')
+// Padrão: o WhatsApp da clínica, (34) 99882-0471.
+const whatsapp = (process.env.EXPO_PUBLIC_WHATSAPP || '5534998820471').replace(/\D/g, '')
 const WHATSAPP = whatsapp.length >= 12 && whatsapp.length <= 13 ? whatsapp : ''
 
-/** Link do WhatsApp com a mensagem pronta, ou null se o número não foi configurado. */
+/**
+ * Link do WhatsApp da clínica (código QR), igual ao do site. Vale enquanto o número não está em
+ * EXPO_PUBLIC_WHATSAPP: abre a conversa, mas não leva texto, então a tela copia a mensagem.
+ */
+const WHATSAPP_QR = (process.env.EXPO_PUBLIC_WHATSAPP_QR ?? 'https://wa.me/qr/Q3DOO4QNN3FHO1').trim()
+
+/** true quando o link já abre o WhatsApp com a mensagem escrita (número configurado). */
+export const whatsappLevaMensagem = Boolean(WHATSAPP)
+
+/** Link do WhatsApp com a mensagem pronta (ou o link do QR da clínica), ou null se nenhum foi configurado. */
 export function whatsappLink(message) {
-  return WHATSAPP ? `https://wa.me/${WHATSAPP}?text=${encodeURIComponent(message)}` : null
+  if (WHATSAPP) return `https://wa.me/${WHATSAPP}?text=${encodeURIComponent(message)}`
+  return WHATSAPP_QR || null
 }

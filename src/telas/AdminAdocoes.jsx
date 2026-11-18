@@ -125,7 +125,7 @@ export function AdminAdocoes() {
       {loading && <LoadingState />}
       {error ? <ErrorState message={error} onRetry={reload} /> : null}
 
-      {data && (
+      {Boolean(data) && (
         <>
           <Grade colunas={4} quebras={{ 1100: 2 }} gap={12}>
             {stats.map((s) => (
@@ -289,7 +289,7 @@ function EditarAnimalModal({ animal, onClose, onSave, saving }) {
             <View style={{ flex: 1 }}>
               <View style={estilos.modalTituloLinha}>
                 <Titulo style={{ fontSize: 27, lineHeight: 33, color: cores.branco }}>Editar animal</Titulo>
-                {animal && (
+                {Boolean(animal) && (
                   <View style={estilos.modalId}>
                     <Texto peso={700} style={{ fontSize: 15, color: cores.branco }}>
                       ID #{animal.id.slice(-6).toUpperCase()}

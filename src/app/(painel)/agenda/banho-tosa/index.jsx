@@ -39,7 +39,7 @@ export default function BanhoTosa() {
       {loading && <LoadingState />}
       {error ? <ErrorState message={error} onRetry={reload} /> : null}
 
-      {data && (
+      {Boolean(data) && (
         <>
           {upcoming.length === 0 ? (
             <EmptyState
@@ -115,7 +115,7 @@ export default function BanhoTosa() {
               : 'Nenhum banho ou tosa marcado para hoje.'}
           </SummaryBar>
 
-          {selected && (
+          {Boolean(selected) && (
             <RecordDialog
               open={Boolean(selectedId)}
               eventoId={selectedId}

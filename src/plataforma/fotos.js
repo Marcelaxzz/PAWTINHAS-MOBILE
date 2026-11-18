@@ -40,7 +40,7 @@ export async function escolherFoto(origem = 'galeria', { ladoMaximo = 960, quali
   return reduzir(original.uri, original.width, original.height, { ladoMaximo, qualidade })
 }
 
-/** Reduz e regrava em JPEG. Também usado na medição da prótese (com lado maior). */
+/** Reduz e regrava em JPEG. */
 export async function reduzir(uri, largura, altura, { ladoMaximo = 960, qualidade = 0.85, base64 = false } = {}) {
   const escala = Math.min(1, ladoMaximo / Math.max(largura || ladoMaximo, altura || ladoMaximo))
   const contexto = ImageManipulator.manipulate(uri)

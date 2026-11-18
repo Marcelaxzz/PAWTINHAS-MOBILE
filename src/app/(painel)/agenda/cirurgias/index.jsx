@@ -44,7 +44,7 @@ export default function Cirurgias() {
       {loading && <LoadingState />}
       {error ? <ErrorState message={error} onRetry={reload} /> : null}
 
-      {data && (
+      {Boolean(data) && (
         <>
           {upcoming.length === 0 ? (
             <EmptyState
@@ -112,7 +112,7 @@ export default function Cirurgias() {
               : 'Nenhuma cirurgia agendada para hoje.'}
           </SummaryBar>
 
-          {selected && (
+          {Boolean(selected) && (
             <RecordDialog
               open={Boolean(selectedId)}
               eventoId={selectedId}

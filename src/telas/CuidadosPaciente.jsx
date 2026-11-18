@@ -1,12 +1,11 @@
 import { useState } from 'react'
 import { Pressable, StyleSheet, View } from 'react-native'
-import { useRouter } from 'expo-router'
 import { ConfirmDialog } from '../componentes/ui/Dialog.jsx'
 import { PillButton } from '../componentes/ui/PillButton.jsx'
 import { StatusChip } from '../componentes/ui/Chip.jsx'
 import { SelectFiltro } from '../componentes/Filtros.jsx'
 import { Texto, Titulo } from '../componentes/Texto.jsx'
-import { BowlIcon, ChipIcon, PillIcon, RulerIcon, TrashIcon } from '../web/components/Icons/Icons.jsx'
+import { BowlIcon, ChipIcon, PillIcon, TrashIcon } from '../web/components/Icons/Icons.jsx'
 import { useToast } from '../web/hooks/useToast.js'
 import { dataService } from '../web/services/dataService.js'
 import { addDaysIso, formatDateBr, todayIso } from '../web/utils/dates.js'
@@ -261,92 +260,6 @@ export function Alimentacao({ pet, planos, patchLocal }) {
         loading={ocupado}
         title="Excluir plano alimentar?"
         message="O cálculo será removido do histórico do paciente."
-        confirmLabel="Excluir"
-      />
-    </Secao>
-  )
-}
-
-const medidasTexto = (m) =>
-  `Membro ${formatNumber(m.comprimentoMembro, 1)} cm · Altura ${formatNumber(m.alturaChao, 1)} cm · Pata ${formatNumber(m.larguraPata, 1)} cm` +
-  (m.larguraEncaixe ? ` · Encaixe ${formatNumber(m.larguraEncaixe, 1)} cm` : '')
-
-const origemTexto = (m) =>
-  [m.membro, m.metodo, m.leituras > 1 ? `média de ${m.leituras} leituras` : null].filter(Boolean).join(' · ')
-
-export function Medicoes({ pet, medicoes, patchLocal }) {
-  const router = useRouter()
-  const toast = useToast()
-  const [excluindo, setExcluindo] = useState(null)
-  const [ocupado, setOcupado] = useState(false)
-  const lista = [...medicoes].sort((a, b) => b.criadoEm.localeCompare(a.criadoEm))
-
-  const excluir = async () => {
-    setOcupado(true)
-    try {
-      await dataService.remove('medicoes', excluindo.id)
-      patchLocal('medicoes', excluindo, 'remove')
-      toast.success('Medição excluída.')
-      setExcluindo(null)
-    } catch (err) {
-      toast.error(err.message)
-    } finally {
-      setOcupado(false)
-    }
-  }
-
-  return (
-    <Secao
-      icon={RulerIcon}
-      titulo="Prótese 3D"
-      acao={
-        <PillButton size="sm" to={`/protese-3d/medicao?pet=${encodeURIComponent(pet.id)}`}>
-          Nova medição
-        </PillButton>
-      }
-    >
-      {lista.length === 0 ? (
-        <Texto style={estilos.vazio}>Nenhuma medição registrada.</Texto>
-      ) : (
-        <View style={estilos.anteriores}>
-          {lista.map((m, index) => (
-            <View key={m.id} style={estilos.anterior}>
-              <View style={{ flex: 1 }}>
-                <Texto style={estilos.anteriorTexto}>
-                  {formatDateBr(m.criadoEm.slice(0, 10))} às {m.criadoEm.slice(11, 16)} · {medidasTexto(m)}
-                  {index === 0 && lista.length > 1 && ' (mais recente)'}
-                </Texto>
-                {origemTexto(m) ? <Texto style={estilos.origem}>{origemTexto(m)}</Texto> : null}
-              </View>
-              <Pressable
-                onPress={() =>
-                  router.push(
-                    `/protese-3d/modelo?pet=${encodeURIComponent(pet.id)}&medicao=${encodeURIComponent(m.id)}`,
-                  )
-                }
-                accessibilityRole="link"
-                hitSlop={6}
-              >
-                <Texto peso={700} style={estilos.modelo}>
-                  Modelo 3D
-                </Texto>
-              </Pressable>
-              <BotaoExcluir
-                onPress={() => setExcluindo(m)}
-                rotulo={`Excluir medição de ${formatDateBr(m.criadoEm.slice(0, 10))}`}
-              />
-            </View>
-          ))}
-        </View>
-      )}
-
-      <ConfirmDialog
-        open={Boolean(excluindo)}
-        onClose={() => setExcluindo(null)}
-        onConfirm={excluir}
-        loading={ocupado}
-        title="Excluir medição?"
-        message="As medidas serão removidas da ficha e do histórico do paciente."
         confirmLabel="Excluir"
       />
     </Secao>

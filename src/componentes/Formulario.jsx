@@ -15,7 +15,7 @@ export function Checkbox({ label, checked, onChange }) {
       style={estilos.checkbox}
     >
       <View style={[estilos.caixa, checked && estilos.caixaMarcada]}>
-        {checked && <CheckIcon size={11} strokeWidth={3} color={cores.branco} />}
+        {Boolean(checked) && <CheckIcon size={11} strokeWidth={3} color={cores.branco} />}
       </View>
       <Texto style={estilos.checkTexto}>{label}</Texto>
     </Pressable>

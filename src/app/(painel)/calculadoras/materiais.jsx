@@ -75,11 +75,16 @@ export default function CatalogoMateriais() {
     <Page width="largo" title="Materiais e insumos" tabs={CALCULADORAS_TABS} onRefresh={reload}>
       {loading && <LoadingState />}
       {error ? <ErrorState message={error} onRetry={reload} /> : null}
-      {data && (
+      {Boolean(data) && (
         <>
           <ResumoEstoque itens={estoque.itens} filtro={filtro} onFiltro={setFiltro} />
           {estoque.erro ? <Texto style={calc.itemApoio}>Estoque indisponível: {estoque.erro}</Texto> : null}
-          <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={estilos.tipos}>
+          <ScrollView
+            horizontal
+            showsHorizontalScrollIndicator={false}
+            style={{ flexGrow: 0 }}
+            contentContainerStyle={estilos.tipos}
+          >
             {['', ...TIPOS_MATERIAL].map((t) => {
               const ativo = tipo === t
               const total = t ? data.materiais.filter((m) => m.tipo === t).length : data.materiais.length

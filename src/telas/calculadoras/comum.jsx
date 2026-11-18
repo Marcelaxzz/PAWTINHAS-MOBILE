@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { Pressable, StyleSheet, View } from 'react-native'
 import { Image } from 'expo-image'
 import { AlertIcon, CheckIcon } from '../../web/components/Icons/Icons.jsx'
@@ -87,12 +88,14 @@ export const calc = StyleSheet.create({
  * sem moldura, e as etiquetas, o nome e o apoio à direita. ajuste "inteira" mostra a embalagem toda;
  * "preenche" cobre o espaço (fotos de materiais, que têm cenário).
  */
-export function ProdutoTopo({ source, ajuste = 'inteira', etiquetas = [], children }) {
+export function ProdutoTopo({ source, ilustracao, ajuste = 'inteira', etiquetas = [], children }) {
   const preenche = ajuste === 'preenche'
   return (
     <View style={estilos.produto}>
       <View style={[estilos.produtoFoto, preenche && estilos.produtoFotoCheia]}>
-        <Image source={source} style={StyleSheet.absoluteFill} contentFit={preenche ? 'cover' : 'contain'} />
+        {ilustracao ?? (
+          <Image source={source} style={StyleSheet.absoluteFill} contentFit={preenche ? 'cover' : 'contain'} />
+        )}
       </View>
       <View style={estilos.produtoTexto}>
         <View style={estilos.produtoEtiquetas}>
@@ -104,6 +107,29 @@ export function ProdutoTopo({ source, ajuste = 'inteira', etiquetas = [], childr
         </View>
         {children}
       </View>
+    </View>
+  )
+}
+
+/** "Como foi calculado": a fórmula fica fechada e abre ao tocar (o <details> do site). */
+export function ComoCalcula({ children }) {
+  const [aberto, setAberto] = useState(false)
+  return (
+    <View style={estilos.como}>
+      <Pressable
+        onPress={() => setAberto((a) => !a)}
+        accessibilityRole="button"
+        accessibilityState={{ expanded: aberto }}
+        style={estilos.comoTopo}
+      >
+        <Texto peso={700} style={estilos.comoTitulo}>
+          Como foi calculado
+        </Texto>
+        <Texto peso={700} style={estilos.comoTitulo}>
+          {aberto ? '−' : '+'}
+        </Texto>
+      </Pressable>
+      {aberto ? <View style={{ gap: 10 }}>{children}</View> : null}
     </View>
   )
 }
@@ -172,7 +198,7 @@ export function CheckItem({ checked, onChange, disabled, titulo, apoio, compacto
       style={[estilos.check, disabled && { opacity: 0.6 }]}
     >
       <View style={[estilos.caixa, checked && estilos.caixaMarcada]}>
-        {checked && <CheckIcon size={12} strokeWidth={3} color={cores.branco} />}
+        {Boolean(checked) && <CheckIcon size={12} strokeWidth={3} color={cores.branco} />}
       </View>
       <View style={!compacto && { flex: 1 }}>
         <Texto peso={compacto ? 500 : 600} style={[estilos.checkTexto, compacto && { fontSize: 17 }]}>
@@ -216,6 +242,9 @@ export function GradeNumeros({ children, largura }) {
 }
 
 const estilos = StyleSheet.create({
+  como: { gap: 10, marginTop: 6, paddingTop: 14, borderTopWidth: 1, borderTopColor: cores.borda },
+  comoTopo: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', minHeight: 40 },
+  comoTitulo: { fontSize: 17, color: cores.cafe },
   produto: { flexDirection: 'row', gap: 16, alignItems: 'center' },
   produtoFoto: { width: 116, height: 150 },
   produtoFotoCheia: { overflow: 'hidden', borderRadius: 14 },
