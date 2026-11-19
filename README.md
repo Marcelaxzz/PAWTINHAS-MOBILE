@@ -1,6 +1,6 @@
 # Pawtinhas-Mobile
 
-App do Pawtinhas para Android e iOS em **React Native com Expo (SDK 57)**. Tem as mesmas telas e funcionalidades do site (Pawtinhas-Front) e usa a mesma API (Pawtinhas-Back).
+App do Pawtinhas para Android e iOS em **React Native com Expo (SDK 58)**. Tem as mesmas telas e funcionalidades do site (Pawtinhas-Front) e usa a mesma API (Pawtinhas-Back).
 
 - **Área pública:** boas-vindas, catálogo de adoção com destaques e filtros, página do animal, favoritos (guardados no aparelho), como adotar e sobre nós.
 - **Acesso:** login com verificação em duas etapas por e-mail e troca de senha com código. Só `carolpawtinhas@gmail.com` entra; os códigos saem de `pawtinhas04@gmail.com`.
@@ -87,8 +87,8 @@ O endereço da API entra no build pelo `.env` ou pelas variáveis do EAS (`EXPO_
 Tudo o que não depende do navegador vem do próprio site, para os dois não divergirem:
 
 - contratos da API e validações;
-- regras da agenda e geometria da medição;
-- gerador do STL e formulários da agenda;
+- regras da agenda e cálculos de dose e ração;
+- formulários da agenda;
 - hooks de dados, ícones e imagens.
 
 O `npm run sincronizar` (que roda sozinho antes do `npm start`) copia esses arquivos de `../Pawtinhas-Front/src` para `src/web/`.
