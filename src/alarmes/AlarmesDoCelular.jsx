@@ -43,6 +43,7 @@ export function AlarmesDoCelular() {
   const nomesPets = useRef({})
   const jaTocados = useRef(new Set())
   const ultimaSincronia = useRef(0)
+  const assinaturaAgendada = useRef(null)
 
   useEffect(() => {
     toqueAtual.current = toque
@@ -92,14 +93,21 @@ export function AlarmesDoCelular() {
   // Sincroniza ao entrar, quando o app volta para a frente e quando um alarme é salvo.
   useEffect(() => {
     if (!logado) return undefined
+    // Busca a lista; a agenda de notificações só é refeita quando algo mudou (ou quando `forcar`).
     const sincronizar = async (forcar = false) => {
-      if (!forcar && Date.now() - ultimaSincronia.current < MINUTO) return
+      if (!forcar && Date.now() - ultimaSincronia.current < 30_000) return
       ultimaSincronia.current = Date.now()
       try {
         const [lista, pets] = await Promise.all([dataService.list('alarmes'), dataService.list('pets')])
         nomesPets.current = Object.fromEntries(pets.map((p) => [p.id, p.nome]))
         alarmes.current = lista.filter((a) => a.ativo)
+        const assinatura = JSON.stringify([
+          lista.map((a) => [a.id, a.nome, a.descricao, a.hora, a.recorrencia, a.inicio, a.ativo, a.petId]),
+          nomesPets.current,
+        ])
+        if (!forcar && assinatura === assinaturaAgendada.current) return
         await sincronizarAlarmes(lista, { nomePet: (id) => nomesPets.current[id] })
+        assinaturaAgendada.current = assinatura
       } catch {
         // Sem conexão: fica valendo a última agenda gravada no aparelho.
       }
@@ -107,9 +115,12 @@ export function AlarmesDoCelular() {
     sincronizar(true)
     const app = AppState.addEventListener('change', (estado) => estado === 'active' && sincronizar())
     const pedido = alarmeTocando.aoPedirSincronia(() => sincronizar(true))
+    // Com o app aberto direto na tela, pega a cada minuto os alarmes criados ou mudados pelo site.
+    const intervalo = setInterval(() => AppState.currentState === 'active' && sincronizar(), MINUTO)
     return () => {
       app.remove()
       pedido()
+      clearInterval(intervalo)
     }
   }, [logado])
 
