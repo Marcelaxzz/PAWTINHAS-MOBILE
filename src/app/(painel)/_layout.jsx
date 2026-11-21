@@ -2,6 +2,7 @@ import { View } from 'react-native'
 import { Stack, usePathname } from 'expo-router'
 import { SiteHeader } from '../../componentes/SiteHeader.jsx'
 import { PrivateRoute } from '../../componentes/Guardas.jsx'
+import { TUTORIAL_URL } from '../../config.js'
 import { cores } from '../../tema.js'
 
 const LINKS = [
@@ -11,7 +12,8 @@ const LINKS = [
   { to: '/alarmes', label: 'Alarmes' },
   { to: '/calculadoras', label: 'Calculadoras' },
   { to: '/admin/adocoes', label: 'Adoção', match: (path) => path.startsWith('/admin') },
-  { to: '/configuracoes', label: 'Configurações' },
+  // Abre o guia em PDF; as configurações ficam no menu da conta (a letra no canto).
+  { url: TUTORIAL_URL, label: 'Tutorial' },
 ]
 
 /** Painel da veterinária (todas as telas internas). */

@@ -10,13 +10,12 @@ import {
   CloseIcon,
   HeartIcon,
   HouseIcon,
-  InfoIcon,
   LogoutIcon,
   MenuIcon,
   SearchIcon,
+  SlidersIcon,
 } from '../web/components/Icons/Icons.jsx'
 import logo from '../web/assets/images/logo-horizontal.webp'
-import { TUTORIAL_URL } from '../config.js'
 import { cores, sombras, texto } from '../tema.js'
 import { Texto } from './Texto.jsx'
 
@@ -52,7 +51,7 @@ export function BackButton({ fallback = '/' }) {
 /**
  * Cabeçalho único do app (SiteHeader do site, no layout de celular): logo, voltar,
  * conta e o menu com as páginas da área (e a busca, no painel).
- * links: [{ to, label, match?(pathname) }]
+ * links: [{ to, label, match?(pathname) }] ou { url, label } para abrir um endereço externo (o tutorial em PDF)
  */
 export function SiteHeader({ links, homePath = '/', showBack = false, backFallback = '/', search = false }) {
   const { status, user, logout } = useAuth()
@@ -83,7 +82,7 @@ export function SiteHeader({ links, homePath = '/', showBack = false, backFallba
   }
 
   const ativo = (link) =>
-    link.match ? link.match(pathname) : pathname === link.to || pathname.startsWith(`${link.to}/`)
+    link.url ? false : link.match ? link.match(pathname) : pathname === link.to || pathname.startsWith(`${link.to}/`)
   const inicial = (user?.name?.trim()?.[0] ?? 'P').toUpperCase()
   const topoPainel = insets.top + ALTURA_HEADER
 
@@ -144,8 +143,13 @@ export function SiteHeader({ links, homePath = '/', showBack = false, backFallba
             const marcado = ativo(link)
             return (
               <Pressable
-                key={link.to}
-                onPress={() => ir(link.to)}
+                key={link.to ?? link.url}
+                onPress={() => {
+                  if (link.url) {
+                    setNavOpen(false)
+                    Linking.openURL(link.url)
+                  } else ir(link.to)
+                }}
                 accessibilityRole="link"
                 accessibilityState={{ selected: marcado }}
                 style={({ pressed }) => [estilos.link, (marcado || pressed) && estilos.linkAtivo]}
@@ -212,14 +216,8 @@ export function SiteHeader({ links, homePath = '/', showBack = false, backFallba
           <ItemMenu icon={HeartIcon} onPress={() => ir('/adocao')}>
             Vitrine de adoção
           </ItemMenu>
-          <ItemMenu
-            icon={InfoIcon}
-            onPress={() => {
-              setMenuOpen(false)
-              Linking.openURL(TUTORIAL_URL)
-            }}
-          >
-            Tutorial da plataforma
+          <ItemMenu icon={SlidersIcon} onPress={() => ir('/configuracoes')}>
+            Configurações
           </ItemMenu>
           <ItemMenu icon={LogoutIcon} onPress={sair}>
             Sair
