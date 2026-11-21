@@ -15,26 +15,33 @@ import { horariosDoAlarme } from './recorrencia.js'
  */
 
 export const CANAL = 'pawtinhas-alarmes-v1'
+/** Categoria com o botão "Desligar alarme" na própria notificação. */
+export const CATEGORIA = 'pawtinhas-alarme'
 export const SOM = 'alarme_pawtinhas.wav'
 const CHAVE_ATIVO = 'pawtinhas.alarmesNoCelular'
 const PREFIXO = 'pawtinhas-alarme-'
 
 export const suportado = true
 
-/** Como o app mostra uma notificação de alarme com ele aberto: com som e banner. */
+/**
+ * Com o app aberto, o alarme aparece no aviso do próprio app (com som em repetição e o botão de desligar),
+ * então a notificação do sistema fica só na lista, sem banner e sem tocar o som uma segunda vez.
+ */
 Notifications.setNotificationHandler({
-  handleNotification: async () => ({
-    shouldShowBanner: true,
-    shouldShowList: true,
-    shouldPlaySound: true,
-    shouldSetBadge: false,
-  }),
+  handleNotification: async (notificacao) => {
+    const alarme = notificacao.request.content.data?.tipo === 'alarme'
+    return { shouldShowBanner: !alarme, shouldShowList: true, shouldPlaySound: !alarme, shouldSetBadge: false }
+  },
 })
 
 // As constantes do Android (AndroidImportance, AndroidAudioUsage...) existem no expo-notifications 58, mas o
 // plugin de import do ESLint não enxerga o formato em que o pacote as exporta.
 /* eslint-disable import/namespace */
 export async function prepararCanal() {
+  await Notifications.setNotificationCategoryAsync(CATEGORIA, [
+    // Abre o app ao tocar: assim o app consegue avisar o servidor (painel e caixinha param junto).
+    { identifier: 'parar', buttonTitle: 'Desligar alarme', options: { opensAppToForeground: true } },
+  ]).catch(() => {})
   if (Platform.OS !== 'android') return
   await Notifications.setNotificationChannelAsync(CANAL, {
     name: 'Alarmes de medicação',
@@ -110,6 +117,7 @@ export async function sincronizarAlarmes(alarmes, { nomePet = () => null } = {})
           title: `⏰ ${alarme.nome}`,
           body: [pet, alarme.descricao].filter(Boolean).join(' · ') || `Alarme das ${alarme.hora}`,
           data: { alarmeId: alarme.id, tipo: 'alarme' },
+          categoryIdentifier: CATEGORIA,
           sound: SOM,
           priority: Notifications.AndroidNotificationPriority.MAX,
           vibrate: [0, 600, 400, 600, 400, 600],
@@ -144,6 +152,7 @@ export async function testarAlarme(segundos = 10) {
       title: '⏰ Teste de alarme',
       body: 'Se você ouviu este som, os alarmes vão tocar neste celular.',
       data: { tipo: 'alarme', teste: true },
+      categoryIdentifier: CATEGORIA,
       sound: SOM,
       priority: Notifications.AndroidNotificationPriority.MAX,
       interruptionLevel: 'timeSensitive',
@@ -162,6 +171,20 @@ export async function abrirAjusteBateria() {
 
 /** Abre os ajustes do app no sistema (notificações, som, tela de bloqueio). */
 export const abrirAjustesDoApp = () => Linking.openSettings()
+
+/**
+ * Tira da tela as notificações de alarme que já foram desligadas (o som do canal para junto).
+ * `deveSair(data, minuto)` decide quais saem; sem ela, saem todas as de alarme.
+ */
+export async function dispensarAlarmes(deveSair = () => true) {
+  const presentes = await Notifications.getPresentedNotificationsAsync().catch(() => [])
+  await Promise.all(
+    presentes
+      .filter((n) => n.request.content.data?.tipo === 'alarme')
+      .filter((n) => deveSair(n.request.content.data, Math.floor(n.date / 60_000)))
+      .map((n) => Notifications.dismissNotificationAsync(n.request.identifier).catch(() => {})),
+  )
+}
 
 export const ouvirToque = Notifications.addNotificationResponseReceivedListener
 export const ouvirChegada = Notifications.addNotificationReceivedListener

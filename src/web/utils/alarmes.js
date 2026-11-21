@@ -148,3 +148,19 @@ export function resumoDoAlarme(alarme) {
       return `Todo dia às ${hora}`
   }
 }
+
+// ---------- Toque em andamento (popup em todos os aparelhos) ----------
+
+/** Minuto de um horário, em minutos desde 1970: a chave do toque no navegador, no app e no ESP32. */
+export const minutoDoToque = (quando) => Math.floor(new Date(quando).getTime() / 60_000)
+
+/** Onde o alarme foi parado, para o aviso "Parado na caixinha". */
+export const ONDE_PAROU = { painel: 'no painel', app: 'no app', caixinha: 'na caixinha' }
+
+/**
+ * Alguém já parou este toque em outro aparelho? `paradas` vem de GET /alarmes/paradas.
+ * Aceita um minuto de diferença (relógio do aparelho um pouco adiantado ou atrasado).
+ */
+export function paradaDoToque(paradas, alarmeIds, minuto) {
+  return (paradas ?? []).find((p) => alarmeIds.includes(p.alarmeId) && Math.abs(Number(p.minuto) - minuto) <= 1) ?? null
+}

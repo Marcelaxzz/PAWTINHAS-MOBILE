@@ -29,6 +29,16 @@ export const estoqueService = {
   minimo: (dados) => request('/estoque/minimo', { method: 'PUT', body: dados }),
 }
 
+/**
+ * Parar um alarme em todos os aparelhos. O minuto é o do horário em que tocou, em minutos desde 1970
+ * (Math.floor(Date.now() / 60000)), o mesmo número no navegador, no app e no ESP32.
+ */
+export const paradasAlarmeService = {
+  recentes: () => request('/alarmes/paradas'),
+  parar: (alarmeIds, minuto, origem) =>
+    request('/alarmes/paradas', { method: 'POST', body: { alarmeIds, minuto, origem } }),
+}
+
 /** Relatório do atendimento (preenchido pela veterinária) e relatórios automáticos em PDF. */
 export const relatoriosService = {
   /** Relatório salvo do atendimento, ou null se ainda não foi preenchido. */

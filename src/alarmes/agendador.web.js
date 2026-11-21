@@ -13,6 +13,7 @@ export const cancelarTodos = async () => {}
 export const testarAlarme = async () => {}
 export const abrirAjusteBateria = async () => {}
 export const abrirAjustesDoApp = async () => {}
+export const dispensarAlarmes = async () => {}
 const semOuvinte = () => ({ remove() {} })
 export const ouvirToque = semOuvinte
 export const ouvirChegada = semOuvinte
