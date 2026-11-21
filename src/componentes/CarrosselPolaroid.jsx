@@ -1,7 +1,9 @@
 import { useEffect, useState } from 'react'
 import { AccessibilityInfo, Pressable, StyleSheet, View } from 'react-native'
 import { Image } from 'expo-image'
-import { PawFilled } from '../web/components/Icons/Icons.jsx'
+import pata1 from '../web/assets/images/pata-1.png'
+import pata2 from '../web/assets/images/pata-2.png'
+import pata3 from '../web/assets/images/pata-3.png'
 import { FOTOS_CAROL } from '../web/pages/adocao/Sobre/fotosCarol.js'
 import { Titulo } from './Texto.jsx'
 import { cores, sombras } from '../tema.js'
@@ -41,11 +43,11 @@ export function CarrosselPolaroid() {
         </View>
         <View style={estilos.rodape}>
           <View style={estilos.legenda}>
-            <PawFilled size={13} fill={cores.caramelo} />
+            <Image source={pata2} style={estilos.pataMini} contentFit="contain" />
             <Titulo peso={800} style={estilos.legendaTexto}>
               Carol e seus pacientes
             </Titulo>
-            <PawFilled size={13} fill={cores.caramelo} />
+            <Image source={pata2} style={estilos.pataMini} contentFit="contain" />
           </View>
           <View style={estilos.pontos}>
             {FOTOS_CAROL.map((item, i) => (
@@ -63,13 +65,13 @@ export function CarrosselPolaroid() {
         </View>
 
         <View style={[estilos.pata, { top: -16, left: -14, transform: [{ rotate: '-24deg' }] }]} pointerEvents="none">
-          <PawFilled size={40} fill={cores.caramelo} />
+          <Image source={pata1} style={{ width: 44, height: 44 }} contentFit="contain" />
         </View>
         <View style={[estilos.pata, { top: '42%', right: -16, transform: [{ rotate: '18deg' }] }]} pointerEvents="none">
-          <PawFilled size={30} fill={cores.caramelo} />
+          <Image source={pata2} style={{ width: 34, height: 34 }} contentFit="contain" />
         </View>
         <View style={[estilos.pata, { bottom: 56, left: -12, transform: [{ rotate: '-8deg' }] }]} pointerEvents="none">
-          <PawFilled size={26} fill={cores.caramelo} />
+          <Image source={pata3} style={{ width: 30, height: 30 }} contentFit="contain" />
         </View>
       </View>
     </View>
@@ -95,4 +97,5 @@ const estilos = StyleSheet.create({
   ponto: { width: 8, height: 8, borderRadius: 4, backgroundColor: 'rgba(251, 246, 235, 0.35)' },
   pontoAtivo: { width: 22, backgroundColor: cores.caramelo },
   pata: { position: 'absolute', zIndex: 1 },
+  pataMini: { width: 15, height: 15 },
 })
