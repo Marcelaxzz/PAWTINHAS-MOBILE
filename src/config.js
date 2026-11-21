@@ -23,6 +23,9 @@ const host = hostDoDesenvolvimento()
 
 export const API_URL = semBarraFinal(process.env.EXPO_PUBLIC_API_URL || `http://${host}:5135/api`)
 
+/** Guia da plataforma em PDF, publicado junto com o site. */
+export const TUTORIAL_URL = 'https://pawtinhas.vercel.app/tutorial-pawtinhas.pdf'
+
 /**
  * WhatsApp da clínica (somente dígitos, com DDI e DDD, ex.: 5534999990000).
  * Sem um número válido, os botões de WhatsApp não aparecem (igual ao site).

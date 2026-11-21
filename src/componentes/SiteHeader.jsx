@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Modal, Pressable, StyleSheet, TextInput, View } from 'react-native'
+import { Linking, Modal, Pressable, StyleSheet, TextInput, View } from 'react-native'
 import { Image } from 'expo-image'
 import { usePathname, useRouter } from 'expo-router'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
@@ -10,11 +10,13 @@ import {
   CloseIcon,
   HeartIcon,
   HouseIcon,
+  InfoIcon,
   LogoutIcon,
   MenuIcon,
   SearchIcon,
 } from '../web/components/Icons/Icons.jsx'
 import logo from '../web/assets/images/logo-horizontal.webp'
+import { TUTORIAL_URL } from '../config.js'
 import { cores, sombras, texto } from '../tema.js'
 import { Texto } from './Texto.jsx'
 
@@ -209,6 +211,15 @@ export function SiteHeader({ links, homePath = '/', showBack = false, backFallba
           </ItemMenu>
           <ItemMenu icon={HeartIcon} onPress={() => ir('/adocao')}>
             Vitrine de adoção
+          </ItemMenu>
+          <ItemMenu
+            icon={InfoIcon}
+            onPress={() => {
+              setMenuOpen(false)
+              Linking.openURL(TUTORIAL_URL)
+            }}
+          >
+            Tutorial da plataforma
           </ItemMenu>
           <ItemMenu icon={LogoutIcon} onPress={sair}>
             Sair
