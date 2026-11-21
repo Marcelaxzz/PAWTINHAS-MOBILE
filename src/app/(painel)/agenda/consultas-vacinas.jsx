@@ -12,6 +12,7 @@ import { RecordDialog } from '../../../componentes/ui/RecordDialog.jsx'
 import { Texto, Titulo } from '../../../componentes/Texto.jsx'
 import { listas } from '../../../componentes/listas.js'
 import { PawOutline, ShieldCheckIcon, StethoscopeIcon } from '../../../web/components/Icons/Icons.jsx'
+import { useAuth } from '../../../web/hooks/useAuth.js'
 import { useClinic } from '../../../web/hooks/useClinic.js'
 import { useRecordActions } from '../../../web/hooks/useRecordActions.js'
 import { compareSchedule, formatDateBr, relativeDayLabel, todayIso } from '../../../web/utils/dates.js'
@@ -28,6 +29,7 @@ export default function ConsultasVacinas() {
   const pagina = useRef(null)
   const posicoes = useRef({})
   const { data, loading, error, reload, lookup, patchLocal } = useClinic(['consultas', 'vacinas'])
+  const { user } = useAuth()
   const consultaActions = useRecordActions('consultas', patchLocal)
   const vacinaActions = useRecordActions('vacinas', patchLocal)
   const [consultaId, setConsultaId] = useState(null)
@@ -92,7 +94,7 @@ export default function ConsultasVacinas() {
             ? `${formatDateBr(comprovante.aplicadaEm.slice(0, 10))} às ${comprovante.aplicadaEm.slice(11, 16)}`
             : formatDateBr(comprovante.data),
         },
-        { rotulo: 'Responsável', valor: lookup.staff(comprovante.profissionalId)?.nome },
+        { rotulo: 'Responsável', valor: user?.name },
         { rotulo: 'Observações', valor: comprovante.observacoes },
       ]
     : []
@@ -247,7 +249,6 @@ export default function ConsultasVacinas() {
               editTo={`/agenda/consultas/${consulta.id}/editar`}
               rows={[
                 { label: 'Data', value: `${formatDateBr(consulta.data)} às ${consulta.hora}` },
-                { label: 'Veterinário(a)', value: lookup.staff(consulta.veterinarioId)?.nome },
                 { label: 'Tutor(a)', value: lookup.tutor(consulta.tutorId)?.nome },
                 { label: 'Telefone do tutor', value: lookup.tutor(consulta.tutorId)?.telefone },
                 { label: 'Observações', value: consulta.observacoes || 'Sem observações.' },
@@ -273,7 +274,6 @@ export default function ConsultasVacinas() {
               editTo={`/agenda/vacinas/${vacina.id}/editar`}
               rows={[
                 { label: 'Data', value: `${formatDateBr(vacina.data)} às ${vacina.hora}` },
-                { label: 'Profissional', value: lookup.staff(vacina.profissionalId)?.nome },
                 { label: 'Tutor(a)', value: lookup.tutor(vacina.tutorId)?.nome },
                 { label: 'Telefone do tutor', value: lookup.tutor(vacina.tutorId)?.telefone },
                 { label: 'Observações', value: vacina.observacoes || 'Sem observações.' },

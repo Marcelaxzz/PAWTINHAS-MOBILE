@@ -1,14 +1,14 @@
 import { useCallback, useEffect, useState } from 'react'
-import { Pressable, StyleSheet, View } from 'react-native'
+import { StyleSheet, View } from 'react-native'
 import { Page } from '../../componentes/Page.jsx'
 import { PillButton } from '../../componentes/ui/PillButton.jsx'
 import { Grade } from '../../componentes/ui/Grade.jsx'
 import { ErrorState, LoadingState, SummaryBar, Toggle } from '../../componentes/ui/Basicos.jsx'
 import { Chip } from '../../componentes/ui/Chip.jsx'
 import { Field, FieldGrid } from '../../componentes/ui/Field.jsx'
-import { ConfirmDialog, Dialog } from '../../componentes/ui/Dialog.jsx'
 import { Texto, Titulo } from '../../componentes/Texto.jsx'
 import { DownloadIcon } from '../../web/components/Icons/Icons.jsx'
+import { useAuth } from '../../web/hooks/useAuth.js'
 import { useCollections } from '../../web/hooks/useCollections.js'
 import { useToast } from '../../web/hooks/useToast.js'
 import { clinicService } from '../../web/services/clinicService.js'
@@ -16,7 +16,6 @@ import { dataService } from '../../web/services/dataService.js'
 import { formatDateBr } from '../../web/utils/dates.js'
 import { maskPhone } from '../../web/utils/masks.js'
 import { initials } from '../../web/utils/text.js'
-import { validateEmail, validateName } from '../../web/utils/validators.js'
 import { salvarArquivo } from '../../plataforma/salvarArquivo'
 import { cores, texto } from '../../tema.js'
 
@@ -42,10 +41,6 @@ function statusEsp32(status) {
   }
 }
 
-// A função define em quais agendamentos a pessoa aparece (cirurgião, groomer, pet sitter…).
-const FUNCOES = ['Veterinário', 'Técnico', 'Groomer', 'Pet Sitter', 'Recepcionista']
-const papelDa = (funcao) => (funcao === 'Veterinário' || funcao === 'Recepcionista' ? funcao : 'Equipe')
-
 function maskCnpj(value) {
   const d = value.replace(/\D/g, '').slice(0, 14)
   return d
@@ -58,43 +53,37 @@ function maskCnpj(value) {
 const clonar = (valor) => JSON.parse(JSON.stringify(valor))
 
 export default function Configuracoes() {
-  const { data, loading, error, reload, patchLocal } = useCollections(['configuracoes', 'profissionais'])
+  const { data, loading, error, reload, patchLocal } = useCollections(['configuracoes'])
 
   return (
-    <Page title="Configurações" subtitle="Dados da clínica, notificações, equipe e integrações.">
+    <Page title="Configurações" subtitle="Dados da clínica, notificações, acesso e integrações.">
       {loading && <LoadingState />}
       {error ? <ErrorState message={error} onRetry={reload} /> : null}
       {data?.configuracoes[0] && (
-        <ConfigContent settings={data.configuracoes[0]} usuarios={data.profissionais} patchLocal={patchLocal} />
+        <ConfigContent settings={data.configuracoes[0]} patchLocal={patchLocal} />
       )}
     </Page>
   )
 }
 
-function Avatar({ usuario }) {
+function Avatar({ nome }) {
   return (
     <View style={estilos.avatar}>
       <Texto peso={700} style={estilos.avatarTexto}>
-        {usuario.iniciais || initials(usuario.nome)}
+        {initials(nome ?? '')}
       </Texto>
     </View>
   )
 }
 
-function ConfigContent({ settings, usuarios, patchLocal }) {
+function ConfigContent({ settings, patchLocal }) {
   const toast = useToast()
+  const { user } = useAuth()
   const [form, setForm] = useState(() => clonar(settings))
   const [editing, setEditing] = useState(false)
   const [saving, setSaving] = useState(false)
-  const [usersOpen, setUsersOpen] = useState(false)
   const [status, setStatus] = useState(null)
   const [baixando, setBaixando] = useState(false)
-  const [invite, setInvite] = useState({ nome: '', email: '', funcao: 'Veterinário' })
-  const [inviteErrors, setInviteErrors] = useState({})
-  const [inviting, setInviting] = useState(false)
-  const [editingUser, setEditingUser] = useState(null)
-  const [removing, setRemoving] = useState(null)
-  const [removingBusy, setRemovingBusy] = useState(false)
 
   const carregarStatus = useCallback(() => {
     clinicService
@@ -143,66 +132,6 @@ function ConfigContent({ settings, usuarios, patchLocal }) {
       toast.error(err.message)
     } finally {
       setSaving(false)
-    }
-  }
-
-  const resetInvite = () => {
-    setEditingUser(null)
-    setInvite({ nome: '', email: '', funcao: 'Veterinário' })
-    setInviteErrors({})
-  }
-
-  const startEdit = (user) => {
-    setEditingUser(user)
-    setInvite({
-      nome: user.nome,
-      email: user.email ?? '',
-      funcao: FUNCOES.includes(user.funcao) ? user.funcao : 'Veterinário',
-    })
-    setInviteErrors({})
-  }
-
-  /** Adiciona uma pessoa à equipe ou salva a edição da pessoa selecionada. */
-  const sendInvite = async () => {
-    const errors = { nome: validateName(invite.nome), email: validateEmail(invite.email) }
-    setInviteErrors(errors)
-    if (errors.nome || errors.email) return
-    setInviting(true)
-    try {
-      const payload = {
-        nome: invite.nome.trim(),
-        email: invite.email.trim().toLowerCase(),
-        funcao: invite.funcao,
-        // A conta Admin (veterinária responsável) mantém o papel ao trocar a função.
-        papel: editingUser?.papel === 'Admin' ? 'Admin' : papelDa(invite.funcao),
-        iniciais: initials(invite.nome),
-      }
-      const saved = editingUser
-        ? await dataService.update('profissionais', editingUser.id, payload)
-        : await dataService.create('profissionais', payload)
-      patchLocal('profissionais', saved)
-      toast.success(editingUser ? `${saved.nome} foi atualizado(a).` : `${saved.nome} foi adicionado(a) à equipe.`)
-      resetInvite()
-    } catch (err) {
-      if (err.fields) setInviteErrors(err.fields)
-      toast.error(err.message)
-    } finally {
-      setInviting(false)
-    }
-  }
-
-  const removeUser = async () => {
-    setRemovingBusy(true)
-    try {
-      await dataService.remove('profissionais', removing.id)
-      patchLocal('profissionais', removing, 'remove')
-      toast.success(`${removing.nome} foi removido(a) da equipe.`)
-      if (editingUser?.id === removing.id) resetInvite()
-      setRemoving(null)
-    } catch (err) {
-      toast.error(err.message)
-    } finally {
-      setRemovingBusy(false)
     }
   }
 
@@ -258,25 +187,18 @@ function ConfigContent({ settings, usuarios, patchLocal }) {
           </View>
 
           <View style={estilos.cartao}>
-            <View style={estilos.cartaoTopo}>
-              <Titulo style={estilos.titulo}>Equipe</Titulo>
-              <PillButton variant="contorno" onPress={() => setUsersOpen(true)}>
-                Gerenciar equipe
-              </PillButton>
-            </View>
+            <Titulo style={estilos.titulo}>Acesso ao painel</Titulo>
             <View style={{ marginTop: 18 }}>
-              {usuarios.slice(0, 4).map((u, i, lista) => (
-                <View key={u.id} style={[estilos.usuario, i === lista.length - 1 && { borderBottomWidth: 0 }]}>
-                  <Avatar usuario={u} />
-                  <View style={estilos.usuarioTexto}>
-                    <Texto peso={700} style={{ fontSize: 17 }}>
-                      {u.nome}
-                    </Texto>
-                    <Texto style={estilos.usuarioApoio}>{u.papel === 'Admin' ? `${u.funcao} - Admin` : u.funcao}</Texto>
-                  </View>
-                  {u.papel === 'Admin' && <Chip size="xs">Admin</Chip>}
+              <View style={[estilos.usuario, { borderBottomWidth: 0 }]}>
+                <Avatar nome={user?.name} />
+                <View style={estilos.usuarioTexto}>
+                  <Texto peso={700} style={{ fontSize: 17 }}>
+                    {user?.name}
+                  </Texto>
+                  <Texto style={estilos.usuarioApoio}>{user?.email}</Texto>
                 </View>
-              ))}
+                <Chip size="xs">Veterinária responsável</Chip>
+              </View>
             </View>
           </View>
         </View>
@@ -376,105 +298,6 @@ function ConfigContent({ settings, usuarios, patchLocal }) {
         {settings.atualizadoEm.slice(11, 16)}
         {dirty ? <Texto style={{ color: cores.aviso }}> · Você tem alterações não salvas.</Texto> : null}
       </SummaryBar>
-
-      <Dialog
-        open={usersOpen && !removing}
-        onClose={() => {
-          setUsersOpen(false)
-          resetInvite()
-        }}
-        title="Gerenciar equipe"
-        size="lg"
-        description="Cadastre as pessoas da equipe e o papel de cada uma. Elas aparecem nos agendamentos; o acesso ao painel continua exclusivo da veterinária responsável."
-      >
-        {usuarios.map((u, i) => (
-          <View
-            key={u.id}
-            style={[estilos.usuario, { flexWrap: 'wrap' }, i === usuarios.length - 1 && { borderBottomWidth: 0 }]}
-          >
-            <Avatar usuario={u} />
-            <View style={estilos.usuarioTexto}>
-              <Texto peso={700} style={{ fontSize: 17 }}>
-                {u.nome}
-              </Texto>
-              <Texto style={estilos.usuarioApoio}>{u.email || 'Sem e-mail cadastrado'}</Texto>
-            </View>
-            <Chip size="xs">{u.funcao}</Chip>
-            <View style={estilos.usuarioAcoes}>
-              <Pressable
-                onPress={() => startEdit(u)}
-                accessibilityRole="button"
-                accessibilityState={{ selected: editingUser?.id === u.id }}
-                style={[estilos.acaoTexto, editingUser?.id === u.id && { backgroundColor: cores.creme }]}
-              >
-                <Texto peso={600} style={{ fontSize: 15, color: cores.ferrugem }}>
-                  Editar
-                </Texto>
-              </Pressable>
-              {u.papel !== 'Admin' && (
-                <Pressable onPress={() => setRemoving(u)} accessibilityRole="button" style={estilos.acaoTexto}>
-                  <Texto peso={600} style={{ fontSize: 15, color: cores.erro }}>
-                    Remover
-                  </Texto>
-                </Pressable>
-              )}
-            </View>
-          </View>
-        ))}
-        <View style={estilos.convite}>
-          <Titulo style={estilos.conviteTitulo}>
-            {editingUser ? `Editar ${editingUser.nome}` : 'Adicionar à equipe'}
-          </Titulo>
-          <FieldGrid>
-            <Field
-              label="Nome completo"
-              required
-              value={invite.nome}
-              maxLength={100}
-              error={inviteErrors.nome}
-              onChange={(v) => setInvite((p) => ({ ...p, nome: v }))}
-            />
-            <Field
-              label="E-mail"
-              required
-              inputMode="email"
-              autoCapitalize="none"
-              autoComplete="off"
-              value={invite.email}
-              maxLength={254}
-              error={inviteErrors.email}
-              onChange={(v) => setInvite((p) => ({ ...p, email: v }))}
-            />
-            <Field
-              label="Função"
-              as="select"
-              value={invite.funcao}
-              options={FUNCOES.map((f) => ({ value: f, label: f }))}
-              onChange={(v) => setInvite((p) => ({ ...p, funcao: v }))}
-            />
-          </FieldGrid>
-          <View style={estilos.conviteAcoes}>
-            {Boolean(editingUser) && (
-              <PillButton variant="contorno" onPress={resetInvite} disabled={inviting}>
-                Cancelar edição
-              </PillButton>
-            )}
-            <PillButton onPress={sendInvite} loading={inviting}>
-              {editingUser ? 'Salvar' : 'Adicionar'}
-            </PillButton>
-          </View>
-        </View>
-      </Dialog>
-
-      <ConfirmDialog
-        open={Boolean(removing)}
-        onClose={() => setRemoving(null)}
-        onConfirm={removeUser}
-        loading={removingBusy}
-        title={`Remover ${removing?.nome ?? ''}?`}
-        message="A pessoa sai da equipe e deixa de aparecer como responsável nos agendamentos. Os registros antigos continuam salvos."
-        confirmLabel="Remover"
-      />
     </>
   )
 }

@@ -133,7 +133,6 @@ export default function BanhoTosa() {
               editTo={`/agenda/banho-tosa/${selected.id}/editar`}
               rows={[
                 { label: 'Data', value: `${formatDateBr(selected.data)} às ${selected.hora}` },
-                { label: 'Profissional', value: lookup.staff(selected.profissionalId)?.nome },
                 { label: 'Tutor(a)', value: lookup.tutor(selected.tutorId)?.nome },
                 { label: 'Telefone do tutor', value: lookup.tutor(selected.tutorId)?.telefone },
                 { label: 'Observações', value: selected.observacoes || 'Sem observações.' },
@@ -155,7 +154,7 @@ export default function BanhoTosa() {
               id: b.id,
               when: `${relativeDayLabel(b.data)} ${b.hora}`,
               title: lookup.pet(b.petId)?.nome ?? 'Pet',
-              detail: `${b.servico} · ${lookup.staff(b.profissionalId)?.nome ?? ''}`,
+              detail: b.servico,
               status: b.status,
             }))}
           />

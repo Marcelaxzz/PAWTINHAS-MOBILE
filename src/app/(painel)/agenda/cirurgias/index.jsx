@@ -130,7 +130,6 @@ export default function Cirurgias() {
               editTo={`/agenda/cirurgias/${selected.id}/editar`}
               rows={[
                 { label: 'Data', value: `${formatDateBr(selected.data)} às ${selected.hora}` },
-                { label: 'Cirurgião', value: lookup.staff(selected.cirurgiaoId)?.nome },
                 { label: 'Tutor(a)', value: lookup.tutor(selected.tutorId)?.nome },
                 { label: 'Telefone do tutor', value: lookup.tutor(selected.tutorId)?.telefone },
                 {
@@ -159,7 +158,7 @@ export default function Cirurgias() {
               id: s.id,
               when: `${relativeDayLabel(s.data)} ${s.hora}`,
               title: lookup.pet(s.petId)?.nome ?? 'Pet',
-              detail: `${s.procedimento} · ${lookup.staff(s.cirurgiaoId)?.nome ?? ''}`,
+              detail: s.procedimento,
               status: s.status,
             }))}
           />

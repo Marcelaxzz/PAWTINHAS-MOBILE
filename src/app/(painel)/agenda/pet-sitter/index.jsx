@@ -173,7 +173,6 @@ export default function PetSitter() {
                   value: `${formatDateBr(selected.dataInicio)} a ${formatDateBr(selected.dataFim)} · ${selected.periodo}`,
                 },
                 { label: 'Horário', value: selected.hora },
-                { label: 'Cuidador(a)', value: lookup.staff(selected.cuidadorId)?.nome },
                 { label: 'Tutor(a)', value: lookup.tutor(selected.tutorId)?.nome },
                 { label: 'Telefone do tutor', value: lookup.tutor(selected.tutorId)?.telefone },
                 { label: 'Endereço', value: selected.endereco },

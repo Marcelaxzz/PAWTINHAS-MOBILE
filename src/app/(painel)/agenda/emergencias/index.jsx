@@ -150,7 +150,6 @@ export default function Emergencias() {
               rows={[
                 { label: 'Entrada', value: `${formatDateBr(selected.data)} às ${selected.hora}` },
                 { label: 'Prioridade', value: selected.prioridade },
-                { label: 'Profissional responsável', value: lookup.staff(selected.profissionalId)?.nome },
                 { label: 'Tutor(a)', value: lookup.tutor(selected.tutorId)?.nome },
                 { label: 'Telefone do tutor', value: lookup.tutor(selected.tutorId)?.telefone },
                 { label: 'Observações de triagem', value: selected.observacoes || 'Sem observações.' },
