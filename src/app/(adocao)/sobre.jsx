@@ -1,8 +1,7 @@
 import { StyleSheet, View } from 'react-native'
-import { Image } from 'expo-image'
 import { Page } from '../../componentes/Page.jsx'
 import { Texto, Titulo } from '../../componentes/Texto.jsx'
-import cachorro from '../../web/assets/images/sobre-cachorro.webp'
+import { CarrosselPolaroid } from '../../componentes/CarrosselPolaroid.jsx'
 import { cores, sombras } from '../../tema.js'
 import { Grade } from '../../componentes/ui/Grade.jsx'
 
@@ -36,12 +35,7 @@ export default function Sobre() {
             adoção.
           </Texto>
         </View>
-        <Image
-          source={cachorro}
-          accessibilityLabel="Cachorro sorrindo enquanto recebe carinho na cabeça"
-          style={[estilos.foto, sombras.media]}
-          contentFit="cover"
-        />
+        <CarrosselPolaroid />
       </Grade>
 
       <Grade colunas={3} quebras={{ 1100: 1 }} gap={24} style={{ marginTop: 12 }} accessibilityLabel="O que fazemos">
@@ -62,7 +56,6 @@ export default function Sobre() {
 const estilos = StyleSheet.create({
   historiaTitulo: { fontSize: 29, lineHeight: 36 },
   historiaTexto: { maxWidth: 620, marginTop: 22, fontSize: 18, lineHeight: 30, color: cores.taupe },
-  foto: { width: '100%', aspectRatio: 462 / 344, borderRadius: 24 },
   cartao: {
     paddingTop: 28,
     paddingHorizontal: 26,

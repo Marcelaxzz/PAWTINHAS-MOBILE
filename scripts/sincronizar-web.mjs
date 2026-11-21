@@ -51,6 +51,7 @@ const MODULOS = [
   'pages/panel/agendaTabs.js',
   'pages/panel/pacientesTabs.js',
   'pages/panel/Alarmes/ligacoesAlarme.js',
+  'pages/adocao/Sobre/fotosCarol.js',
   // Telas que são só configuração (o ResourceForm e o roteador são trocados pelos do app).
   'pages/panel/Formularios/Formularios.jsx',
 ]
