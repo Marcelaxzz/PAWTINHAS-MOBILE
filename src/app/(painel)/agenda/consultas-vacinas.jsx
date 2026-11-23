@@ -18,7 +18,7 @@ import { useRecordActions } from '../../../web/hooks/useRecordActions.js'
 import { compareSchedule, formatDateBr, relativeDayLabel, todayIso } from '../../../web/utils/dates.js'
 import { AGENDA_TABS } from '../../../web/pages/panel/agendaTabs.js'
 import { imprimirDocumento } from '../../../plataforma/imprimir.js'
-import { cores } from '../../../tema.js'
+import { cores, fs } from '../../../tema.js'
 
 const STATUS_CONSULTA = ['Agendado', 'Em andamento', 'Concluído', 'Cancelado']
 const STATUS_VACINA = ['Agendado', 'Pendente', 'Aplicada', 'Cancelado']
@@ -334,10 +334,10 @@ export default function ConsultasVacinas() {
 
 const estilos = StyleSheet.create({
   coluna: { gap: 16, marginBottom: 4 },
-  dono: { fontSize: 17, color: cores.taupe },
+  dono: { fontSize: fs(17), color: cores.taupe },
   meta: { flexDirection: 'row', flexWrap: 'wrap', alignItems: 'center', columnGap: 14, rowGap: 8, marginTop: 4 },
-  hora: { fontSize: 15, color: cores.cafeEscuro },
-  status: { fontSize: 15, color: cores.taupe },
+  hora: { fontSize: fs(15), color: cores.cafeEscuro },
+  status: { fontSize: fs(15), color: cores.taupe },
   acoesVacina: { flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'flex-end', gap: 6 },
   rodape: { marginTop: 12 },
   comprovante: {
@@ -351,6 +351,6 @@ const estilos = StyleSheet.create({
     backgroundColor: cores.branco,
   },
   comprovanteMarca: { position: 'absolute', top: 18, right: 18, opacity: 0.6 },
-  comprovanteClinica: { fontSize: 23, lineHeight: 28 },
-  dt: { fontSize: 15, color: cores.taupe },
+  comprovanteClinica: { fontSize: fs(23), lineHeight: fs(28) },
+  dt: { fontSize: fs(15), color: cores.taupe },
 })

@@ -18,7 +18,7 @@ import {
 import { useClinic } from '../../../web/hooks/useClinic.js'
 import { agendaSummaries, petsInNext12Hours, todaysTimeline } from '../../../web/utils/agenda.js'
 import { AGENDA_TABS } from '../../../web/pages/panel/agendaTabs.js'
-import { cores, sombras } from '../../../tema.js'
+import { cores, sombras, fs } from '../../../tema.js'
 import { relatoriosService } from '../../../web/services/gestaoService.js'
 
 const RESOURCES = ['consultas', 'vacinas', 'cirurgias', 'banhos', 'visitas', 'emergencias']
@@ -145,6 +145,6 @@ const estilos = StyleSheet.create({
     borderRadius: 24,
     backgroundColor: cores.superficie,
   },
-  titulo: { marginTop: 18, fontSize: 25, lineHeight: 30 },
-  texto: { marginTop: 6, fontSize: 16, lineHeight: 23 },
+  titulo: { marginTop: 18, fontSize: fs(25), lineHeight: fs(30) },
+  texto: { marginTop: 6, fontSize: fs(16), lineHeight: fs(23) },
 })

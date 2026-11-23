@@ -1,6 +1,6 @@
 import { StyleSheet, View } from 'react-native'
 import { statusTone } from '../../web/utils/status.js'
-import { cores } from '../../tema.js'
+import { cores, fs } from '../../tema.js'
 import { Texto } from '../Texto.jsx'
 
 const TONS = {
@@ -13,9 +13,9 @@ const TONS = {
 }
 
 const TAMANHOS = {
-  md: { paddingVertical: 4, paddingHorizontal: 12, fontSize: 16 },
-  sm: { paddingVertical: 3, paddingHorizontal: 11, fontSize: 15 },
-  xs: { paddingVertical: 3, paddingHorizontal: 10, fontSize: 15 },
+  md: { paddingVertical: 4, paddingHorizontal: 12, fontSize: fs(16) },
+  sm: { paddingVertical: 3, paddingHorizontal: 11, fontSize: fs(15) },
+  xs: { paddingVertical: 3, paddingHorizontal: 10, fontSize: fs(15) },
 }
 
 /**

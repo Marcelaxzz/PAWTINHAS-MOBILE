@@ -1,7 +1,7 @@
 import { Children, cloneElement, isValidElement } from 'react'
 import { ActivityIndicator, Linking, Pressable, StyleSheet } from 'react-native'
 import { useRouter } from 'expo-router'
-import { cores } from '../../tema.js'
+import { cores, fs } from '../../tema.js'
 import { Texto } from '../Texto.jsx'
 
 const VARIANTES = {
@@ -19,9 +19,9 @@ const VARIANTES = {
 }
 
 const TAMANHOS = {
-  sm: { minHeight: 36, paddingVertical: 7, paddingHorizontal: 18, fontSize: 15 },
-  md: { minHeight: 42, paddingVertical: 10, paddingHorizontal: 24, fontSize: 16 },
-  lg: { minHeight: 48, paddingVertical: 12, paddingHorizontal: 30, fontSize: 17 },
+  sm: { minHeight: 36, paddingVertical: 7, paddingHorizontal: 18, fontSize: fs(15) },
+  md: { minHeight: 42, paddingVertical: 10, paddingHorizontal: 24, fontSize: fs(16) },
+  lg: { minHeight: 48, paddingVertical: 12, paddingHorizontal: 30, fontSize: fs(17) },
 }
 
 /**

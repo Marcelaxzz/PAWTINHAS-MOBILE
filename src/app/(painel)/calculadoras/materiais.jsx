@@ -28,7 +28,7 @@ import {
   PainelEstoque,
   ResumoEstoque,
 } from '../../../telas/calculadoras/Estoque.jsx'
-import { cores } from '../../../tema.js'
+import { cores, fs } from '../../../tema.js'
 
 const opts = (lista) => lista.map((v) => ({ value: v, label: v }))
 
@@ -318,6 +318,6 @@ const estilos = StyleSheet.create({
     backgroundColor: cores.branco,
   },
   tipoAtivo: { borderColor: cores.cafe, backgroundColor: cores.cafe },
-  tipoTexto: { fontSize: 16, color: cores.cafe },
-  tipoTotal: { fontSize: 15, color: cores.taupe },
+  tipoTexto: { fontSize: fs(16), color: cores.cafe },
+  tipoTotal: { fontSize: fs(15), color: cores.taupe },
 })

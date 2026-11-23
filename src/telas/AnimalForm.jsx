@@ -9,7 +9,7 @@ import { CalendarIcon, MapPinIcon, PawOutline } from '../web/components/Icons/Ic
 import { formatDateBr, idadeDe, maskDate, parseDateBr, todayIso } from '../web/utils/dates.js'
 import { isHttpsImageUrl, photoSrc } from '../plataforma/imagens.js'
 import { useToast } from '../web/hooks/useToast.js'
-import { cores, sombras } from '../tema.js'
+import { cores, sombras, fs } from '../tema.js'
 
 const ESPECIES = ['Cachorro', 'Gato', 'Coelho', 'Calopsita', 'Outro']
 const SEXOS = ['Macho', 'Fêmea', 'Casal']
@@ -311,7 +311,7 @@ export function AnimalForm({ animal, variant = 'pagina', onSubmit, onCancel, sav
       </FieldGrid>
 
       <View style={estilos.convivencia}>
-        <Texto peso={700} style={[estilos.legenda, modal && { fontSize: 15 }]}>
+        <Texto peso={700} style={[estilos.legenda, modal && { fontSize: fs(15) }]}>
           {modal ? 'SAÚDE E CONVIVÊNCIA' : 'Saúde e convivência'}
         </Texto>
         <View style={estilos.checks}>
@@ -362,7 +362,7 @@ export function AnimalForm({ animal, variant = 'pagina', onSubmit, onCancel, sav
 const estilos = StyleSheet.create({
   foto: { gap: 12, marginBottom: 28 },
   fotoModal: { paddingBottom: 28, borderBottomWidth: 1, borderBottomColor: cores.borda },
-  rotuloFoto: { fontSize: 15 },
+  rotuloFoto: { fontSize: fs(15) },
   convivencia: {
     gap: 12,
     marginTop: 26,
@@ -372,7 +372,7 @@ const estilos = StyleSheet.create({
     borderColor: cores.borda,
     borderRadius: 14,
   },
-  legenda: { fontSize: 16 },
+  legenda: { fontSize: fs(16) },
   checks: { flexDirection: 'row', flexWrap: 'wrap', columnGap: 24, rowGap: 12 },
   acoesModal: { paddingTop: 28, borderTopWidth: 1, borderTopColor: cores.borda },
 })

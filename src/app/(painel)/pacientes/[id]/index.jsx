@@ -22,7 +22,7 @@ import { relatoriosService } from '../../../../web/services/gestaoService.js'
 import { formatDateBr } from '../../../../web/utils/dates.js'
 import { formatNumber, formatQuantidade } from '../../../../web/utils/numbers.js'
 import { Alimentacao, Tratamentos } from '../../../../telas/CuidadosPaciente.jsx'
-import { cores, sombras } from '../../../../tema.js'
+import { cores, sombras, fs } from '../../../../tema.js'
 import { Grade, useAte } from '../../../../componentes/ui/Grade.jsx'
 
 const HISTORY = [
@@ -274,7 +274,7 @@ export default function PacienteFicha() {
                   <Chip tone="tag" size="xs">
                     {item.tipo}
                   </Chip>
-                  <Texto peso={700} style={{ fontSize: 16 }}>
+                  <Texto peso={700} style={{ fontSize: fs(16) }}>
                     {item.texto}
                   </Texto>
                 </View>
@@ -335,9 +335,9 @@ const estilos = StyleSheet.create({
     rowGap: 8,
     marginTop: 36,
   },
-  nome: { fontSize: 36, lineHeight: 42 },
+  nome: { fontSize: fs(36), lineHeight: fs(42) },
   info: { alignSelf: 'stretch', gap: 14, marginTop: 20 },
-  dt: { fontSize: 15, letterSpacing: 0.5, color: cores.taupe },
+  dt: { fontSize: fs(15), letterSpacing: 0.5, color: cores.taupe },
   obs: {
     alignSelf: 'stretch',
     marginTop: 18,
@@ -348,7 +348,7 @@ const estilos = StyleSheet.create({
     borderTopRightRadius: 12,
     borderBottomRightRadius: 12,
     backgroundColor: 'rgba(216, 161, 107, 0.1)',
-    fontSize: 16,
+    fontSize: fs(16),
     color: cores.taupeEscuro,
   },
   acoes: { flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'center', gap: 12, marginTop: 24 },
@@ -361,7 +361,7 @@ const estilos = StyleSheet.create({
     borderRadius: 28,
     backgroundColor: cores.branco,
   },
-  subtitulo: { fontSize: 25, lineHeight: 30 },
+  subtitulo: { fontSize: fs(25), lineHeight: fs(30) },
   vazio: { marginTop: 12, color: cores.taupe },
   evento: {
     flexDirection: 'row',
@@ -374,7 +374,7 @@ const estilos = StyleSheet.create({
     borderBottomColor: cores.borda,
   },
   quando: { minWidth: 96 },
-  quandoData: { fontSize: 16, color: cores.cafe, fontVariant: ['tabular-nums'] },
-  quandoHora: { fontSize: 15, color: cores.taupe },
+  quandoData: { fontSize: fs(16), color: cores.cafe, fontVariant: ['tabular-nums'] },
+  quandoHora: { fontSize: fs(15), color: cores.taupe },
   eventoTexto: { flex: 1, minWidth: 140, gap: 6, alignItems: 'flex-start' },
 })

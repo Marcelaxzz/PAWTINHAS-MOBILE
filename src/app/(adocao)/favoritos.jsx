@@ -11,7 +11,7 @@ import { useCollections } from '../../web/hooks/useCollections.js'
 import { sexoEspecie } from '../../web/utils/adocao.js'
 import { photoSrc } from '../../plataforma/imagens.js'
 import { useFavorites } from '../../adocao/useFavorites.js'
-import { cores, sombras } from '../../tema.js'
+import { cores, sombras, fs } from '../../tema.js'
 import { Grade, useAte } from '../../componentes/ui/Grade.jsx'
 
 export default function Favoritos() {
@@ -29,10 +29,10 @@ export default function Favoritos() {
       actions={
         data ? (
           <View style={estilos.contador}>
-            <Texto peso={700} style={{ fontSize: 20, color: cores.branco }}>
+            <Texto peso={700} style={{ fontSize: fs(20), color: cores.branco }}>
               {favoritos.length}
             </Texto>
-            <Texto peso={600} style={{ fontSize: 16, color: cores.branco }}>
+            <Texto peso={600} style={{ fontSize: fs(16), color: cores.branco }}>
               {favoritos.length === 1 ? 'animal salvo' : 'animais salvos'}
             </Texto>
           </View>
@@ -62,7 +62,7 @@ export default function Favoritos() {
                   />
                 ) : null}
                 <View style={estilos.selo}>
-                  <Texto peso={700} style={{ fontSize: 15, color: cores.branco }}>
+                  <Texto peso={700} style={{ fontSize: fs(15), color: cores.branco }}>
                     {sexoEspecie(animal).toUpperCase()}
                   </Texto>
                 </View>
@@ -70,14 +70,14 @@ export default function Favoritos() {
               <View style={estilos.corpo}>
                 <View style={estilos.linhaNome}>
                   <Titulo style={estilos.nome}>{animal.nome}</Titulo>
-                  <Texto style={{ fontSize: 16, color: cores.taupeEscuro }}>{animal.idade}</Texto>
+                  <Texto style={{ fontSize: fs(16), color: cores.taupeEscuro }}>{animal.idade}</Texto>
                   <Chip tone="tag" size="xs" style={{ marginLeft: 'auto', alignSelf: 'center' }}>
                     Porte {animal.porte}
                   </Chip>
                 </View>
                 <View style={estilos.local}>
                   <MapPinIcon size={15} color={cores.caramelo} />
-                  <Texto style={{ fontSize: 16, color: cores.taupeEscuro }}>{animal.cidade}</Texto>
+                  <Texto style={{ fontSize: fs(16), color: cores.taupeEscuro }}>{animal.cidade}</Texto>
                 </View>
                 <Texto style={estilos.descricao}>{animal.descricao}</Texto>
                 <View style={estilos.acoes}>
@@ -132,14 +132,14 @@ const estilos = StyleSheet.create({
   },
   corpo: { flex: 1, minWidth: 0, paddingVertical: 20, paddingHorizontal: 22 },
   linhaNome: { flexDirection: 'row', flexWrap: 'wrap', alignItems: 'baseline', columnGap: 10, rowGap: 4 },
-  nome: { fontSize: 23, lineHeight: 28 },
+  nome: { fontSize: fs(23), lineHeight: fs(28) },
   local: { flexDirection: 'row', alignItems: 'center', gap: 6, marginTop: 6 },
   descricao: {
     marginTop: 10,
     paddingBottom: 14,
     borderBottomWidth: 1,
     borderBottomColor: cores.borda,
-    lineHeight: 26,
+    lineHeight: fs(26),
     color: cores.taupe,
   },
   acoes: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', gap: 12, marginTop: 14 },

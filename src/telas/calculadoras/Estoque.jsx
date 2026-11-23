@@ -19,7 +19,7 @@ import { estoqueService, relatoriosService } from '../../web/services/gestaoServ
 import { formatDateBr, maskDate, parseDateBr } from '../../web/utils/dates.js'
 import { maskDecimal, parseDecimal } from '../../web/utils/numbers.js'
 import { FILTROS_ESTOQUE, MOTIVOS, qtd, SITUACOES } from '../../web/pages/calculadoras/Catalogos/estoque.js'
-import { cores } from '../../tema.js'
+import { cores, fs } from '../../tema.js'
 
 const TONS = {
   neutro: { cor: cores.cafe, fundo: cores.superficie },
@@ -490,8 +490,8 @@ const estilos = StyleSheet.create({
     borderColor: cores.borda,
     borderRadius: 16,
   },
-  indicadorValor: { fontSize: 32, lineHeight: 36 },
-  indicadorRotulo: { fontSize: 16, color: cores.taupeEscuro },
+  indicadorValor: { fontSize: fs(32), lineHeight: fs(36) },
+  indicadorRotulo: { fontSize: fs(16), color: cores.taupeEscuro },
   painel: {
     gap: 8,
     marginTop: 'auto',
@@ -507,7 +507,7 @@ const estilos = StyleSheet.create({
     backgroundColor: cores.cremeClaro,
   },
   painelTopo: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', gap: 10 },
-  saldo: { flexShrink: 1, fontSize: 21, lineHeight: 28 },
+  saldo: { flexShrink: 1, fontSize: fs(21), lineHeight: fs(28) },
   barra: { height: 6, borderRadius: 999, backgroundColor: 'rgba(54, 36, 26, 0.1)' },
   barraNivel: { position: 'absolute', top: 0, bottom: 0, left: 0, borderRadius: 999 },
   barraMinimo: {
@@ -518,9 +518,9 @@ const estilos = StyleSheet.create({
     borderRadius: 2,
     backgroundColor: cores.cafeEscuro,
   },
-  apoio: { fontSize: 15, color: cores.taupeEscuro },
+  apoio: { fontSize: fs(15), color: cores.taupeEscuro },
   painelRodape: { flexDirection: 'row', alignItems: 'center', gap: 8 },
-  minimo: { fontSize: 15, color: cores.taupeEscuro, textDecorationLine: 'underline', textDecorationStyle: 'dotted' },
+  minimo: { fontSize: fs(15), color: cores.taupeEscuro, textDecorationLine: 'underline', textDecorationStyle: 'dotted' },
   acoes: { flexDirection: 'row', gap: 6 },
   acao: {
     alignItems: 'center',
@@ -533,7 +533,7 @@ const estilos = StyleSheet.create({
     backgroundColor: cores.branco,
   },
   acaoPressionada: { backgroundColor: cores.areia },
-  menos: { fontSize: 23, lineHeight: 25, color: cores.cafe },
+  menos: { fontSize: fs(23), lineHeight: fs(25), color: cores.cafe },
   acoesItem: { flexDirection: 'row', gap: 2 },
   icone: { alignItems: 'center', justifyContent: 'center', width: 38, height: 38, borderRadius: 999 },
   iconePressionado: { backgroundColor: cores.cremeClaro },
@@ -546,11 +546,11 @@ const estilos = StyleSheet.create({
     borderRadius: 12,
     backgroundColor: cores.cremeClaro,
   },
-  caixaRotulo: { fontSize: 15, color: cores.taupe },
-  caixaValor: { fontSize: 18, color: cores.cafeEscuro },
+  caixaRotulo: { fontSize: fs(15), color: cores.taupe },
+  caixaValor: { fontSize: fs(18), color: cores.cafeEscuro },
   notasBotao: { flexDirection: 'row', alignItems: 'center', gap: 6, alignSelf: 'flex-start' },
-  notasTitulo: { fontSize: 16, color: cores.cafe },
-  secao: { marginBottom: 10, fontSize: 20, lineHeight: 26 },
+  notasTitulo: { fontSize: fs(16), color: cores.cafe },
+  secao: { marginBottom: 10, fontSize: fs(20), lineHeight: fs(26) },
   lote: {
     flexDirection: 'row',
     flexWrap: 'wrap',

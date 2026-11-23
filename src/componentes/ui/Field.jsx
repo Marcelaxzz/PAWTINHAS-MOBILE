@@ -3,7 +3,7 @@ import { FlatList, Modal, Pressable, StyleSheet, TextInput, View } from 'react-n
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { CheckIcon, ChevronDownIcon, CloseIcon, SearchIcon } from '../../web/components/Icons/Icons.jsx'
 import { normalize } from '../../web/utils/text.js'
-import { cores, texto } from '../../tema.js'
+import { cores, texto, fs } from '../../tema.js'
 import { Texto, Titulo } from '../Texto.jsx'
 import { Grade } from './Grade.jsx'
 
@@ -246,8 +246,8 @@ export function FolhaOpcoes({ aberto, onFechar, titulo, options, value, onChange
 
 const estilos = StyleSheet.create({
   campo: { gap: 8, minWidth: 0 },
-  rotulo: { fontSize: 16, lineHeight: 20, color: cores.cafeEscuro },
-  caps: { fontSize: 15, letterSpacing: 0.13 },
+  rotulo: { fontSize: fs(16), lineHeight: fs(20), color: cores.cafeEscuro },
+  caps: { fontSize: fs(15), letterSpacing: 0.13 },
   caixa: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -266,14 +266,14 @@ const estilos = StyleSheet.create({
     minWidth: 0,
     minHeight: 46,
     padding: 0,
-    fontSize: 17,
+    fontSize: fs(17),
     color: cores.cafeEscuro,
     ...texto(400),
   },
-  textarea: { minHeight: 100, paddingVertical: 14, paddingHorizontal: 16, lineHeight: 25 },
-  valor: { flex: 1, fontSize: 17, color: cores.cafeEscuro },
-  dica: { fontSize: 15, lineHeight: 20, color: cores.taupe },
-  erro: { fontSize: 15, lineHeight: 20, color: cores.erro },
+  textarea: { minHeight: 100, paddingVertical: 14, paddingHorizontal: 16, lineHeight: fs(25) },
+  valor: { flex: 1, fontSize: fs(17), color: cores.cafeEscuro },
+  dica: { fontSize: fs(15), lineHeight: fs(20), color: cores.taupe },
+  erro: { fontSize: fs(15), lineHeight: fs(20), color: cores.erro },
 
   folhaFundo: { flex: 1, justifyContent: 'flex-end', backgroundColor: 'rgba(54, 36, 26, 0.45)' },
   folha: {
@@ -285,7 +285,7 @@ const estilos = StyleSheet.create({
     backgroundColor: cores.cremeClaro,
   },
   folhaTopo: { flexDirection: 'row', alignItems: 'flex-start', gap: 12, marginBottom: 12, paddingHorizontal: 4 },
-  folhaTitulo: { flex: 1, fontSize: 25, lineHeight: 32 },
+  folhaTitulo: { flex: 1, fontSize: fs(25), lineHeight: fs(32) },
   folhaFechar: { width: 36, height: 36, alignItems: 'center', justifyContent: 'center' },
   busca: {
     flexDirection: 'row',
@@ -308,6 +308,6 @@ const estilos = StyleSheet.create({
     borderRadius: 12,
   },
   opcaoAtiva: { backgroundColor: 'rgba(216, 161, 107, 0.18)' },
-  opcaoTexto: { flex: 1, fontSize: 17, color: cores.cafeEscuro },
+  opcaoTexto: { flex: 1, fontSize: fs(17), color: cores.cafeEscuro },
   vazio: { padding: 16, textAlign: 'center', color: cores.taupe },
 })

@@ -3,7 +3,7 @@ import { Pressable, StyleSheet, View } from 'react-native'
 import { Image } from 'expo-image'
 import { AlertIcon, CheckIcon } from '../../web/components/Icons/Icons.jsx'
 import { Texto, Titulo } from '../../componentes/Texto.jsx'
-import { cores, sombras } from '../../tema.js'
+import { cores, sombras, fs } from '../../tema.js'
 
 /** Estilos compartilhados pelas calculadoras e catálogos (Calculadoras.module.css do site). */
 export const calc = StyleSheet.create({
@@ -19,8 +19,8 @@ export const calc = StyleSheet.create({
     ...sombras.suave,
   },
   secaoSeguinte: { marginTop: 28, paddingTop: 26, borderTopWidth: 1, borderTopColor: cores.borda },
-  secaoTitulo: { marginBottom: 18, fontSize: 20, lineHeight: 26 },
-  dica: { marginTop: -6, marginBottom: 18, fontSize: 16, lineHeight: 23, color: cores.taupe },
+  secaoTitulo: { marginBottom: 18, fontSize: fs(20), lineHeight: fs(26) },
+  dica: { marginTop: -6, marginBottom: 18, fontSize: fs(16), lineHeight: fs(23), color: cores.taupe },
   info: {
     flexDirection: 'row',
     flexWrap: 'wrap',
@@ -32,15 +32,15 @@ export const calc = StyleSheet.create({
     borderRadius: 10,
     backgroundColor: cores.superficie,
   },
-  infoTexto: { fontSize: 16, color: cores.cafe },
+  infoTexto: { fontSize: fs(16), color: cores.cafe },
   checks: { gap: 14, marginTop: 22 },
   resultado: { backgroundColor: cores.superficie },
   resultadoVazio: { alignItems: 'center', gap: 10, paddingVertical: 24, paddingHorizontal: 8 },
-  rotuloResultado: { fontSize: 15, letterSpacing: 0.7, color: cores.taupe },
-  destaque: { marginTop: 6, fontSize: 34, lineHeight: 39 },
-  destaqueApoio: { marginTop: 6, fontSize: 16, lineHeight: 23, color: cores.cafe },
+  rotuloResultado: { fontSize: fs(15), letterSpacing: 0.7, color: cores.taupe },
+  destaque: { marginTop: 6, fontSize: fs(34), lineHeight: fs(39) },
+  destaqueApoio: { marginTop: 6, fontSize: fs(16), lineHeight: fs(23), color: cores.cafe },
   numeros: { gap: 10, marginTop: 22 },
-  formula: { marginTop: 18, fontSize: 15, lineHeight: 20, color: cores.taupe },
+  formula: { marginTop: 18, fontSize: fs(15), lineHeight: fs(20), color: cores.taupe },
   acoes: { gap: 10, marginTop: 22 },
   carregando: { opacity: 0.55 },
   referencia: {
@@ -54,7 +54,7 @@ export const calc = StyleSheet.create({
     borderBottomRightRadius: 10,
     backgroundColor: cores.cremeClaro,
   },
-  referenciaTexto: { fontSize: 16, lineHeight: 23, color: cores.cafeMedio },
+  referenciaTexto: { fontSize: fs(16), lineHeight: fs(23), color: cores.cafeMedio },
 
   // Catálogos
   barra: { flexDirection: 'row', flexWrap: 'wrap', alignItems: 'center', justifyContent: 'space-between', gap: 12 },
@@ -69,12 +69,12 @@ export const calc = StyleSheet.create({
     ...sombras.suave,
   },
   itemTopo: { flexDirection: 'row', alignItems: 'flex-start', justifyContent: 'space-between', gap: 10 },
-  itemNome: { flex: 1, fontSize: 20, lineHeight: 26 },
-  itemApoio: { fontSize: 16, color: cores.taupe },
+  itemNome: { flex: 1, fontSize: fs(20), lineHeight: fs(26) },
+  itemApoio: { fontSize: fs(16), color: cores.taupe },
   itemDados: { gap: 4 },
   itemDado: { flexDirection: 'row', gap: 12 },
-  itemDadoRotulo: { width: 96, fontSize: 16, color: cores.taupe },
-  itemDadoValor: { flex: 1, fontSize: 16, color: cores.cafeEscuro },
+  itemDadoRotulo: { width: 96, fontSize: fs(16), color: cores.taupe },
+  itemDadoValor: { flex: 1, fontSize: fs(16), color: cores.cafeEscuro },
   itemAcoes: { flexDirection: 'row', flexWrap: 'wrap', gap: 8, paddingTop: 6 },
 })
 
@@ -198,7 +198,7 @@ export function CheckItem({ checked, onChange, disabled, titulo, apoio, compacto
         {Boolean(checked) && <CheckIcon size={12} strokeWidth={3} color={cores.branco} />}
       </View>
       <View style={!compacto && { flex: 1 }}>
-        <Texto peso={compacto ? 500 : 600} style={[estilos.checkTexto, compacto && { fontSize: 17 }]}>
+        <Texto peso={compacto ? 500 : 600} style={[estilos.checkTexto, compacto && { fontSize: fs(17) }]}>
           {titulo}
         </Texto>
         {apoio ? <Texto style={estilos.checkApoio}>{apoio}</Texto> : null}
@@ -241,7 +241,7 @@ export function GradeNumeros({ children, largura }) {
 const estilos = StyleSheet.create({
   como: { gap: 10, marginTop: 6, paddingTop: 14, borderTopWidth: 1, borderTopColor: cores.borda },
   comoTopo: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', minHeight: 40 },
-  comoTitulo: { fontSize: 17, color: cores.cafe },
+  comoTitulo: { fontSize: fs(17), color: cores.cafe },
   produto: { flexDirection: 'row', gap: 16, alignItems: 'center' },
   produtoFoto: { width: 116, height: 150 },
   produtoFotoCheia: { overflow: 'hidden', borderRadius: 14 },
@@ -253,7 +253,7 @@ const estilos = StyleSheet.create({
     overflow: 'hidden',
     borderRadius: 999,
     backgroundColor: cores.creme,
-    fontSize: 15,
+    fontSize: fs(15),
     color: cores.cafe,
   },
   secaoTopo: { flexDirection: 'row', alignItems: 'center', gap: 12, marginBottom: 20 },
@@ -265,7 +265,7 @@ const estilos = StyleSheet.create({
     justifyContent: 'center',
     backgroundColor: cores.areia,
   },
-  secaoNumeroTexto: { fontSize: 17, color: cores.cafe },
+  secaoNumeroTexto: { fontSize: fs(17), color: cores.cafe },
   pendIcone: {
     width: 64,
     height: 64,
@@ -274,8 +274,8 @@ const estilos = StyleSheet.create({
     justifyContent: 'center',
     backgroundColor: cores.areia,
   },
-  pendTitulo: { marginTop: 6, fontSize: 23, lineHeight: 29, textAlign: 'center' },
-  pendContagem: { fontSize: 17, color: cores.taupe },
+  pendTitulo: { marginTop: 6, fontSize: fs(23), lineHeight: fs(29), textAlign: 'center' },
+  pendContagem: { fontSize: fs(17), color: cores.taupe },
   pendLista: { alignSelf: 'stretch', gap: 8, marginTop: 14 },
   pendItem: {
     flexDirection: 'row',
@@ -313,8 +313,8 @@ const estilos = StyleSheet.create({
     backgroundColor: cores.branco,
   },
   caixaMarcada: { backgroundColor: cores.cafe, borderColor: cores.cafe },
-  checkTexto: { fontSize: 16, lineHeight: 23 },
-  checkApoio: { fontSize: 16, lineHeight: 23, color: cores.taupe },
+  checkTexto: { fontSize: fs(16), lineHeight: fs(23) },
+  checkApoio: { fontSize: fs(16), lineHeight: fs(23), color: cores.taupe },
   numero: {
     flexGrow: 1,
     flexBasis: '45%',
@@ -325,11 +325,11 @@ const estilos = StyleSheet.create({
     borderRadius: 10,
     backgroundColor: cores.branco,
   },
-  numeroRotulo: { fontSize: 15, color: cores.taupe },
-  numeroValor: { marginTop: 2, fontSize: 18, color: cores.cafeEscuro },
+  numeroRotulo: { fontSize: fs(15), color: cores.taupe },
+  numeroValor: { marginTop: 2, fontSize: fs(18), color: cores.cafeEscuro },
   mensagem: { flexDirection: 'row', gap: 10, paddingVertical: 12, paddingHorizontal: 14, borderRadius: 10 },
   alerta: { backgroundColor: cores.erroFundo },
   aviso: { backgroundColor: cores.avisoFundo },
   erro: { backgroundColor: cores.branco, borderWidth: 1, borderStyle: 'dashed', borderColor: cores.borda },
-  mensagemTexto: { flex: 1, fontSize: 16, lineHeight: 23 },
+  mensagemTexto: { flex: 1, fontSize: fs(16), lineHeight: fs(23) },
 })

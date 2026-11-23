@@ -4,7 +4,7 @@ import { PillButton } from '../componentes/ui/PillButton.jsx'
 import { Texto, Titulo } from '../componentes/Texto.jsx'
 import { ArrowLeftIcon } from '../web/components/Icons/Icons.jsx'
 import logo from '../web/assets/images/logo-pawtinhas.webp'
-import { cores, sombras } from '../tema.js'
+import { cores, sombras, fs } from '../tema.js'
 
 /** Página não encontrada (NotFound do site). */
 export default function NotFound() {
@@ -34,8 +34,8 @@ const estilos = StyleSheet.create({
     backgroundColor: cores.areia,
   },
   logo: { width: 120, height: 157 },
-  codigo: { marginTop: 8, fontSize: 72, lineHeight: 72, color: cores.caramelo },
-  titulo: { marginTop: 12, fontSize: 32, lineHeight: 38, textAlign: 'center' },
+  codigo: { marginTop: 8, fontSize: fs(72), lineHeight: fs(72), color: cores.caramelo },
+  titulo: { marginTop: 12, fontSize: fs(32), lineHeight: fs(38), textAlign: 'center' },
   texto: { maxWidth: 420, marginTop: 12, textAlign: 'center', color: cores.taupe },
   botao: { marginTop: 32 },
 })

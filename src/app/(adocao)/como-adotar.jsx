@@ -4,7 +4,7 @@ import { WhatsAppIcon } from '../../web/components/Icons/Icons.jsx'
 import { Page } from '../../componentes/Page.jsx'
 import { Texto, Titulo } from '../../componentes/Texto.jsx'
 import { whatsappLink } from '../../config.js'
-import { cores, sombras } from '../../tema.js'
+import { cores, sombras, fs } from '../../tema.js'
 import { Grade } from '../../componentes/ui/Grade.jsx'
 
 const WHATSAPP_DUVIDAS = whatsappLink('Olá! Gostaria de saber mais sobre o processo de adoção do Pawtinhas.')
@@ -47,7 +47,7 @@ export default function ComoAdotar() {
         {PASSOS.map(({ titulo, texto }, index) => (
           <View key={titulo} style={[estilos.passo, sombras.suave]}>
             <View style={estilos.numero}>
-              <Texto peso={700} style={{ fontSize: 16, color: cores.branco }}>
+              <Texto peso={700} style={{ fontSize: fs(16), color: cores.branco }}>
                 {index + 1}
               </Texto>
             </View>
@@ -85,7 +85,7 @@ export default function ComoAdotar() {
               style={estilos.ctaLink}
             >
               <WhatsAppIcon size={18} color={cores.areia} />
-              <Texto peso={600} style={{ fontSize: 16, color: cores.areia }}>
+              <Texto peso={600} style={{ fontSize: fs(16), color: cores.areia }}>
                 Tirar dúvidas pelo WhatsApp
               </Texto>
             </Pressable>
@@ -113,10 +113,10 @@ const estilos = StyleSheet.create({
     borderRadius: 15,
     backgroundColor: cores.cafe,
   },
-  passoTitulo: { marginTop: 16, fontSize: 23, lineHeight: 28 },
-  passoTexto: { marginTop: 10, lineHeight: 27, color: cores.taupe },
-  secaoTitulo: { fontSize: 27, lineHeight: 34 },
-  requisito: { fontSize: 18, lineHeight: 28, color: cores.taupeEscuro },
+  passoTitulo: { marginTop: 16, fontSize: fs(23), lineHeight: fs(28) },
+  passoTexto: { marginTop: 10, lineHeight: fs(27), color: cores.taupe },
+  secaoTitulo: { fontSize: fs(27), lineHeight: fs(34) },
+  requisito: { fontSize: fs(18), lineHeight: fs(28), color: cores.taupeEscuro },
   cta: {
     alignItems: 'flex-start',
     marginTop: 12,
@@ -125,8 +125,8 @@ const estilos = StyleSheet.create({
     borderRadius: 24,
     backgroundColor: cores.cafe,
   },
-  ctaTitulo: { fontSize: 27, lineHeight: 34, color: cores.branco },
-  ctaTexto: { marginTop: 10, lineHeight: 26, color: 'rgba(255, 255, 255, 0.85)' },
+  ctaTitulo: { fontSize: fs(27), lineHeight: fs(34), color: cores.branco },
+  ctaTexto: { marginTop: 10, lineHeight: fs(26), color: 'rgba(255, 255, 255, 0.85)' },
   ctaBotao: {
     marginTop: 22,
     paddingVertical: 13,

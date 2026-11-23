@@ -5,7 +5,7 @@ import { FotoInteira } from '../componentes/ui/FotoInteira.jsx'
 import { photoSrc } from '../plataforma/imagens.js'
 import { sexoEspecie } from '../web/utils/adocao.js'
 import { Texto, Titulo } from '../componentes/Texto.jsx'
-import { cores, sombras } from '../tema.js'
+import { cores, sombras, fs } from '../tema.js'
 
 /** Botão de coração dos favoritos, sobre a foto. */
 export function BotaoFavorito({ animal, favorite, onToggle, style }) {
@@ -117,7 +117,7 @@ const estilos = StyleSheet.create({
     borderRadius: 999,
     backgroundColor: cores.cafeEscuro,
   },
-  seloTexto: { fontSize: 15, letterSpacing: 0.24, color: cores.branco },
+  seloTexto: { fontSize: fs(15), letterSpacing: 0.24, color: cores.branco },
   processo: {
     position: 'absolute',
     top: 14,
@@ -127,13 +127,13 @@ const estilos = StyleSheet.create({
     borderRadius: 999,
     backgroundColor: cores.caramelo,
   },
-  processoTexto: { fontSize: 15, color: cores.cafeEscuro },
+  processoTexto: { fontSize: fs(15), color: cores.cafeEscuro },
   corpo: { paddingTop: 20, paddingHorizontal: 24, paddingBottom: 24 },
   topo: { flexDirection: 'row', alignItems: 'baseline', justifyContent: 'space-between', gap: 12 },
-  nome: { flexShrink: 1, fontSize: 25, lineHeight: 30 },
-  idade: { fontSize: 16, color: cores.taupeEscuro },
+  nome: { flexShrink: 1, fontSize: fs(25), lineHeight: fs(30) },
+  idade: { fontSize: fs(16), color: cores.taupeEscuro },
   local: { flexDirection: 'row', alignItems: 'center', gap: 6, marginTop: 6 },
-  localTexto: { fontSize: 16, color: cores.taupeEscuro },
+  localTexto: { fontSize: fs(16), color: cores.taupeEscuro },
   porte: {
     marginLeft: 'auto',
     paddingVertical: 3,
@@ -141,10 +141,10 @@ const estilos = StyleSheet.create({
     borderRadius: 999,
     overflow: 'hidden',
     backgroundColor: cores.areia,
-    fontSize: 15,
+    fontSize: fs(15),
     color: cores.cafe,
   },
-  descricao: { marginTop: 12, lineHeight: 26, color: cores.taupeEscuro },
+  descricao: { marginTop: 12, lineHeight: fs(26), color: cores.taupeEscuro },
   botao: {
     flexDirection: 'row',
     minHeight: 48,

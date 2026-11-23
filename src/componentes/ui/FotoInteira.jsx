@@ -1,6 +1,6 @@
 import { StyleSheet, View } from 'react-native'
 import { Image } from 'expo-image'
-import { cores } from '../../tema.js'
+import { cores, fs } from '../../tema.js'
 import { Texto } from '../Texto.jsx'
 
 /**
@@ -37,5 +37,5 @@ const estilos = StyleSheet.create({
     backgroundColor: cores.fotoVazia,
   },
   fundo: { ...StyleSheet.absoluteFillObject, opacity: 0.85, transform: [{ scale: 1.15 }] },
-  semFoto: { fontSize: 16, color: cores.taupe },
+  semFoto: { fontSize: fs(16), color: cores.taupe },
 })

@@ -11,7 +11,7 @@ import { dataService } from '../web/services/dataService.js'
 import { addDaysIso, formatDateBr, todayIso } from '../web/utils/dates.js'
 import { formatNumber, formatQuantidade, intervaloLabel } from '../web/utils/numbers.js'
 import { alarmeTocando } from '../alarmes/estado.js'
-import { cores } from '../tema.js'
+import { cores, fs } from '../tema.js'
 import { Grade } from '../componentes/ui/Grade.jsx'
 
 const STATUS_PRESCRICAO = ['Ativa', 'Suspensa', 'Concluída']
@@ -226,7 +226,7 @@ export function Alimentacao({ pet, planos, patchLocal }) {
                   <Texto peso={600} style={estilos.dt}>
                     {rotulo.toUpperCase()}
                   </Texto>
-                  <Texto peso={600} style={{ fontSize: 16 }}>
+                  <Texto peso={600} style={{ fontSize: fs(16) }}>
                     {valor}
                   </Texto>
                 </View>
@@ -277,15 +277,15 @@ const estilos = StyleSheet.create({
   },
   topo: { flexDirection: 'row', flexWrap: 'wrap', alignItems: 'center', justifyContent: 'space-between', gap: 10 },
   subtitulo: { flexDirection: 'row', alignItems: 'center', gap: 8 },
-  subtituloTexto: { fontSize: 25, lineHeight: 30 },
+  subtituloTexto: { fontSize: fs(25), lineHeight: fs(30) },
   vazio: { marginTop: 12, color: cores.taupe },
   lista: { marginTop: 14 },
   item: { gap: 4, paddingVertical: 14, borderBottomWidth: 1, borderBottomColor: cores.borda },
   linha: { flexDirection: 'row', flexWrap: 'wrap', alignItems: 'center', columnGap: 10, rowGap: 6 },
-  dose: { fontSize: 16, color: cores.cafe },
-  apoio: { fontSize: 15, lineHeight: 21, color: cores.taupe },
+  dose: { fontSize: fs(16), color: cores.cafe },
+  apoio: { fontSize: fs(15), lineHeight: fs(21), color: cores.taupe },
   apoioLinha: { flexDirection: 'row', alignItems: 'center', gap: 6 },
-  alerta: { fontSize: 15, color: cores.erro },
+  alerta: { fontSize: fs(15), color: cores.erro },
   acoes: { flexDirection: 'row', alignItems: 'center', gap: 8, marginTop: 6 },
   excluir: { width: 34, height: 34, alignItems: 'center', justifyContent: 'center', borderRadius: 17 },
   plano: {
@@ -295,11 +295,11 @@ const estilos = StyleSheet.create({
     borderRadius: 20,
     backgroundColor: cores.superficie,
   },
-  gramas: { fontSize: 36, lineHeight: 41 },
-  gramasUnidade: { fontSize: 16, color: cores.taupe },
+  gramas: { fontSize: fs(36), lineHeight: fs(41) },
+  gramasUnidade: { fontSize: fs(16), color: cores.taupe },
   planoDados: { marginTop: 14 },
   planoDado: { minWidth: 0 },
-  dt: { fontSize: 15, letterSpacing: 0.4, color: cores.taupe },
+  dt: { fontSize: fs(15), letterSpacing: 0.4, color: cores.taupe },
   anteriores: { marginTop: 12 },
   anterior: {
     flexDirection: 'row',
@@ -308,7 +308,7 @@ const estilos = StyleSheet.create({
     gap: 10,
     paddingVertical: 6,
   },
-  anteriorTexto: { flex: 1, fontSize: 15, lineHeight: 21, color: cores.taupeEscuro },
-  origem: { fontSize: 15, color: cores.taupe },
-  modelo: { fontSize: 15, color: cores.ferrugem },
+  anteriorTexto: { flex: 1, fontSize: fs(15), lineHeight: fs(21), color: cores.taupeEscuro },
+  origem: { fontSize: fs(15), color: cores.taupe },
+  modelo: { fontSize: fs(15), color: cores.ferrugem },
 })

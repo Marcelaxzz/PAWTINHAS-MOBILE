@@ -1,4 +1,12 @@
-import { Platform } from 'react-native'
+import { Dimensions, Platform } from 'react-native'
+
+/*
+ * Tamanho das letras de acordo com a tela: ~86% no celular (360-430px de largura),
+ * subindo até 94% no tablet. fs(16) = tamanho de 16 já ajustado à tela.
+ */
+const larguraTela = Math.min(Dimensions.get('window').width || 390, 1024)
+export const escalaFonte = Math.min(0.94, Math.max(0.85, 0.85 + ((larguraTela - 360) / 664) * 0.09))
+export const fs = (n) => Math.round(n * escalaFonte * 2) / 2
 
 /** Paleta e medidas do site (styles/global.css), com os mesmos nomes. */
 export const cores = {
@@ -81,16 +89,16 @@ export const texto = (peso = 400) => ({ fontFamily: LEXEND[peso] ?? LEXEND[400] 
 /** Fraunces (títulos), como os h1/h2 do site. */
 export const serifa = (peso = 900) => ({ fontFamily: peso >= 900 ? 'Fraunces_900Black' : 'Fraunces_800ExtraBold' })
 
-/** Escala de tamanhos do site (1rem = 18px). */
+/** Escala de tamanhos do site, já ajustada à tela (fs). */
 export const tamanho = {
-  xs: 15,
-  sm: 17,
-  base: 18,
-  md: 19,
-  lg: 20,
-  tituloSm: 23,
-  tituloMd: 27,
-  tituloLg: 34,
+  xs: fs(15),
+  sm: fs(17),
+  base: fs(18),
+  md: fs(19),
+  lg: fs(20),
+  tituloSm: fs(23),
+  tituloMd: fs(27),
+  tituloLg: fs(34),
 }
 
 export const raio = { campo: 12, sm: 10, md: 16, lg: 24, card: 32, pilula: 999 }

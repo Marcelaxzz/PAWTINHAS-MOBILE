@@ -4,7 +4,7 @@ import { usePathname, useRouter } from 'expo-router'
 import { LinearGradient } from 'expo-linear-gradient'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { PageHeading } from './ui/Basicos.jsx'
-import { cores, gradientes, MARGEM, sombras } from '../tema.js'
+import { cores, gradientes, MARGEM, sombras, fs } from '../tema.js'
 import { Texto } from './Texto.jsx'
 
 /**
@@ -154,7 +154,7 @@ const estilos = StyleSheet.create({
   },
   abaToque: { borderRadius: 999 },
   aba: { paddingVertical: 8, paddingHorizontal: 18, borderRadius: 999 },
-  abaTexto: { fontSize: 16, lineHeight: 20, color: cores.taupe },
+  abaTexto: { fontSize: fs(16), lineHeight: fs(20), color: cores.taupe },
   acoes: { flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'center', gap: 12, marginTop: 22 },
   conteudo: { width: '100%', alignSelf: 'center' },
   corpo: { gap: 16, marginTop: 26 },

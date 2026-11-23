@@ -1,7 +1,7 @@
 import { forwardRef, useEffect, useImperativeHandle, useRef, useState } from 'react'
 import { Pressable, StyleSheet, TextInput, View } from 'react-native'
 import { EyeIcon, EyeOffIcon } from '../web/components/Icons/Icons.jsx'
-import { cores, texto } from '../tema.js'
+import { cores, texto, fs } from '../tema.js'
 import { Texto } from './Texto.jsx'
 
 /** Teclado e preenchimento automático equivalentes ao type/autoComplete do site. */
@@ -96,7 +96,7 @@ export const CampoTexto = forwardRef(function CampoTexto(
 
 const estilos = StyleSheet.create({
   campo: { gap: 8 },
-  rotulo: { fontSize: 16, lineHeight: 20, color: cores.cafeMedio },
+  rotulo: { fontSize: fs(16), lineHeight: fs(20), color: cores.cafeMedio },
   caixa: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -116,12 +116,12 @@ const estilos = StyleSheet.create({
     minWidth: 0,
     height: '100%',
     padding: 0,
-    fontSize: 17,
+    fontSize: fs(17),
     color: cores.cafeEscuro,
     ...texto(400),
   },
   senha: { letterSpacing: 1.8 },
   alternar: { width: 30, height: 30, alignItems: 'center', justifyContent: 'center', borderRadius: 15 },
-  dica: { fontSize: 15, lineHeight: 20, color: cores.taupe },
-  erro: { fontSize: 15, lineHeight: 20, color: cores.erro },
+  dica: { fontSize: fs(15), lineHeight: fs(20), color: cores.taupe },
+  erro: { fontSize: fs(15), lineHeight: fs(20), color: cores.erro },
 })

@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { Pressable, StyleSheet, TextInput, View } from 'react-native'
 import { ChevronDownIcon, SearchIcon } from '../web/components/Icons/Icons.jsx'
 import { FolhaOpcoes } from './ui/Field.jsx'
-import { cores, texto } from '../tema.js'
+import { cores, texto, fs } from '../tema.js'
 import { Texto } from './Texto.jsx'
 
 /** Barra de filtros das listas (busca, seletores e ação), como no site. */
@@ -91,7 +91,7 @@ const estilos = StyleSheet.create({
     minWidth: 0,
     minHeight: 38,
     padding: 0,
-    fontSize: 15,
+    fontSize: fs(15),
     color: cores.cafeEscuro,
     ...texto(400),
   },
@@ -107,5 +107,5 @@ const estilos = StyleSheet.create({
     borderRadius: 999,
     backgroundColor: cores.cremeClaro,
   },
-  selectTexto: { fontSize: 15, color: cores.cafeEscuro },
+  selectTexto: { fontSize: fs(15), color: cores.cafeEscuro },
 })

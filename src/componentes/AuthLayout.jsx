@@ -13,7 +13,7 @@ import { LinearGradient } from 'expo-linear-gradient'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import logo from '../web/assets/images/logo-pawtinhas.webp'
 import pets from '../web/assets/images/pets-boas-vindas.webp'
-import { cores, gradientes, sombras } from '../tema.js'
+import { cores, gradientes, sombras, fs } from '../tema.js'
 import { Titulo } from './Texto.jsx'
 import { useAte } from './ui/Grade.jsx'
 
@@ -92,8 +92,8 @@ const estilos = StyleSheet.create({
     backgroundColor: cores.creme,
   },
   seloImagem: { width: 32, height: 42 },
-  marcaNome: { fontSize: 25, lineHeight: 32, color: cores.branco },
-  titulo: { marginTop: 20, fontSize: 29, lineHeight: 33, color: cores.branco },
+  marcaNome: { fontSize: fs(25), lineHeight: fs(32), color: cores.branco },
+  titulo: { marginTop: 20, fontSize: fs(29), lineHeight: fs(33), color: cores.branco },
   formulario: { paddingTop: 32, paddingHorizontal: 24, paddingBottom: 40 },
   formularioConteudo: { width: '100%', maxWidth: 420, alignSelf: 'center' },
   // Ilustração dos pets
@@ -104,7 +104,7 @@ const estilos = StyleSheet.create({
   paginaLado: { paddingHorizontal: 16 },
   cartaoLado: { flexDirection: 'row', borderRadius: 32 },
   painelLado: { flex: 1, paddingTop: 48, paddingHorizontal: 56 },
-  tituloLado: { maxWidth: 360, marginTop: 64, fontSize: 52, lineHeight: 57 },
+  tituloLado: { maxWidth: 360, marginTop: 64, fontSize: fs(52), lineHeight: fs(57) },
   ilustracaoLado: { flex: 1, height: undefined, minHeight: 240, marginTop: 24, marginHorizontal: -56 },
   formularioLado: { flex: 1, justifyContent: 'center', paddingVertical: 48, paddingHorizontal: 56 },
 })

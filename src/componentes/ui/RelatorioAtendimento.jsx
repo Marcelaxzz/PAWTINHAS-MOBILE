@@ -9,7 +9,7 @@ import { useToast } from '../../web/hooks/useToast.js'
 import { relatoriosService } from '../../web/services/gestaoService.js'
 import { formatDateBr, maskDate, parseDateBr } from '../../web/utils/dates.js'
 import { maskDecimal, parseDecimal } from '../../web/utils/numbers.js'
-import { cores } from '../../tema.js'
+import { cores, fs } from '../../tema.js'
 import { Texto } from '../Texto.jsx'
 
 const decimal = (n) => (n == null ? '' : String(n).replace('.', ','))
@@ -209,6 +209,6 @@ const estilos = StyleSheet.create({
     borderRadius: 14,
     backgroundColor: cores.cremeClaro,
   },
-  apoio: { fontSize: 16, color: cores.taupe },
+  apoio: { fontSize: fs(16), color: cores.taupe },
   acoes: { flexDirection: 'row', flexWrap: 'wrap', gap: 8 },
 })

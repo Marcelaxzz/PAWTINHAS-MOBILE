@@ -28,7 +28,7 @@ import { photoSrc } from '../plataforma/imagens.js'
 import { sexoEspecie } from '../web/utils/adocao.js'
 import { normalize } from '../web/utils/text.js'
 import logoContorno from '../web/assets/images/logo-pawtinhas-contorno.webp'
-import { cores, sombras, texto } from '../tema.js'
+import { cores, sombras, texto, fs } from '../tema.js'
 import { Grade } from '../componentes/ui/Grade.jsx'
 
 const STATUS_FILTRO = ['Todos', 'Disponível', 'Em processo', 'Adotado']
@@ -130,7 +130,7 @@ export function AdminAdocoes() {
           <Grade colunas={4} quebras={{ 1100: 2 }} gap={12}>
             {stats.map((s) => (
               <View key={s.label} style={[estilos.stat, sombras.suave]}>
-                <Texto style={{ fontSize: 16, color: cores.taupe }}>{s.label}</Texto>
+                <Texto style={{ fontSize: fs(16), color: cores.taupe }}>{s.label}</Texto>
                 <Texto peso={700} style={[estilos.statValor, { color: TONS[s.tone] }]}>
                   {s.value}
                 </Texto>
@@ -159,10 +159,10 @@ export function AdminAdocoes() {
                 style={[estilos.filtrar, statusFiltro !== 'Todos' && { borderColor: cores.caramelo }]}
               >
                 <SlidersIcon size={16} color={cores.cafeEscuro} />
-                <Texto peso={600} style={{ fontSize: 16 }}>
+                <Texto peso={600} style={{ fontSize: fs(16) }}>
                   Filtrar
                   {statusFiltro !== 'Todos' && (
-                    <Texto style={{ fontSize: 16, color: cores.taupe }}>: {statusFiltro}</Texto>
+                    <Texto style={{ fontSize: fs(16), color: cores.taupe }}>: {statusFiltro}</Texto>
                   )}
                 </Texto>
               </Pressable>
@@ -200,21 +200,21 @@ export function AdminAdocoes() {
                     >
                       <Texto
                         peso={600}
-                        style={{ fontSize: 15, color: animal.status === 'Adotado' ? cores.taupe : cores.cafeEscuro }}
+                        style={{ fontSize: fs(15), color: animal.status === 'Adotado' ? cores.taupe : cores.cafeEscuro }}
                       >
                         {animal.status}
                       </Texto>
                     </View>
                     <View style={estilos.selo}>
-                      <Texto peso={700} style={{ fontSize: 15, color: cores.branco }}>
+                      <Texto peso={700} style={{ fontSize: fs(15), color: cores.branco }}>
                         {sexoEspecie(animal).toUpperCase()}
                       </Texto>
                     </View>
                   </View>
                   <View style={estilos.corpo}>
                     <View style={estilos.nomeLinha}>
-                      <Titulo style={{ flexShrink: 1, fontSize: 24, lineHeight: 29 }}>{animal.nome}</Titulo>
-                      <Texto style={{ fontSize: 16, color: cores.taupe }}>{animal.idade}</Texto>
+                      <Titulo style={{ flexShrink: 1, fontSize: fs(24), lineHeight: fs(29) }}>{animal.nome}</Titulo>
+                      <Texto style={{ fontSize: fs(16), color: cores.taupe }}>{animal.idade}</Texto>
                     </View>
                     <Texto style={estilos.raca}>
                       {animal.raca || animal.especie} • Porte {animal.porte}
@@ -268,7 +268,7 @@ function Acao({ icon: Icon, perigo, onPress, children }) {
       ]}
     >
       <Icon size={15} color={cor} />
-      <Texto peso={600} style={{ fontSize: 15, color: cor }}>
+      <Texto peso={600} style={{ fontSize: fs(15), color: cor }}>
         {children}
       </Texto>
     </Pressable>
@@ -288,10 +288,10 @@ function EditarAnimalModal({ animal, onClose, onSave, saving }) {
             <Image source={logoContorno} style={estilos.modalLogo} contentFit="contain" />
             <View style={{ flex: 1 }}>
               <View style={estilos.modalTituloLinha}>
-                <Titulo style={{ fontSize: 27, lineHeight: 33, color: cores.branco }}>Editar animal</Titulo>
+                <Titulo style={{ fontSize: fs(27), lineHeight: fs(33), color: cores.branco }}>Editar animal</Titulo>
                 {Boolean(animal) && (
                   <View style={estilos.modalId}>
-                    <Texto peso={700} style={{ fontSize: 15, color: cores.branco }}>
+                    <Texto peso={700} style={{ fontSize: fs(15), color: cores.branco }}>
                       ID #{animal.id.slice(-6).toUpperCase()}
                     </Texto>
                   </View>
@@ -337,9 +337,9 @@ const estilos = StyleSheet.create({
     borderRadius: 24,
     backgroundColor: cores.superficie,
   },
-  statValor: { fontSize: 36, lineHeight: 39 },
+  statValor: { fontSize: fs(36), lineHeight: fs(39) },
   barra: { gap: 16, marginTop: 16 },
-  secao: { fontSize: 27, lineHeight: 34 },
+  secao: { fontSize: fs(27), lineHeight: fs(34) },
   ferramentas: { flexDirection: 'row', gap: 12 },
   busca: {
     flex: 1,
@@ -353,7 +353,7 @@ const estilos = StyleSheet.create({
     borderRadius: 10,
     backgroundColor: cores.branco,
   },
-  buscaEntrada: { flex: 1, minHeight: 38, padding: 0, fontSize: 16, color: cores.cafeEscuro, ...texto(400) },
+  buscaEntrada: { flex: 1, minHeight: 38, padding: 0, fontSize: fs(16), color: cores.cafeEscuro, ...texto(400) },
   filtrar: {
     flexDirection: 'row',
     alignItems: 'center',

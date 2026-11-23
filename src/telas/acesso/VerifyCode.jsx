@@ -12,7 +12,7 @@ import { formatCountdown } from '../../web/utils/masks.js'
 import { safeRedirect } from '../../web/utils/navigation.js'
 import { validateCode } from '../../web/utils/validators.js'
 import { fluxoAcesso } from '../../fluxoAcesso.js'
-import { cores } from '../../tema.js'
+import { cores, fs } from '../../tema.js'
 import { estilosAcesso } from './estilosAcesso.js'
 
 const CONTENT = {
@@ -154,7 +154,7 @@ function VerifyCodeForm({ purpose, challengeId, resendIn, from }) {
           <Texto
             peso={700}
             style={{
-              fontSize: 16,
+              fontSize: fs(16),
               color: remaining > 0 || resending ? cores.taupe : cores.cafe,
               opacity: remaining > 0 || resending ? 0.5 : 1,
             }}

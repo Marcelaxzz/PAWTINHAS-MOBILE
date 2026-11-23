@@ -16,7 +16,7 @@ import { formatDateBr } from '../../../web/utils/dates.js'
 import { EsquemaAlarme } from '../../../telas/EsquemaAlarme.jsx'
 import { NesteCelular } from '../../../alarmes/NesteCelular.jsx'
 import { alarmeTocando } from '../../../alarmes/estado.js'
-import { cores, sombras } from '../../../tema.js'
+import { cores, sombras, fs } from '../../../tema.js'
 import { relatoriosService } from '../../../web/services/gestaoService.js'
 import { proximoToque, resumoDoAlarme, textoDoToque } from '../../../web/utils/alarmes.js'
 
@@ -210,12 +210,12 @@ const estilos = StyleSheet.create({
     borderRadius: 10,
     backgroundColor: 'rgba(216, 161, 107, 0.2)',
   },
-  iotTexto: { marginTop: 2, fontSize: 16, lineHeight: 23, color: cores.taupe },
+  iotTexto: { marginTop: 2, fontSize: fs(16), lineHeight: fs(23), color: cores.taupe },
   iotAcoes: { alignItems: 'flex-start', gap: 10 },
-  descricao: { fontSize: 17, color: cores.taupe },
-  repeticao: { marginTop: 4, fontSize: 16, color: cores.cafe },
+  descricao: { fontSize: fs(17), color: cores.taupe },
+  repeticao: { marginTop: 4, fontSize: fs(16), color: cores.cafe },
   passos: { gap: 8, marginTop: 16 },
-  passo: { fontSize: 16, lineHeight: 24, color: cores.cafeEscuro },
+  passo: { fontSize: fs(16), lineHeight: fs(24), color: cores.cafeEscuro },
   hora: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -228,5 +228,5 @@ const estilos = StyleSheet.create({
     borderRadius: 10,
     backgroundColor: cores.branco,
   },
-  horaTexto: { fontSize: 20, color: cores.cafe, fontVariant: ['tabular-nums'] },
+  horaTexto: { fontSize: fs(20), color: cores.cafe, fontVariant: ['tabular-nums'] },
 })

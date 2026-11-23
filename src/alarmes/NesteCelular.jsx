@@ -16,7 +16,7 @@ import {
   tocarNesteCelular,
 } from './agendador'
 import { alarmeTocando } from './estado.js'
-import { cores, sombras } from '../tema.js'
+import { cores, sombras, fs } from '../tema.js'
 
 /**
  * Cartão "Neste celular" da tela de alarmes: liga os alarmes no aparelho, pede a permissão de
@@ -144,6 +144,6 @@ const estilos = StyleSheet.create({
     borderRadius: 10,
     backgroundColor: 'rgba(216, 161, 107, 0.2)',
   },
-  texto: { marginTop: 2, fontSize: 16, lineHeight: 23, color: cores.taupe },
+  texto: { marginTop: 2, fontSize: fs(16), lineHeight: fs(23), color: cores.taupe },
   acoes: { flexDirection: 'row', flexWrap: 'wrap', gap: 10 },
 })

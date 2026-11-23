@@ -7,7 +7,7 @@ import { ArrowRightIcon } from '../web/components/Icons/Icons.jsx'
 import logo from '../web/assets/images/logo-pawtinhas.webp'
 import coelho from '../web/assets/images/coelho-oculos.webp'
 import gato from '../web/assets/images/gato-oculos.webp'
-import { cores, gradientes, sombras, texto } from '../tema.js'
+import { cores, gradientes, sombras, texto, fs } from '../tema.js'
 import { Texto } from '../componentes/Texto.jsx'
 
 const LETRAS = [
@@ -134,7 +134,7 @@ const estilos = StyleSheet.create({
   gato: { position: 'absolute', zIndex: 0, bottom: 0 },
   conteudo: { paddingHorizontal: 20, paddingBottom: 220 },
   bloco: { alignItems: 'center' },
-  saudacao: { textAlign: 'center', color: cores.taupe, lineHeight: 29 },
+  saudacao: { textAlign: 'center', color: cores.taupe, lineHeight: fs(29) },
   marca: {
     ...texto(800),
     letterSpacing: -0.5,
@@ -155,10 +155,10 @@ const estilos = StyleSheet.create({
     borderRadius: 999,
   },
   botaoLogin: { borderWidth: 1.5, borderColor: cores.bordaForte, backgroundColor: 'rgba(255, 253, 249, 0.75)' },
-  botaoTexto: { fontSize: 19 },
+  botaoTexto: { fontSize: fs(19) },
   sobre: { alignSelf: 'center', marginTop: 8 },
   sobreTexto: {
-    fontSize: 18,
+    fontSize: fs(18),
     color: cores.cafe,
     textDecorationLine: 'underline',
     textDecorationColor: cores.caramelo,

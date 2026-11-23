@@ -18,7 +18,7 @@ import { maskCpf, maskPhone } from '../../../web/utils/masks.js'
 import { normalize } from '../../../web/utils/text.js'
 import { validateCpf, validateOptionalEmail, validatePhone } from '../../../web/utils/validators.js'
 import { PACIENTES_TABS } from '../../../web/pages/panel/pacientesTabs.js'
-import { cores, sombras } from '../../../tema.js'
+import { cores, sombras, fs } from '../../../tema.js'
 
 export default function Tutores() {
   const router = useRouter()
@@ -317,9 +317,9 @@ const estilos = StyleSheet.create({
     borderRadius: 20,
     backgroundColor: cores.superficie,
   },
-  nome: { fontSize: 20, lineHeight: 26 },
+  nome: { fontSize: fs(20), lineHeight: fs(26) },
   linha: { flexDirection: 'row', alignItems: 'flex-start', gap: 8 },
-  linhaTexto: { flex: 1, fontSize: 16, color: cores.cafe },
+  linhaTexto: { flex: 1, fontSize: fs(16), color: cores.cafe },
   pets: { flexDirection: 'row', flexWrap: 'wrap', gap: 6 },
   acoes: { flexDirection: 'row', flexWrap: 'wrap', gap: 8, paddingTop: 8 },
 })

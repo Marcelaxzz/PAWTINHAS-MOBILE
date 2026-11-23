@@ -13,7 +13,7 @@ import { useClinic } from '../../../../web/hooks/useClinic.js'
 import { useRecordActions } from '../../../../web/hooks/useRecordActions.js'
 import { compareSchedule, formatDateBr, todayIso } from '../../../../web/utils/dates.js'
 import { AGENDA_TABS } from '../../../../web/pages/panel/agendaTabs.js'
-import { cores } from '../../../../tema.js'
+import { cores, fs } from '../../../../tema.js'
 import { relatoriosService } from '../../../../web/services/gestaoService.js'
 
 export default function PetSitter() {
@@ -109,7 +109,7 @@ export default function PetSitter() {
                           <View style={[estilos.caixa, concluida && estilos.caixaMarcada]}>
                             {Boolean(concluida) && <CheckIcon size={12} strokeWidth={3.2} color={cores.branco} />}
                           </View>
-                          <Texto peso={600} style={{ fontSize: 16, color: concluida ? cores.sucesso : cores.cafe }}>
+                          <Texto peso={600} style={{ fontSize: fs(16), color: concluida ? cores.sucesso : cores.cafe }}>
                             {concluida ? 'Concluída' : 'Marcar como visitada'}
                           </Texto>
                         </Pressable>

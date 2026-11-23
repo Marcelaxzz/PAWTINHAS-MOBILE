@@ -17,7 +17,7 @@ import { formatDateBr } from '../../web/utils/dates.js'
 import { maskPhone } from '../../web/utils/masks.js'
 import { initials } from '../../web/utils/text.js'
 import { salvarArquivo } from '../../plataforma/salvarArquivo'
-import { cores, texto } from '../../tema.js'
+import { cores, texto, fs } from '../../tema.js'
 
 // Minutos sem contato a partir dos quais o ESP32 é considerado desconectado.
 const ESP32_ONLINE_MINUTOS = 10
@@ -192,7 +192,7 @@ function ConfigContent({ settings, patchLocal }) {
               <View style={[estilos.usuario, { borderBottomWidth: 0 }]}>
                 <Avatar nome={user?.name} />
                 <View style={estilos.usuarioTexto}>
-                  <Texto peso={700} style={{ fontSize: 17 }}>
+                  <Texto peso={700} style={{ fontSize: fs(17) }}>
                     {user?.name}
                   </Texto>
                   <Texto style={estilos.usuarioApoio}>{user?.email}</Texto>
@@ -235,7 +235,7 @@ function ConfigContent({ settings, patchLocal }) {
             <View style={{ marginTop: 14 }}>
               <View style={estilos.integracao}>
                 <View style={{ flex: 1 }}>
-                  <Texto peso={700} style={{ fontSize: 17 }}>
+                  <Texto peso={700} style={{ fontSize: fs(17) }}>
                     ESP32 (alarme de medicação)
                   </Texto>
                   {esp.detalhe ? <Texto style={estilos.usuarioApoio}>{esp.detalhe}</Texto> : null}
@@ -246,7 +246,7 @@ function ConfigContent({ settings, patchLocal }) {
               </View>
               <View style={estilos.integracao}>
                 <View style={{ flex: 1 }}>
-                  <Texto peso={700} style={{ fontSize: 17 }}>
+                  <Texto peso={700} style={{ fontSize: fs(17) }}>
                     E-mail (códigos de acesso e resumo)
                   </Texto>
                   <Texto style={estilos.usuarioApoio}>Servidor SMTP definido na configuração da API.</Texto>
@@ -319,8 +319,8 @@ const estilos = StyleSheet.create({
     justifyContent: 'space-between',
     gap: 12,
   },
-  titulo: { fontSize: 25, lineHeight: 30 },
-  rotuloCampo: { fontSize: 15, color: cores.taupe, ...texto(500) },
+  titulo: { fontSize: fs(25), lineHeight: fs(30) },
+  rotuloCampo: { fontSize: fs(15), color: cores.taupe, ...texto(500) },
   toggle: { paddingVertical: 16, borderBottomWidth: 1, borderBottomColor: cores.borda },
   usuario: {
     flexDirection: 'row',
@@ -338,9 +338,9 @@ const estilos = StyleSheet.create({
     borderRadius: 18,
     backgroundColor: cores.caramelo,
   },
-  avatarTexto: { fontSize: 15, color: cores.cafeEscuro },
+  avatarTexto: { fontSize: fs(15), color: cores.cafeEscuro },
   usuarioTexto: { flex: 1, minWidth: 140 },
-  usuarioApoio: { fontSize: 15, color: cores.taupe },
+  usuarioApoio: { fontSize: fs(15), color: cores.taupe },
   usuarioAcoes: { flexDirection: 'row', gap: 2, marginLeft: 'auto' },
   acaoTexto: { paddingVertical: 6, paddingHorizontal: 12, borderRadius: 8 },
   integracao: {
@@ -353,6 +353,6 @@ const estilos = StyleSheet.create({
     borderBottomColor: cores.borda,
   },
   convite: { marginTop: 24, paddingTop: 20, borderTopWidth: 1, borderStyle: 'dashed', borderTopColor: cores.borda },
-  conviteTitulo: { marginBottom: 16, fontSize: 20, lineHeight: 26 },
+  conviteTitulo: { marginBottom: 16, fontSize: fs(20), lineHeight: fs(26) },
   conviteAcoes: { flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'flex-end', gap: 10, marginTop: 18 },
 })

@@ -6,7 +6,7 @@ import pata2 from '../web/assets/images/pata-2.png'
 import pata3 from '../web/assets/images/pata-3.png'
 import { FOTOS_CAROL } from '../web/pages/adocao/Sobre/fotosCarol.js'
 import { Titulo } from './Texto.jsx'
-import { cores, sombras } from '../tema.js'
+import { cores, sombras, fs } from '../tema.js'
 
 const INTERVALO_MS = 4000
 
@@ -92,7 +92,7 @@ const estilos = StyleSheet.create({
   fotoMoldura: { width: '100%', aspectRatio: 1, borderRadius: 4, overflow: 'hidden', backgroundColor: cores.fotoVazia },
   rodape: { alignItems: 'center', gap: 10, paddingTop: 12, paddingBottom: 14 },
   legenda: { flexDirection: 'row', alignItems: 'center', gap: 8 },
-  legendaTexto: { fontSize: 19, lineHeight: 24, color: cores.creme },
+  legendaTexto: { fontSize: fs(19), lineHeight: fs(24), color: cores.creme },
   pontos: { flexDirection: 'row', gap: 7 },
   ponto: { width: 8, height: 8, borderRadius: 4, backgroundColor: 'rgba(251, 246, 235, 0.35)' },
   pontoAtivo: { width: 22, backgroundColor: cores.caramelo },

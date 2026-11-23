@@ -5,7 +5,7 @@ import { CameraIcon, UploadIcon } from '../web/components/Icons/Icons.jsx'
 import { escolherFoto } from '../plataforma/fotos.js'
 import { Dialog } from './ui/Dialog.jsx'
 import { PillButton } from './ui/PillButton.jsx'
-import { cores, sombras } from '../tema.js'
+import { cores, sombras, fs } from '../tema.js'
 import { Texto } from './Texto.jsx'
 
 /**
@@ -113,7 +113,7 @@ const estilos = StyleSheet.create({
     backgroundColor: cores.superficie,
   },
   areaAtiva: { borderColor: cores.caramelo, backgroundColor: 'rgba(216, 161, 107, 0.1)' },
-  titulo: { fontSize: 16, color: cores.cafe, textAlign: 'center' },
-  dica: { fontSize: 15, color: cores.taupe, textAlign: 'center' },
-  erro: { flexBasis: '100%', fontSize: 15, color: cores.erro },
+  titulo: { fontSize: fs(16), color: cores.cafe, textAlign: 'center' },
+  dica: { fontSize: fs(15), color: cores.taupe, textAlign: 'center' },
+  erro: { flexBasis: '100%', fontSize: fs(15), color: cores.erro },
 })

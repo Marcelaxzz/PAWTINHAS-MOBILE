@@ -2,7 +2,7 @@ import { Children, Fragment } from 'react'
 import { KeyboardAvoidingView, Modal, Platform, Pressable, ScrollView, StyleSheet, View } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { CloseIcon } from '../../web/components/Icons/Icons.jsx'
-import { cores, sombras } from '../../tema.js'
+import { cores, sombras, fs } from '../../tema.js'
 import { Texto, Titulo } from '../Texto.jsx'
 
 /**
@@ -140,8 +140,8 @@ const estilos = StyleSheet.create({
   },
   claro: { borderBottomWidth: 1, borderBottomColor: cores.borda },
   escuro: { backgroundColor: cores.cafe },
-  titulo: { fontSize: 27, lineHeight: 33 },
-  descricao: { marginTop: 6, fontSize: 16, lineHeight: 23, opacity: 0.85 },
+  titulo: { fontSize: fs(27), lineHeight: fs(33) },
+  descricao: { marginTop: 6, fontSize: fs(16), lineHeight: fs(23), opacity: 0.85 },
   fechar: { width: 36, height: 36, alignItems: 'center', justifyContent: 'center', borderRadius: 18 },
   corpo: { flexGrow: 0 },
   corpoConteudo: { paddingTop: 18, paddingHorizontal: 20, paddingBottom: 22 },
@@ -157,7 +157,7 @@ const estilos = StyleSheet.create({
     borderTopColor: cores.borda,
   },
   rodapeItem: { flexGrow: 1 },
-  mensagem: { fontSize: 17, lineHeight: 26, color: cores.taupeEscuro },
+  mensagem: { fontSize: fs(17), lineHeight: fs(26), color: cores.taupeEscuro },
   botao: {
     flexGrow: 1,
     minHeight: 42,
@@ -168,5 +168,5 @@ const estilos = StyleSheet.create({
   },
   secundario: { borderWidth: 1, borderColor: cores.borda, backgroundColor: cores.branco },
   perigo: { backgroundColor: cores.erro },
-  botaoTexto: { fontSize: 16, color: cores.cafeEscuro },
+  botaoTexto: { fontSize: fs(16), color: cores.cafeEscuro },
 })

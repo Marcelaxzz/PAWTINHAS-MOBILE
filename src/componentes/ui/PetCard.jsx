@@ -2,7 +2,7 @@ import { Children, Fragment } from 'react'
 import { Pressable, StyleSheet, View } from 'react-native'
 import { Image } from 'expo-image'
 import { PawOutline } from '../../web/components/Icons/Icons.jsx'
-import { cores, sombras } from '../../tema.js'
+import { cores, sombras, fs } from '../../tema.js'
 import { Texto, Titulo } from '../Texto.jsx'
 
 /** No celular o site reduz as fotos: 120/110/100/96 → 80px e 80 → 64px. */
@@ -53,7 +53,7 @@ export function PetCard({
         </View>
         <View style={estilos.corpo}>
           <View style={estilos.topo}>
-            <Titulo style={[estilos.titulo, titleSize === 'sm' && { fontSize: 21, lineHeight: 26 }]}>{title}</Titulo>
+            <Titulo style={[estilos.titulo, titleSize === 'sm' && { fontSize: fs(21), lineHeight: fs(26) }]}>{title}</Titulo>
             {badges}
           </View>
           {children ? <View style={estilos.linhas}>{children}</View> : null}
@@ -110,9 +110,9 @@ const estilos = StyleSheet.create({
   imagem: { width: '100%', height: '100%' },
   corpo: { flex: 1, minWidth: 0 },
   topo: { flexDirection: 'row', flexWrap: 'wrap', alignItems: 'center', columnGap: 12, rowGap: 6 },
-  titulo: { fontSize: 23, lineHeight: 27 },
+  titulo: { fontSize: fs(23), lineHeight: fs(27) },
   linhas: { gap: 4, marginTop: 10 },
-  linha: { fontSize: 17, lineHeight: 25, color: cores.taupe },
+  linha: { fontSize: fs(17), lineHeight: fs(25), color: cores.taupe },
   rotulo: { color: cores.taupe },
   acoes: { flexDirection: 'row', flexWrap: 'wrap', alignItems: 'center', gap: 12 },
   acao: { flexGrow: 1 },

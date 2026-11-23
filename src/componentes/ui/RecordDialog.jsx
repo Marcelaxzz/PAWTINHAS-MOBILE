@@ -9,7 +9,7 @@ import { DownloadIcon, PencilIcon, TrashIcon } from '../../web/components/Icons/
 import { useToast } from '../../web/hooks/useToast.js'
 import { addDaysIso, formatDateBr, maskDate, parseDateBr } from '../../web/utils/dates.js'
 import { BlocoRelatorio, RelatorioAtendimentoDialog } from './RelatorioAtendimento.jsx'
-import { cores, sombras } from '../../tema.js'
+import { cores, sombras, fs } from '../../tema.js'
 import { Texto } from '../Texto.jsx'
 import { Grade } from './Grade.jsx'
 
@@ -202,7 +202,7 @@ export function ReportDialog({ open, onClose, title, description, stats = [], it
                 {item.when}
               </Texto>
               <View style={estilos.relTexto}>
-                <Texto peso={700} style={{ fontSize: 16 }}>
+                <Texto peso={700} style={{ fontSize: fs(16) }}>
                   {item.title}
                 </Texto>
                 {item.detail ? <Texto style={estilos.relDetalhe}>{item.detail}</Texto> : null}
@@ -254,8 +254,8 @@ const estilos = StyleSheet.create({
   topo: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', gap: 16, marginBottom: 18 },
   foto: { width: 88, height: 88, borderRadius: 44, borderWidth: 3, borderColor: cores.branco, ...sombras.suave },
   item: { gap: 2 },
-  rotulo: { fontSize: 15, letterSpacing: 0.5, color: cores.taupe },
-  valor: { fontSize: 17, color: cores.cafeEscuro },
+  rotulo: { fontSize: fs(15), letterSpacing: 0.5, color: cores.taupe },
+  valor: { fontSize: fs(17), color: cores.cafeEscuro },
   status: { marginTop: 22, paddingTop: 18, borderTopWidth: 1, borderStyle: 'dashed', borderTopColor: cores.borda },
 
   numero: {
@@ -267,8 +267,8 @@ const estilos = StyleSheet.create({
     borderRadius: 16,
     backgroundColor: cores.superficie,
   },
-  numeroValor: { fontSize: 32, lineHeight: 34, color: cores.cafe },
-  numeroRotulo: { fontSize: 15, color: cores.taupe },
+  numeroValor: { fontSize: fs(32), lineHeight: fs(34), color: cores.cafe },
+  numeroRotulo: { fontSize: fs(15), color: cores.taupe },
   relatorio: { marginTop: 20 },
   relItem: {
     flexDirection: 'row',
@@ -280,9 +280,9 @@ const estilos = StyleSheet.create({
     borderBottomWidth: 1,
     borderBottomColor: cores.borda,
   },
-  relHora: { minWidth: 92, fontSize: 15, color: cores.cafe, fontVariant: ['tabular-nums'] },
+  relHora: { minWidth: 92, fontSize: fs(15), color: cores.cafe, fontVariant: ['tabular-nums'] },
   relTexto: { flex: 1, minWidth: 140 },
-  relDetalhe: { fontSize: 15, color: cores.taupe },
+  relDetalhe: { fontSize: fs(15), color: cores.taupe },
   pdf: {
     gap: 14,
     marginTop: 22,

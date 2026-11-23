@@ -1,7 +1,7 @@
 import { useRef, useState } from 'react'
 import { Pressable, StyleSheet, TextInput, View } from 'react-native'
 import { AlertIcon, CheckIcon } from '../web/components/Icons/Icons.jsx'
-import { cores, texto } from '../tema.js'
+import { cores, texto, fs } from '../tema.js'
 import { Texto } from './Texto.jsx'
 
 /** Caixa de seleção (Checkbox do site). */
@@ -117,7 +117,7 @@ const estilos = StyleSheet.create({
     borderRadius: 5,
   },
   caixaMarcada: { backgroundColor: cores.cafe, borderColor: cores.cafe },
-  checkTexto: { fontSize: 16, color: cores.taupeEscuro },
+  checkTexto: { fontSize: fs(16), color: cores.taupeEscuro },
 
   alerta: {
     flexDirection: 'row',
@@ -130,7 +130,7 @@ const estilos = StyleSheet.create({
   },
   alertaErro: { backgroundColor: cores.erroFundo, borderColor: 'rgba(179, 38, 30, 0.2)' },
   alertaSucesso: { backgroundColor: cores.sucessoFundo, borderColor: 'rgba(63, 106, 69, 0.2)' },
-  alertaTexto: { flex: 1, fontSize: 15, lineHeight: 21 },
+  alertaTexto: { flex: 1, fontSize: fs(15), lineHeight: fs(21) },
 
   grupo: { flexDirection: 'row', justifyContent: 'center', gap: 8 },
   digito: {
@@ -147,6 +147,6 @@ const estilos = StyleSheet.create({
   preenchido: { backgroundColor: cores.branco, borderColor: cores.cafe },
   digitoFoco: { borderColor: cores.caramelo },
   invalido: { borderColor: cores.erro },
-  digitoTexto: { fontSize: 25, lineHeight: 32, color: cores.cafeEscuro },
+  digitoTexto: { fontSize: fs(25), lineHeight: fs(32), color: cores.cafeEscuro },
   oculto: { position: 'absolute', width: '100%', height: '100%', opacity: 0, color: 'transparent', ...texto(400) },
 })

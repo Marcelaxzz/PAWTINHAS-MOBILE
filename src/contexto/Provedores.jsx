@@ -7,7 +7,7 @@ import { ToastContext } from '../web/context/toastContext.js'
 import { aoExpirarSessao } from '../plataforma/http.js'
 import { cancelarTodos } from '../alarmes/agendador'
 import { AlertIcon, CheckIcon, CloseIcon } from '../web/components/Icons/Icons.jsx'
-import { cores, sombras } from '../tema.js'
+import { cores, sombras, fs } from '../tema.js'
 import { Texto } from '../componentes/Texto.jsx'
 
 /** Sessão da veterinária (o mesmo contrato do AuthContext do site). */
@@ -135,6 +135,6 @@ const estilos = StyleSheet.create({
   },
   sucesso: { backgroundColor: cores.cafe },
   erro: { backgroundColor: cores.erro },
-  texto: { flex: 1, fontSize: 16, lineHeight: 23, color: cores.branco },
+  texto: { flex: 1, fontSize: fs(16), lineHeight: fs(23), color: cores.branco },
   fechar: { width: 28, height: 28, alignItems: 'center', justifyContent: 'center', borderRadius: 14, opacity: 0.85 },
 })

@@ -2,10 +2,10 @@ import { StyleSheet, View } from 'react-native'
 import Svg, { Circle, G, Line, Rect, Text as SvgText } from 'react-native-svg'
 import { Texto } from '../componentes/Texto.jsx'
 import { LIGACOES } from '../web/pages/panel/Alarmes/ligacoesAlarme.js'
-import { cores } from '../tema.js'
+import { cores, fs } from '../tema.js'
 
 const Y = [62, 98, 134, 170, 236, 272, 308]
-const BRANCO = { fill: '#ffffff', fontSize: 17, fontWeight: '700' }
+const BRANCO = { fill: '#ffffff', fontSize: fs(17), fontWeight: '700' }
 
 /** Esquema de ligação do alarme (EsquemaAlarme do site) e a tabela de pinos. */
 export function EsquemaAlarme() {
@@ -99,8 +99,8 @@ const estilos = StyleSheet.create({
   linha: { flexDirection: 'row', borderBottomWidth: 1, borderBottomColor: cores.borda },
   cabecalho: { borderBottomWidth: 2 },
   celula: { flex: 1, paddingVertical: 8, paddingHorizontal: 6 },
-  th: { flex: 1, paddingVertical: 8, paddingHorizontal: 6, fontSize: 15, color: cores.taupe },
-  td: { fontSize: 17, color: cores.cafeEscuro },
+  th: { flex: 1, paddingVertical: 8, paddingHorizontal: 6, fontSize: fs(15), color: cores.taupe },
+  td: { fontSize: fs(17), color: cores.cafeEscuro },
   fio: { width: 14, height: 6, borderRadius: 3 },
-  nota: { fontSize: 16, lineHeight: 23, color: cores.taupeEscuro },
+  nota: { fontSize: fs(16), lineHeight: fs(23), color: cores.taupeEscuro },
 })

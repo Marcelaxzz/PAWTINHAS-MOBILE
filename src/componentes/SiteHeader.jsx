@@ -16,7 +16,7 @@ import {
   SlidersIcon,
 } from '../web/components/Icons/Icons.jsx'
 import logo from '../web/assets/images/logo-horizontal.webp'
-import { cores, sombras, texto } from '../tema.js'
+import { cores, sombras, texto, fs } from '../tema.js'
 import { Texto } from './Texto.jsx'
 
 export const ALTURA_HEADER = 68
@@ -297,7 +297,7 @@ const estilos = StyleSheet.create({
   link: { minHeight: 46, justifyContent: 'center', paddingHorizontal: 16, borderRadius: 12 },
   linkAtivo: { backgroundColor: 'rgba(216, 161, 107, 0.22)' },
   marcador: { position: 'absolute', left: 6, width: 3, height: 18, borderRadius: 2, backgroundColor: cores.caramelo },
-  linkTexto: { fontSize: 18, color: cores.taupe },
+  linkTexto: { fontSize: fs(18), color: cores.taupe },
   busca: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -315,7 +315,7 @@ const estilos = StyleSheet.create({
     minWidth: 0,
     height: '100%',
     padding: 0,
-    fontSize: 16,
+    fontSize: fs(16),
     color: cores.cafeEscuro,
     ...texto(400),
   },
@@ -340,6 +340,6 @@ const estilos = StyleSheet.create({
     borderBottomWidth: 1,
     borderBottomColor: cores.borda,
   },
-  menuEmail: { fontSize: 16, color: cores.taupe },
+  menuEmail: { fontSize: fs(16), color: cores.taupe },
   menuItem: { flexDirection: 'row', alignItems: 'center', gap: 10, padding: 10, borderRadius: 10 },
 })

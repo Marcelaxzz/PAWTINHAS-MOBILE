@@ -23,7 +23,7 @@ import { montarPainel, RECURSOS_PAINEL, saudacao, TOM_SERVICO } from '../../web/
 import { qtd, SITUACOES } from '../../web/pages/calculadoras/Catalogos/estoque.js'
 import { photoSrc } from '../../plataforma/imagens.js'
 import pets from '../../web/assets/images/pets-inicio.webp'
-import { cores, gradientes, MARGEM, sombras } from '../../tema.js'
+import { cores, gradientes, MARGEM, sombras, fs } from '../../tema.js'
 import { Forte, Texto, Titulo } from '../../componentes/Texto.jsx'
 import { Chip, StatusChip } from '../../componentes/ui/Chip.jsx'
 import { Grade, useAte } from '../../componentes/ui/Grade.jsx'
@@ -209,7 +209,7 @@ export default function Inicio() {
                 <Image source={{ uri: photoSrc(p.foto) }} style={estilos.petFoto} contentFit="cover" />
               ) : (
                 <View style={[estilos.petFoto, estilos.petInicial]}>
-                  <Titulo style={{ fontSize: 30, lineHeight: 36, color: cores.cafe }}>{p.nome.slice(0, 1)}</Titulo>
+                  <Titulo style={{ fontSize: fs(30), lineHeight: fs(36), color: cores.cafe }}>{p.nome.slice(0, 1)}</Titulo>
                 </View>
               )}
               <Texto peso={700} numberOfLines={1} style={{ color: cores.cafeEscuro }}>
@@ -332,7 +332,7 @@ export default function Inicio() {
             <Texto peso={700} style={estilos.data}>
               {agora.toLocaleDateString('pt-BR', { weekday: 'long', day: 'numeric', month: 'long' }).toUpperCase()}
             </Texto>
-            <Titulo style={[estilos.titulo, celular && { fontSize: 38, lineHeight: 43 }]}>
+            <Titulo style={[estilos.titulo, celular && { fontSize: fs(38), lineHeight: fs(43) }]}>
               {saudacao(agora.getHours())}
               {firstName ? `, ${firstName}` : ''}!
             </Titulo>
@@ -363,7 +363,7 @@ export default function Inicio() {
                   ]}
                 >
                   <Icone size={17} color={i === 0 ? cores.cafeEscuro : cores.branco} />
-                  <Texto peso={700} style={{ fontSize: 17, color: i === 0 ? cores.cafeEscuro : cores.branco }}>
+                  <Texto peso={700} style={{ fontSize: fs(17), color: i === 0 ? cores.cafeEscuro : cores.branco }}>
                     {rotulo}
                   </Texto>
                 </Pressable>
@@ -408,7 +408,7 @@ export default function Inicio() {
                   <View style={[estilos.indicadorIcone, { backgroundColor: tom.fundo }]}>
                     <Icone size={22} color={tom.cor} />
                   </View>
-                  <Titulo style={[estilos.indicadorValor, celular && { fontSize: 38, lineHeight: 43 }]}>
+                  <Titulo style={[estilos.indicadorValor, celular && { fontSize: fs(38), lineHeight: fs(43) }]}>
                     {String(ind.valor)}
                   </Titulo>
                   <Texto peso={700} style={estilos.indicadorRotulo}>
@@ -451,9 +451,9 @@ const estilos = StyleSheet.create({
   hero: { overflow: 'hidden', borderRadius: 28 },
   heroLado: { flexDirection: 'row', alignItems: 'flex-end', minHeight: 280 },
   heroTexto: { paddingTop: 28, paddingHorizontal: 24, paddingBottom: 8 },
-  data: { fontSize: 15, letterSpacing: 0.8, color: cores.caramelo },
-  titulo: { marginTop: 8, fontSize: 54, lineHeight: 59, color: cores.branco },
-  resumoTexto: { marginTop: 10, fontSize: 19, lineHeight: 29, color: 'rgba(255, 255, 255, 0.85)' },
+  data: { fontSize: fs(15), letterSpacing: 0.8, color: cores.caramelo },
+  titulo: { marginTop: 8, fontSize: fs(54), lineHeight: fs(59), color: cores.branco },
+  resumoTexto: { marginTop: 10, fontSize: fs(19), lineHeight: fs(29), color: 'rgba(255, 255, 255, 0.85)' },
   atalhos: { flexDirection: 'row', flexWrap: 'wrap', gap: 10, maxWidth: 560, marginTop: 22 },
   atalho: {
     flexGrow: 1,
@@ -505,9 +505,9 @@ const estilos = StyleSheet.create({
     marginBottom: 10,
     borderRadius: 15,
   },
-  indicadorValor: { fontSize: 47, lineHeight: 52 },
-  indicadorRotulo: { fontSize: 18, color: cores.cafeEscuro },
-  indicadorApoio: { fontSize: 16, color: cores.taupeEscuro },
+  indicadorValor: { fontSize: fs(47), lineHeight: fs(52) },
+  indicadorRotulo: { fontSize: fs(18), color: cores.cafeEscuro },
+  indicadorApoio: { fontSize: fs(16), color: cores.taupeEscuro },
   cartao: {
     gap: 16,
     padding: 22,
@@ -517,8 +517,8 @@ const estilos = StyleSheet.create({
     backgroundColor: cores.superficie,
   },
   cartaoTopo: { flexDirection: 'row', alignItems: 'flex-start', gap: 12 },
-  cartaoTitulo: { fontSize: 25, lineHeight: 30 },
-  cartaoApoio: { marginTop: 2, fontSize: 16, color: cores.taupe },
+  cartaoTitulo: { fontSize: fs(25), lineHeight: fs(30) },
+  cartaoApoio: { marginTop: 2, fontSize: fs(16), color: cores.taupe },
   verTudo: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -528,7 +528,7 @@ const estilos = StyleSheet.create({
     borderRadius: 999,
     backgroundColor: cores.areia,
   },
-  verTudoTexto: { fontSize: 16, color: cores.cafe },
+  verTudoTexto: { fontSize: fs(16), color: cores.cafe },
   vazio: {
     padding: 18,
     borderWidth: 1,
@@ -552,10 +552,10 @@ const estilos = StyleSheet.create({
     backgroundColor: cores.branco,
   },
   hora: { flexDirection: 'row', alignItems: 'center', gap: 6, minWidth: 72 },
-  horaTexto: { fontSize: 18, color: cores.cafeEscuro },
-  linhaPet: { fontSize: 18, color: cores.cafeEscuro },
-  linhaDetalhe: { fontSize: 16, color: cores.taupeEscuro },
-  mais: { alignSelf: 'center', fontSize: 16, color: cores.cafe },
+  horaTexto: { fontSize: fs(18), color: cores.cafeEscuro },
+  linhaPet: { fontSize: fs(18), color: cores.cafeEscuro },
+  linhaDetalhe: { fontSize: fs(16), color: cores.taupeEscuro },
+  mais: { alignSelf: 'center', fontSize: fs(16), color: cores.cafe },
   pet: {
     alignItems: 'center',
     gap: 2,
@@ -568,10 +568,10 @@ const estilos = StyleSheet.create({
   },
   petFoto: { width: '100%', aspectRatio: 1, marginBottom: 6 },
   petInicial: { alignItems: 'center', justifyContent: 'center', backgroundColor: cores.areia },
-  petEspecie: { fontSize: 15, color: cores.taupe },
+  petEspecie: { fontSize: fs(15), color: cores.taupe },
   barras: { flexDirection: 'row', gap: 8 },
   barraDia: { flex: 1, alignItems: 'center', gap: 4 },
-  barraValor: { fontSize: 16, color: cores.cafeEscuro },
+  barraValor: { fontSize: fs(16), color: cores.cafeEscuro },
   barraTrilho: {
     justifyContent: 'flex-end',
     width: '100%',
@@ -582,8 +582,8 @@ const estilos = StyleSheet.create({
     backgroundColor: cores.areia,
   },
   barraNivel: { width: '100%', borderRadius: 12 },
-  barraRotulo: { fontSize: 15, color: cores.taupeEscuro, textTransform: 'capitalize' },
-  barraDiaNum: { fontSize: 15, color: cores.taupe },
+  barraRotulo: { fontSize: fs(15), color: cores.taupeEscuro, textTransform: 'capitalize' },
+  barraDiaNum: { fontSize: fs(15), color: cores.taupe },
   itemLista: {
     flexDirection: 'row',
     alignItems: 'center',

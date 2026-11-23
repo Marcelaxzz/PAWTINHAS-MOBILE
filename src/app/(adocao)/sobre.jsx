@@ -9,7 +9,7 @@ import { whatsappLink } from '../../config.js'
 import pata1 from '../../web/assets/images/pata-1.png'
 import pata2 from '../../web/assets/images/pata-2.png'
 import pata3 from '../../web/assets/images/pata-3.png'
-import { cores, sombras } from '../../tema.js'
+import { cores, sombras, fs } from '../../tema.js'
 import { Grade } from '../../componentes/ui/Grade.jsx'
 
 const ESPECIES = ['Cães', 'Gatos', 'Cavalos', 'Bois e bezerros']
@@ -99,10 +99,10 @@ export default function Sobre() {
 }
 
 const estilos = StyleSheet.create({
-  sobretitulo: { fontSize: 13, letterSpacing: 2.4, color: cores.carameloEscuro },
-  historiaTitulo: { marginTop: 10, fontSize: 29, lineHeight: 36 },
-  historiaTexto: { maxWidth: 620, marginTop: 18, fontSize: 18, lineHeight: 30, color: cores.taupe },
-  especiesRotulo: { marginTop: 26, fontSize: 18, lineHeight: 24 },
+  sobretitulo: { fontSize: fs(13), letterSpacing: 2.4, color: cores.carameloEscuro },
+  historiaTitulo: { marginTop: 10, fontSize: fs(29), lineHeight: fs(36) },
+  historiaTexto: { maxWidth: 620, marginTop: 18, fontSize: fs(18), lineHeight: fs(30), color: cores.taupe },
+  especiesRotulo: { marginTop: 26, fontSize: fs(18), lineHeight: fs(24) },
   especies: { flexDirection: 'row', flexWrap: 'wrap', gap: 10, marginTop: 12 },
   especie: {
     flexDirection: 'row',
@@ -136,8 +136,8 @@ const estilos = StyleSheet.create({
     justifyContent: 'center',
     backgroundColor: cores.areia,
   },
-  cartaoTitulo: { marginTop: 16, fontSize: 23, lineHeight: 28 },
-  cartaoTexto: { marginTop: 12, lineHeight: 26, color: cores.taupe },
+  cartaoTitulo: { marginTop: 16, fontSize: fs(23), lineHeight: fs(28) },
+  cartaoTexto: { marginTop: 12, lineHeight: fs(26), color: cores.taupe },
   cartaoPata: {
     position: 'absolute',
     right: -10,

@@ -12,7 +12,7 @@ import { ArrowRightIcon, ChevronLeftIcon, ChevronRightIcon, MapPinIcon } from '.
 import { photoSrc } from '../../../plataforma/imagens.js'
 import { useFavorites } from '../../../adocao/useFavorites.js'
 import { AnimalCard } from '../../../adocao/AnimalCard.jsx'
-import { cores, gradientes, MARGEM, sombras } from '../../../tema.js'
+import { cores, gradientes, MARGEM, sombras, fs } from '../../../tema.js'
 import { Grade, useAte } from '../../../componentes/ui/Grade.jsx'
 
 /** Cartões por vez na grade; "Mostrar mais" soma outro tanto (igual ao site). */
@@ -105,7 +105,7 @@ export default function Catalogo() {
                     {animal.frase ? <Titulo style={estilos.slideFrase}>{`“${animal.frase}”`}</Titulo> : null}
                     <Texto style={estilos.slideDescricao}>{animal.descricao}</Texto>
                     <PillButton to={`/adocao/${animal.id}`} style={estilos.slideBotao}>
-                      <Texto peso={600} style={{ fontSize: 16, color: cores.cafeEscuro }}>
+                      <Texto peso={600} style={{ fontSize: fs(16), color: cores.cafeEscuro }}>
                         Conhecer {animal.nome}
                       </Texto>
                       <ArrowRightIcon size={18} color={cores.cafeEscuro} />
@@ -170,7 +170,7 @@ export default function Catalogo() {
                 accessibilityState={{ selected: filtro === f.id }}
                 style={[estilos.filtro, filtro === f.id && estilos.filtroAtivo]}
               >
-                <Texto peso={600} style={{ fontSize: 16, color: filtro === f.id ? cores.branco : cores.taupeEscuro }}>
+                <Texto peso={600} style={{ fontSize: fs(16), color: filtro === f.id ? cores.branco : cores.taupeEscuro }}>
                   {f.label}
                 </Texto>
               </Pressable>
@@ -227,13 +227,13 @@ const estilos = StyleSheet.create({
     borderRadius: 999,
     backgroundColor: 'rgba(255, 255, 255, 0.14)',
   },
-  destaqueTexto: { fontSize: 15, letterSpacing: 0.5, color: cores.areia },
-  slideNome: { marginTop: 14, fontSize: 36, lineHeight: 41, color: cores.branco },
-  slideNomeLado: { fontSize: 54, lineHeight: 59 },
+  destaqueTexto: { fontSize: fs(15), letterSpacing: 0.5, color: cores.areia },
+  slideNome: { marginTop: 14, fontSize: fs(36), lineHeight: fs(41), color: cores.branco },
+  slideNomeLado: { fontSize: fs(54), lineHeight: fs(59) },
   slideMeta: { flexDirection: 'row', flexWrap: 'wrap', alignItems: 'center', gap: 4, marginTop: 10 },
-  slideMetaTexto: { fontSize: 16, color: cores.caramelo },
-  slideFrase: { marginTop: 18, fontSize: 19, lineHeight: 26, fontStyle: 'italic', color: cores.areia },
-  slideDescricao: { maxWidth: 460, marginTop: 8, fontSize: 18, lineHeight: 27, color: 'rgba(255, 255, 255, 0.82)' },
+  slideMetaTexto: { fontSize: fs(16), color: cores.caramelo },
+  slideFrase: { marginTop: 18, fontSize: fs(19), lineHeight: fs(26), fontStyle: 'italic', color: cores.areia },
+  slideDescricao: { maxWidth: 460, marginTop: 8, fontSize: fs(18), lineHeight: fs(27), color: 'rgba(255, 255, 255, 0.82)' },
   slideBotao: { marginTop: 24, backgroundColor: cores.caramelo },
   controles: {
     position: 'absolute',
@@ -270,5 +270,5 @@ const estilos = StyleSheet.create({
   filtroAtivo: { borderColor: cores.cafe, backgroundColor: cores.cafe },
   grade: { marginTop: 28 },
   mais: { alignItems: 'center', gap: 12, marginTop: 32 },
-  maisTexto: { fontSize: 17, color: cores.taupeEscuro },
+  maisTexto: { fontSize: fs(17), color: cores.taupeEscuro },
 })

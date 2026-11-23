@@ -15,7 +15,7 @@ import { photoSrc } from '../plataforma/imagens.js'
 import { maskPhone } from '../web/utils/masks.js'
 import { formatDateBr, idadeDe, maskDate, parseDateBr, todayIso } from '../web/utils/dates.js'
 import { validatePhone } from '../web/utils/validators.js'
-import { cores, sombras } from '../tema.js'
+import { cores, sombras, fs } from '../tema.js'
 
 const NEW_TUTOR = '__novo_tutor'
 const ESPECIES = ['Cachorro', 'Gato', 'Coelho', 'Ave', 'Roedor', 'Réptil', 'Outro']
@@ -320,5 +320,5 @@ function PacienteFormContent({ pet, tutoresIniciais }) {
 
 const estilos = StyleSheet.create({
   foto: { gap: 8, marginBottom: 28 },
-  rotulo: { fontSize: 16 },
+  rotulo: { fontSize: fs(16) },
 })

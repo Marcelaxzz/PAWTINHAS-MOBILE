@@ -6,7 +6,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { ClockIcon } from '../web/components/Icons/Icons.jsx'
 import { ONDE_PAROU } from '../web/utils/alarmes.js'
 import { Texto, Titulo } from '../componentes/Texto.jsx'
-import { cores, sombras } from '../tema.js'
+import { cores, sombras, fs } from '../tema.js'
 
 const SOM = require('../../assets/sons/alarme_pawtinhas.wav')
 const VIBRACAO = [0, 700, 500, 700, 500]
@@ -158,8 +158,8 @@ const estilos = StyleSheet.create({
     justifyContent: 'center',
     backgroundColor: cores.caramelo,
   },
-  situacao: { fontSize: 12, letterSpacing: 1.6, color: cores.caramelo },
-  titulo: { marginTop: 2, fontSize: 22, lineHeight: 27, color: cores.creme },
+  situacao: { fontSize: fs(12), letterSpacing: 1.6, color: cores.caramelo },
+  titulo: { marginTop: 2, fontSize: fs(22), lineHeight: fs(27), color: cores.creme },
   lista: { gap: 8 },
   item: {
     gap: 1,
@@ -168,8 +168,8 @@ const estilos = StyleSheet.create({
     borderRadius: 14,
     backgroundColor: 'rgba(251, 246, 235, 0.08)',
   },
-  itemNome: { fontSize: 16, color: cores.creme },
-  itemDetalhe: { fontSize: 14, color: cores.areia },
+  itemNome: { fontSize: fs(16), color: cores.creme },
+  itemDetalhe: { fontSize: fs(14), color: cores.areia },
   botao: {
     minHeight: 52,
     alignItems: 'center',
@@ -177,6 +177,6 @@ const estilos = StyleSheet.create({
     borderRadius: 999,
     backgroundColor: cores.creme,
   },
-  botaoTexto: { fontSize: 17, color: cores.cafeEscuro },
-  nota: { marginTop: -6, fontSize: 12, textAlign: 'center', color: cores.areia },
+  botaoTexto: { fontSize: fs(17), color: cores.cafeEscuro },
+  nota: { marginTop: -6, fontSize: fs(12), textAlign: 'center', color: cores.areia },
 })

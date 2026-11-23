@@ -1,6 +1,6 @@
 import { ActivityIndicator, Pressable, StyleSheet, View } from 'react-native'
 import { AlertIcon } from '../../web/components/Icons/Icons.jsx'
-import { cores, sombras } from '../../tema.js'
+import { cores, sombras, fs } from '../../tema.js'
 import { Texto, Titulo } from '../Texto.jsx'
 
 /** Título das páginas internas, com subtítulo opcional (PageHeading do site). */
@@ -98,8 +98,8 @@ export function Chave({ ligada, disabled }) {
 
 const estilos = StyleSheet.create({
   cabecalho: { alignItems: 'center' },
-  titulo: { fontSize: 34, lineHeight: 44, textAlign: 'center' },
-  subtitulo: { maxWidth: 620, marginTop: 12, fontSize: 18, lineHeight: 27, color: cores.taupe, textAlign: 'center' },
+  titulo: { fontSize: fs(34), lineHeight: fs(44), textAlign: 'center' },
+  subtitulo: { maxWidth: 620, marginTop: 12, fontSize: fs(18), lineHeight: fs(27), color: cores.taupe, textAlign: 'center' },
 
   estado: {
     alignItems: 'center',
@@ -113,8 +113,8 @@ const estilos = StyleSheet.create({
     backgroundColor: 'rgba(251, 246, 235, 0.6)',
   },
   estadoErro: { borderColor: 'rgba(179, 38, 30, 0.25)' },
-  estadoTexto: { textAlign: 'center', color: cores.taupe, lineHeight: 26 },
-  vazioTitulo: { fontSize: 25, lineHeight: 30, textAlign: 'center' },
+  estadoTexto: { textAlign: 'center', color: cores.taupe, lineHeight: fs(26) },
+  vazioTitulo: { fontSize: fs(25), lineHeight: fs(30), textAlign: 'center' },
   tentar: { marginTop: 4, paddingVertical: 10, paddingHorizontal: 22, borderWidth: 1.5, borderRadius: 999 },
 
   barra: {
@@ -129,13 +129,13 @@ const estilos = StyleSheet.create({
   },
   barraLinha: { flexDirection: 'row', alignItems: 'center', gap: 16 },
   barraIcone: { alignItems: 'center', justifyContent: 'center' },
-  barraTexto: { flex: 1, fontSize: 17, lineHeight: 26 },
+  barraTexto: { flex: 1, fontSize: fs(17), lineHeight: fs(26) },
   barraAcoes: { flexDirection: 'row', flexWrap: 'wrap', gap: 10 },
 
   toggle: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', gap: 16 },
   toggleTextos: { flex: 1, gap: 2 },
-  toggleRotulo: { fontSize: 17 },
-  toggleDescricao: { fontSize: 15, lineHeight: 20, color: cores.taupe },
+  toggleRotulo: { fontSize: fs(17) },
+  toggleDescricao: { fontSize: fs(15), lineHeight: fs(20), color: cores.taupe },
   chave: { width: 48, height: 26, borderRadius: 999, backgroundColor: cores.bordaForte },
   ligada: { backgroundColor: cores.cafe },
   bolinha: {

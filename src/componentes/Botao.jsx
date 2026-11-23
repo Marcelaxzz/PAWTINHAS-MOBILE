@@ -1,6 +1,6 @@
 import { ActivityIndicator, Pressable, StyleSheet, View } from 'react-native'
 import { LinearGradient } from 'expo-linear-gradient'
-import { cores, gradientes, sombras } from '../tema.js'
+import { cores, gradientes, sombras, fs } from '../tema.js'
 import { Texto } from './Texto.jsx'
 
 /**
@@ -58,5 +58,5 @@ const estilos = StyleSheet.create({
     borderRadius: 999,
   },
   conteudo: { flexDirection: 'row', alignItems: 'center', gap: 10 },
-  texto: { color: cores.branco, fontSize: 17 },
+  texto: { color: cores.branco, fontSize: fs(17) },
 })

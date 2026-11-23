@@ -22,7 +22,7 @@ import { whatsappLevaMensagem, whatsappLink } from '../../../config.js'
 import { categoria, mensagemInteresse } from '../../../web/utils/adocao.js'
 import { useToast } from '../../../web/hooks/useToast.js'
 import { useFavorites } from '../../../adocao/useFavorites.js'
-import { cores, sombras } from '../../../tema.js'
+import { cores, sombras, fs } from '../../../tema.js'
 import { Grade } from '../../../componentes/ui/Grade.jsx'
 
 const STATUS_TEXTO = {
@@ -195,7 +195,7 @@ export default function AnimalDetalhe() {
                 strokeWidth={2.2}
                 color={favorito ? cores.rosaTexto : cores.cafe}
               />
-              <Texto peso={600} style={{ fontSize: 16, color: favorito ? cores.rosaTexto : cores.cafe }}>
+              <Texto peso={600} style={{ fontSize: fs(16), color: favorito ? cores.rosaTexto : cores.cafe }}>
                 {favorito ? 'Nos favoritos' : 'Favoritar'}
               </Texto>
             </Pressable>
@@ -227,7 +227,7 @@ export default function AnimalDetalhe() {
                 <View key={item.label} style={estilos.linha}>
                   <Texto style={estilos.linhaTexto}>{item.label}</Texto>
                   <View style={[estilos.resposta, !item.ok && estilos.respostaNao]}>
-                    <Texto peso={600} style={{ fontSize: 16, color: item.ok ? cores.sucesso : cores.taupeEscuro }}>
+                    <Texto peso={600} style={{ fontSize: fs(16), color: item.ok ? cores.sucesso : cores.taupeEscuro }}>
                       {item.ok ? 'Sim' : 'Não'}
                     </Texto>
                   </View>
@@ -235,7 +235,7 @@ export default function AnimalDetalhe() {
               ))}
               <View style={[estilos.linha, { borderBottomWidth: 0 }]}>
                 <Texto style={estilos.linhaTexto}>Necessidades especiais</Texto>
-                <Texto peso={600} style={{ flexShrink: 1, fontSize: 16, color: cores.cafe, textAlign: 'right' }}>
+                <Texto peso={600} style={{ flexShrink: 1, fontSize: fs(16), color: cores.cafe, textAlign: 'right' }}>
                   {animal.necessidades || 'Nenhuma'}
                 </Texto>
               </View>
@@ -271,10 +271,10 @@ const estilos = StyleSheet.create({
     borderColor: 'rgba(111, 143, 98, 0.35)',
   },
   bolinhaOcupada: { backgroundColor: cores.caramelo, borderColor: 'rgba(216, 161, 107, 0.4)' },
-  cidade: { marginLeft: 'auto', fontSize: 16, color: cores.taupe },
+  cidade: { marginLeft: 'auto', fontSize: fs(16), color: cores.taupe },
   contato: { paddingTop: 26, paddingHorizontal: 26, paddingBottom: 24, borderRadius: 24 },
-  contatoTitulo: { fontSize: 23, lineHeight: 28, color: cores.branco },
-  contatoTexto: { marginTop: 8, lineHeight: 26, color: 'rgba(255, 255, 255, 0.9)' },
+  contatoTitulo: { fontSize: fs(23), lineHeight: fs(28), color: cores.branco },
+  contatoTexto: { marginTop: 8, lineHeight: fs(26), color: 'rgba(255, 255, 255, 0.9)' },
   whatsapp: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -293,7 +293,7 @@ const estilos = StyleSheet.create({
     overflow: 'hidden',
     borderRadius: 14,
     backgroundColor: 'rgba(255, 255, 255, 0.14)',
-    lineHeight: 24,
+    lineHeight: fs(24),
     color: cores.branco,
   },
   copiar: {
@@ -328,8 +328,8 @@ const estilos = StyleSheet.create({
     flexGrow: 1,
     flexBasis: 240,
     fontFamily: 'Fraunces_600SemiBold_Italic',
-    fontSize: 23,
-    lineHeight: 32,
+    fontSize: fs(23),
+    lineHeight: fs(32),
     color: cores.taupeEscuro,
   },
   favorito: {
@@ -352,8 +352,8 @@ const estilos = StyleSheet.create({
     borderRadius: 16,
     backgroundColor: cores.superficie,
   },
-  infoRotulo: { fontSize: 15, letterSpacing: 0.6, color: cores.taupe },
-  infoValor: { fontSize: 20, lineHeight: 27 },
+  infoRotulo: { fontSize: fs(15), letterSpacing: 0.6, color: cores.taupe },
+  infoValor: { fontSize: fs(20), lineHeight: fs(27) },
   cartao: {
     paddingVertical: 22,
     paddingHorizontal: 24,
@@ -362,8 +362,8 @@ const estilos = StyleSheet.create({
     borderRadius: 24,
     backgroundColor: cores.branco,
   },
-  cartaoTitulo: { fontSize: 23, lineHeight: 28 },
-  sobre: { marginTop: 10, fontSize: 18, lineHeight: 29, color: cores.taupeEscuro },
+  cartaoTitulo: { fontSize: fs(23), lineHeight: fs(28) },
+  sobre: { marginTop: 10, fontSize: fs(18), lineHeight: fs(29), color: cores.taupeEscuro },
   linha: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -373,7 +373,7 @@ const estilos = StyleSheet.create({
     borderBottomWidth: 1,
     borderBottomColor: cores.borda,
   },
-  linhaTexto: { flexShrink: 1, fontSize: 18, color: cores.taupeEscuro },
+  linhaTexto: { flexShrink: 1, fontSize: fs(18), color: cores.taupeEscuro },
   resposta: {
     paddingVertical: 3,
     paddingHorizontal: 12,

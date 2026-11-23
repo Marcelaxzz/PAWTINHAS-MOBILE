@@ -15,7 +15,7 @@ import { dataService } from '../web/services/dataService.js'
 import { formatDateBr, isValidTime, maskDate, maskTime, parseDateBr, todayIso } from '../web/utils/dates.js'
 import { OPCOES_RECORRENCIA, RECORRENCIAS, proximoToque, resumoDoAlarme, textoDoToque } from '../web/utils/alarmes.js'
 import { alarmeTocando } from '../alarmes/estado.js'
-import { cores, sombras } from '../tema.js'
+import { cores, sombras, fs } from '../tema.js'
 
 /** Novo alarme / editar alarme (AlarmeForm do site). */
 export function AlarmeForm() {
@@ -268,7 +268,7 @@ function AlarmeFormContent({ pets, alarme }) {
 
 const estilos = StyleSheet.create({
   status: { marginTop: 28 },
-  legenda: { marginBottom: 10, fontSize: 16 },
+  legenda: { marginBottom: 10, fontSize: fs(16) },
   chave: { flexDirection: 'row', alignItems: 'center', gap: 12 },
-  chaveTexto: { flex: 1, fontSize: 16, lineHeight: 23 },
+  chaveTexto: { flex: 1, fontSize: fs(16), lineHeight: fs(23) },
 })
