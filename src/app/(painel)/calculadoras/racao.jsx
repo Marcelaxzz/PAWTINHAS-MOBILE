@@ -216,7 +216,7 @@ function RacaoForm({ pets, racoes, fatores }) {
                 hint={
                   personalizado
                     ? 'Opcional. Em branco, usa o peso atual.'
-                    : 'A AAHA calcula a perda de peso no peso ideal.'
+                    : 'Para perder peso, a conta usa o peso ideal.'
                 }
                 value={values.pesoMetaKg}
                 onChange={(v) => set('pesoMetaKg', maskDecimal(v, 6))}
@@ -257,7 +257,6 @@ function RacaoForm({ pets, racoes, fatores }) {
                   value={values.condicao}
                   onChange={(v) => setValues((prev) => ({ ...prev, condicao: v, fatorPersonalizado: '' }))}
                   error={errosCampo.condicao}
-                  hint={condicao ? `Fonte: ${condicao.fonte}` : undefined}
                 />
                 {Boolean(ajustavel) && (
                   <Field
@@ -417,15 +416,8 @@ function RacaoForm({ pets, racoes, fatores }) {
             <ComoCalcula>
               <Texto style={calc.formula}>
                 Gramas por dia = MER ÷ energia da ração (kcal/kg) × 1.000. O resultado é um ponto de partida: ajuste a
-                quantidade acompanhando o peso e o escore corporal, como recomendam as fontes abaixo.
+                quantidade acompanhando o peso e o escore corporal.
               </Texto>
-              <View style={calc.fontes}>
-                {result.fontes.map((fonte) => (
-                  <Texto key={fonte} style={calc.fonteMed}>
-                    • {fonte}
-                  </Texto>
-                ))}
-              </View>
             </ComoCalcula>
           </View>
         )}

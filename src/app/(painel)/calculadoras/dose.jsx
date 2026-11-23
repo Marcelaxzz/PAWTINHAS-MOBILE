@@ -338,10 +338,9 @@ function DoseForm({ pets, medicamentos }) {
               </Texto>
             </View>
           )}
-          {Boolean(med) && (med.observacoes || med.fonte) ? (
+          {med?.observacoes ? (
             <View style={calc.referencia}>
-              {med.observacoes ? <Texto style={calc.referenciaTexto}>{med.observacoes}</Texto> : null}
-              {med.fonte ? <Texto style={calc.fonteMed}>Fonte: {med.fonte}</Texto> : null}
+              <Texto style={calc.referenciaTexto}>{med.observacoes}</Texto>
             </View>
           ) : null}
           {medicamentos.length === 0 && (

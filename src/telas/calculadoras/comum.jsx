@@ -55,8 +55,6 @@ export const calc = StyleSheet.create({
     backgroundColor: cores.cremeClaro,
   },
   referenciaTexto: { fontSize: 16, lineHeight: 23, color: cores.cafeMedio },
-  fonteMed: { fontSize: 15, lineHeight: 19, color: cores.taupe },
-  fontes: { gap: 4, marginTop: 10, paddingLeft: 4 },
 
   // Catálogos
   barra: { flexDirection: 'row', flexWrap: 'wrap', alignItems: 'center', justifyContent: 'space-between', gap: 12 },
@@ -73,7 +71,6 @@ export const calc = StyleSheet.create({
   itemTopo: { flexDirection: 'row', alignItems: 'flex-start', justifyContent: 'space-between', gap: 10 },
   itemNome: { flex: 1, fontSize: 20, lineHeight: 26 },
   itemApoio: { fontSize: 16, color: cores.taupe },
-  itemFonte: { fontSize: 15, fontStyle: 'italic', color: cores.taupe },
   itemDados: { gap: 4 },
   itemDado: { flexDirection: 'row', gap: 12 },
   itemDadoRotulo: { width: 96, fontSize: 16, color: cores.taupe },

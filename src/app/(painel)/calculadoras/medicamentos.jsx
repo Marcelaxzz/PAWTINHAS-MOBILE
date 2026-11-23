@@ -142,7 +142,6 @@ export default function CatalogoMedicamentos() {
                           <Texto style={calc.itemApoio}>Princípio ativo: {m.principioAtivo}</Texto>
                         ) : null}
                         {m.observacoes ? <Texto style={calc.itemApoio}>{m.observacoes}</Texto> : null}
-                        {m.fonte ? <Texto style={calc.itemFonte}>Fonte: {m.fonte}</Texto> : null}
                         <PainelEstoque
                           item={estoque.itens?.[m.id]}
                           onAcao={(acao, item) => setMovimento({ acao, itemId: String(item.itemId), nome: m.nome })}
@@ -386,15 +385,6 @@ function MedicamentoDialog({ medicamento, onClose, onSaved }) {
           maxLength={500}
           value={values.observacoes}
           onChange={set('observacoes')}
-        />
-        <Field
-          span={2}
-          label="Fonte das doses"
-          maxLength={300}
-          placeholder="Ex.: bula do produto, consenso ou manual veterinário"
-          hint="Quem prescrever vê de onde vieram as faixas."
-          value={values.fonte}
-          onChange={set('fonte')}
         />
       </FieldGrid>
       {values.forma === 'Comprimido' && (
