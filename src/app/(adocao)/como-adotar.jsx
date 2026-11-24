@@ -85,7 +85,7 @@ export default function ComoAdotar() {
               style={estilos.ctaLink}
             >
               <WhatsAppIcon size={18} color={cores.areia} />
-              <Texto peso={600} style={{ fontSize: fs(16), color: cores.areia }}>
+              <Texto peso={600} style={{ fontSize: fs(16), color: cores.areiaFixa }}>
                 Tirar dúvidas pelo WhatsApp
               </Texto>
             </Pressable>
@@ -111,7 +111,7 @@ const estilos = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 15,
-    backgroundColor: cores.cafe,
+    backgroundColor: cores.cafeFundo,
   },
   passoTitulo: { marginTop: 16, fontSize: fs(23), lineHeight: fs(28) },
   passoTexto: { marginTop: 10, lineHeight: fs(27), color: cores.taupe },
@@ -123,7 +123,7 @@ const estilos = StyleSheet.create({
     paddingVertical: 24,
     paddingHorizontal: 20,
     borderRadius: 24,
-    backgroundColor: cores.cafe,
+    backgroundColor: cores.cafeFundo,
   },
   ctaTitulo: { fontSize: fs(27), lineHeight: fs(34), color: cores.branco },
   ctaTexto: { marginTop: 10, lineHeight: fs(26), color: 'rgba(255, 255, 255, 0.85)' },

@@ -283,7 +283,7 @@ export const estilosForm = StyleSheet.create({
     borderWidth: 1,
     borderColor: cores.borda,
     borderRadius: 22,
-    backgroundColor: cores.branco,
+    backgroundColor: cores.papel,
   },
   acoes: { flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'flex-end', gap: 16, marginTop: 28 },
   botao: {
@@ -296,7 +296,7 @@ export const estilosForm = StyleSheet.create({
     borderRadius: 999,
   },
   cancelar: { borderWidth: 1.5, borderColor: cores.cafe },
-  enviar: { backgroundColor: cores.cafe },
+  enviar: { backgroundColor: cores.cafeFundo },
 })
 
 const estilos = estilosForm

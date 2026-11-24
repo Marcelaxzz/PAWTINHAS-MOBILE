@@ -19,15 +19,15 @@ import { estoqueService, relatoriosService } from '../../web/services/gestaoServ
 import { formatDateBr, maskDate, parseDateBr } from '../../web/utils/dates.js'
 import { maskDecimal, parseDecimal } from '../../web/utils/numbers.js'
 import { FILTROS_ESTOQUE, MOTIVOS, qtd, SITUACOES } from '../../web/pages/calculadoras/Catalogos/estoque.js'
-import { cores, fs } from '../../tema.js'
+import { cores, fs, vivo } from '../../tema.js'
 
-const TONS = {
+const TONS = vivo(() => ({
   neutro: { cor: cores.cafe, fundo: cores.superficie },
   perigo: { cor: cores.erro, fundo: cores.erroFundo },
   alerta: { cor: cores.melTexto, fundo: cores.melFundo },
   sucesso: { cor: cores.sucesso, fundo: cores.sucessoFundo },
-}
-const BARRA = { perigo: cores.erro, alerta: cores.mel, sucesso: cores.sucesso }
+}))
+const BARRA = vivo(() => ({ perigo: cores.erro, alerta: cores.mel, sucesso: cores.sucesso }))
 
 /** Indicadores no topo do catálogo + relatório em PDF (ResumoEstoque do site). */
 export function ResumoEstoque({ itens, filtro, onFiltro }) {
@@ -516,7 +516,7 @@ const estilos = StyleSheet.create({
     bottom: -3,
     width: 2,
     borderRadius: 2,
-    backgroundColor: cores.cafeEscuro,
+    backgroundColor: cores.cafeEscuroFundo,
   },
   apoio: { fontSize: fs(15), color: cores.taupeEscuro },
   painelRodape: { flexDirection: 'row', alignItems: 'center', gap: 8 },
@@ -530,7 +530,7 @@ const estilos = StyleSheet.create({
     borderWidth: 1,
     borderColor: cores.bordaForte,
     borderRadius: 999,
-    backgroundColor: cores.branco,
+    backgroundColor: cores.papel,
   },
   acaoPressionada: { backgroundColor: cores.areia },
   menos: { fontSize: fs(23), lineHeight: fs(25), color: cores.cafe },

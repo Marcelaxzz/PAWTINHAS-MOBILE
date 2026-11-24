@@ -33,7 +33,7 @@ export function PetCard({
       style={[
         estilos.card,
         sombras.elevada,
-        { backgroundColor: variant === 'branco' ? cores.branco : cores.superficie },
+        { backgroundColor: variant === 'branco' ? cores.papel : cores.superficie },
         style,
       ]}
     >
@@ -104,7 +104,7 @@ const estilos = StyleSheet.create({
     overflow: 'hidden',
     backgroundColor: 'rgba(110, 77, 54, 0.08)',
     borderWidth: 4,
-    borderColor: cores.branco,
+    borderColor: cores.papel,
     ...sombras.suave,
   },
   imagem: { width: '100%', height: '100%' },

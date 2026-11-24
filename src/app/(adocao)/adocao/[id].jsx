@@ -260,7 +260,7 @@ const estilos = StyleSheet.create({
     minHeight: 50,
     paddingHorizontal: 16,
     borderRadius: 16,
-    backgroundColor: 'rgba(251, 246, 235, 0.95)',
+    backgroundColor: cores.vidroCreme,
   },
   bolinha: {
     width: 14,
@@ -313,7 +313,7 @@ const estilos = StyleSheet.create({
     marginTop: 18,
     paddingHorizontal: 22,
     borderRadius: 999,
-    backgroundColor: cores.branco,
+    backgroundColor: cores.papel,
   },
   fraseLinha: {
     flexDirection: 'row',
@@ -341,7 +341,7 @@ const estilos = StyleSheet.create({
     borderWidth: 1.5,
     borderColor: cores.borda,
     borderRadius: 999,
-    backgroundColor: cores.branco,
+    backgroundColor: cores.papel,
   },
   favoritado: { borderColor: 'rgba(212, 86, 106, 0.35)', backgroundColor: cores.rosaFundo },
   info: {
@@ -360,7 +360,7 @@ const estilos = StyleSheet.create({
     borderWidth: 1,
     borderColor: cores.borda,
     borderRadius: 24,
-    backgroundColor: cores.branco,
+    backgroundColor: cores.papel,
   },
   cartaoTitulo: { fontSize: fs(23), lineHeight: fs(28) },
   sobre: { marginTop: 10, fontSize: fs(18), lineHeight: fs(29), color: cores.taupeEscuro },

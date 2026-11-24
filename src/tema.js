@@ -1,4 +1,6 @@
 import { Dimensions, Platform } from 'react-native'
+import { estilosRegistrados } from './estilosRegistrados.js'
+import { lerTemaSalvo, salvarTema } from './preferenciaTema'
 
 /*
  * Tamanho das letras de acordo com a tela: ~86% no celular (360-430px de largura),
@@ -8,8 +10,8 @@ const larguraTela = Math.min(Dimensions.get('window').width || 390, 1024)
 export const escalaFonte = Math.min(0.94, Math.max(0.85, 0.85 + ((larguraTela - 360) / 664) * 0.09))
 export const fs = (n) => Math.round(n * escalaFonte * 2) / 2
 
-/** Paleta e medidas do site (styles/global.css), com os mesmos nomes. */
-export const cores = {
+/** Paleta clara do site (styles/global.css), com os mesmos nomes. */
+const CLARO = {
   areia: '#f4e6d3',
   creme: '#fbf6eb',
   cremeClaro: '#f9f6ef',
@@ -55,7 +57,125 @@ export const cores = {
   terracota: '#c8573c',
   terracotaTexto: '#a8432c',
   terracotaFundo: '#fbe6dd',
+
+  // Papel fixo (não mudam de sentido no modo escuro). Valores quase iguais aos de cima de propósito:
+  // a troca de tema reconhece cada cor pelo valor, então cada nome precisa de um valor só seu.
+  papel: '#fffffe',
+  cafeFundo: '#6e4d37',
+  cafeEscuroFundo: '#36241b',
+  areiaFixa: '#f4e6d4',
+  cremeFixo: '#fbf6ec',
+
+  // Fundos translúcidos sobre fotos e cartões.
+  vidroCreme: 'rgba(251, 246, 235, 0.95)',
+  vidroSuperficie: 'rgba(255, 253, 249, 0.75)',
+  vidroPapel: 'rgba(255, 255, 254, 0.85)',
+  vidroCremeLeve: 'rgba(251, 246, 235, 0.6)',
 }
+
+/** Paleta escura: fundos em café bem escuro, textos em creme (igual ao modo escuro do site). */
+const ESCURO = {
+  ...CLARO,
+  areia: '#1b1410',
+  creme: '#211913',
+  cremeClaro: '#261d17',
+  borda: '#45362b',
+  carameloEscuro: '#e3b282',
+  ferrugem: '#e9a06a',
+  cafe: '#e7c39b',
+  cafeMedio: '#e4d4c2',
+  cafeEscuro: '#f3e9dc',
+  taupe: '#bba795',
+  taupeEscuro: '#d0bfaf',
+  cafeHover: '#8a6446',
+  bordaForte: '#5c4a3b',
+  superficie: '#2a2019',
+  fotoVazia: '#3a2d24',
+
+  erro: '#ff8f85',
+  erroEscuro: '#ffb4ab',
+  erroFundo: '#3b1d1a',
+  erroFundoForte: '#522520',
+  sucesso: '#93d29c',
+  sucessoFundo: '#1d3122',
+  aviso: '#f0c46a',
+  avisoFundo: '#3a2e14',
+
+  salviaTexto: '#93d29c',
+  salviaFundo: '#1d3122',
+  ceuTexto: '#a3c8e3',
+  ceuFundo: '#1a2a35',
+  melTexto: '#f0c46a',
+  melFundo: '#3a2e14',
+  rosaTexto: '#f5a5b1',
+  rosaFundo: '#3e1f25',
+  lavandaTexto: '#cbb9ef',
+  lavandaFundo: '#2a2338',
+  terracotaTexto: '#f5ab93',
+  terracotaFundo: '#3e2219',
+
+  papel: '#2e231c',
+  cafeFundo: '#7a5539',
+
+  vidroCreme: 'rgba(33, 25, 19, 0.95)',
+  vidroSuperficie: 'rgba(42, 32, 25, 0.75)',
+  vidroPapel: 'rgba(46, 35, 28, 0.85)',
+  vidroCremeLeve: 'rgba(33, 25, 19, 0.6)',
+}
+
+export const temaInicial = lerTemaSalvo()
+/** Cores atuais. O objeto é o mesmo o tempo todo: a troca de tema muda os valores dentro dele. */
+export const cores = { ...(temaInicial === 'escuro' ? ESCURO : CLARO) }
+export const temaAtual = () => (cores.areia === ESCURO.areia ? 'escuro' : 'claro')
+
+const CHAVES_DE_COR = /^(color|backgroundColor|border(Top|Right|Bottom|Left)?Color|tintColor|textDecorationColor|placeholderTextColor|fill|stroke)$/
+
+/**
+ * Objeto que relê as cores a cada uso (para constantes como as variantes dos botões,
+ * que precisam acompanhar a troca de tema).
+ */
+export function vivo(criar) {
+  return new Proxy(
+    {},
+    {
+      get: (_, chave) => {
+        const atual = criar()
+        const valor = atual[chave]
+        return typeof valor === 'function' ? valor.bind(atual) : valor
+      },
+      has: (_, chave) => chave in criar(),
+      ownKeys: () => Reflect.ownKeys(criar()),
+      getOwnPropertyDescriptor: (_, chave) => {
+        const d = Object.getOwnPropertyDescriptor(criar(), chave)
+        return d && { ...d, configurable: true }
+      },
+    },
+  )
+}
+
+/** Troca o tema na hora: atualiza os valores de cor dos estilos já criados e das cores. */
+export function trocarTema() {
+  const destino = temaAtual() === 'escuro' ? 'claro' : 'escuro'
+  const de = destino === 'escuro' ? CLARO : ESCURO
+  const para = destino === 'escuro' ? ESCURO : CLARO
+  const mapa = {}
+  for (const chave of Object.keys(para)) mapa[de[chave].toLowerCase()] = para[chave]
+  for (const folha of estilosRegistrados) {
+    for (const estilo of Object.values(folha)) {
+      if (!estilo || typeof estilo !== 'object') continue
+      for (const [chave, valor] of Object.entries(estilo)) {
+        if (typeof valor !== 'string' || !CHAVES_DE_COR.test(chave)) continue
+        const novo = mapa[valor.toLowerCase()]
+        if (novo) estilo[chave] = novo
+      }
+    }
+  }
+  Object.assign(cores, para)
+  salvarTema(destino)
+  return destino
+}
+
+
 
 /** Gradientes do site: [início, fim] (90° = da esquerda para a direita). */
 export const gradientes = {

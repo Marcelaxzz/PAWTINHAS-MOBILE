@@ -28,11 +28,11 @@ import { photoSrc } from '../plataforma/imagens.js'
 import { sexoEspecie } from '../web/utils/adocao.js'
 import { normalize } from '../web/utils/text.js'
 import logoContorno from '../web/assets/images/logo-pawtinhas-contorno.webp'
-import { cores, sombras, texto, fs } from '../tema.js'
+import { cores, sombras, texto, fs, vivo } from '../tema.js'
 import { Grade } from '../componentes/ui/Grade.jsx'
 
 const STATUS_FILTRO = ['Todos', 'Disponível', 'Em processo', 'Adotado']
-const TONS = { cafe: cores.cafeEscuro, verde: cores.sucesso, ambar: cores.aviso, vermelho: cores.erro }
+const TONS = vivo(() => ({ cafe: cores.cafeEscuro, verde: cores.sucesso, ambar: cores.aviso, vermelho: cores.erro }))
 
 /** Animais para adoção (AdminAdocoes do site). Em /admin/adocoes/:id/editar, abre a edição por cima. */
 export function AdminAdocoes() {
@@ -351,7 +351,7 @@ const estilos = StyleSheet.create({
     borderWidth: 1,
     borderColor: cores.borda,
     borderRadius: 10,
-    backgroundColor: cores.branco,
+    backgroundColor: cores.papel,
   },
   buscaEntrada: { flex: 1, minHeight: 38, padding: 0, fontSize: fs(16), color: cores.cafeEscuro, ...texto(400) },
   filtrar: {
@@ -363,7 +363,7 @@ const estilos = StyleSheet.create({
     borderWidth: 1,
     borderColor: cores.borda,
     borderRadius: 10,
-    backgroundColor: cores.branco,
+    backgroundColor: cores.papel,
   },
   card: {
     overflow: 'hidden',
@@ -389,7 +389,7 @@ const estilos = StyleSheet.create({
     paddingVertical: 5,
     paddingHorizontal: 10,
     borderRadius: 999,
-    backgroundColor: cores.cafeEscuro,
+    backgroundColor: cores.cafeEscuroFundo,
   },
   corpo: { paddingTop: 20, paddingHorizontal: 20, paddingBottom: 18 },
   nomeLinha: { flexDirection: 'row', alignItems: 'baseline', justifyContent: 'space-between', gap: 12 },
@@ -414,7 +414,7 @@ const estilos = StyleSheet.create({
     paddingVertical: 14,
     paddingLeft: 14,
     paddingRight: 54,
-    backgroundColor: cores.cafe,
+    backgroundColor: cores.cafeFundo,
   },
   modalLogo: { width: 54, height: 71 },
   modalTituloLinha: { flexDirection: 'row', flexWrap: 'wrap', alignItems: 'center', columnGap: 16, rowGap: 10 },

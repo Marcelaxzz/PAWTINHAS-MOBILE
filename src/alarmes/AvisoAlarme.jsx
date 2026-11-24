@@ -129,11 +129,11 @@ function Sino({ parado }) {
   const rotate = giro.interpolate({ inputRange: [-1, 1], outputRange: ['-12deg', '12deg'] })
   return (
     <Animated.View
-      style={[estilos.sino, parado && { backgroundColor: cores.areia }, { transform: [{ rotate }] }]}
+      style={[estilos.sino, parado && { backgroundColor: cores.areiaFixa }, { transform: [{ rotate }] }]}
       accessibilityElementsHidden
       importantForAccessibility="no-hide-descendants"
     >
-      <ClockIcon size={20} color={cores.cafeEscuro} />
+      <ClockIcon size={20} color={cores.cafeEscuroFundo} />
     </Animated.View>
   )
 }
@@ -147,7 +147,7 @@ const estilos = StyleSheet.create({
     gap: 14,
     padding: 18,
     borderRadius: 22,
-    backgroundColor: cores.cafeEscuro,
+    backgroundColor: cores.cafeEscuroFundo,
   },
   topo: { flexDirection: 'row', alignItems: 'center', gap: 12 },
   sino: {
@@ -159,7 +159,7 @@ const estilos = StyleSheet.create({
     backgroundColor: cores.caramelo,
   },
   situacao: { fontSize: fs(12), letterSpacing: 1.6, color: cores.caramelo },
-  titulo: { marginTop: 2, fontSize: fs(22), lineHeight: fs(27), color: cores.creme },
+  titulo: { marginTop: 2, fontSize: fs(22), lineHeight: fs(27), color: cores.cremeFixo },
   lista: { gap: 8 },
   item: {
     gap: 1,
@@ -168,15 +168,15 @@ const estilos = StyleSheet.create({
     borderRadius: 14,
     backgroundColor: 'rgba(251, 246, 235, 0.08)',
   },
-  itemNome: { fontSize: fs(16), color: cores.creme },
-  itemDetalhe: { fontSize: fs(14), color: cores.areia },
+  itemNome: { fontSize: fs(16), color: cores.cremeFixo },
+  itemDetalhe: { fontSize: fs(14), color: cores.areiaFixa },
   botao: {
     minHeight: 52,
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 999,
-    backgroundColor: cores.creme,
+    backgroundColor: cores.cremeFixo,
   },
-  botaoTexto: { fontSize: fs(17), color: cores.cafeEscuro },
-  nota: { marginTop: -6, fontSize: fs(12), textAlign: 'center', color: cores.areia },
+  botaoTexto: { fontSize: fs(17), color: cores.cafeEscuroFundo },
+  nota: { marginTop: -6, fontSize: fs(12), textAlign: 'center', color: cores.areiaFixa },
 })

@@ -133,7 +133,7 @@ const estilos = StyleSheet.create({
     paddingRight: 12,
     borderRadius: 14,
   },
-  sucesso: { backgroundColor: cores.cafe },
+  sucesso: { backgroundColor: cores.cafeFundo },
   erro: { backgroundColor: cores.erro },
   texto: { flex: 1, fontSize: fs(16), lineHeight: fs(23), color: cores.branco },
   fechar: { width: 28, height: 28, alignItems: 'center', justifyContent: 'center', borderRadius: 14, opacity: 0.85 },

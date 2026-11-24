@@ -99,7 +99,7 @@ export default function CatalogoMateriais() {
                   <Texto peso={700} style={[estilos.tipoTexto, ativo && { color: cores.branco }]}>
                     {t || 'Todos'}
                   </Texto>
-                  <Texto style={[estilos.tipoTotal, ativo && { color: cores.creme }]}>{String(total)}</Texto>
+                  <Texto style={[estilos.tipoTotal, ativo && { color: cores.cremeFixo }]}>{String(total)}</Texto>
                 </Pressable>
               )
             })}
@@ -315,9 +315,9 @@ const estilos = StyleSheet.create({
     borderWidth: 1,
     borderColor: cores.bordaForte,
     borderRadius: 999,
-    backgroundColor: cores.branco,
+    backgroundColor: cores.papel,
   },
-  tipoAtivo: { borderColor: cores.cafe, backgroundColor: cores.cafe },
+  tipoAtivo: { borderColor: cores.cafe, backgroundColor: cores.cafeFundo },
   tipoTexto: { fontSize: fs(16), color: cores.cafe },
   tipoTotal: { fontSize: fs(15), color: cores.taupe },
 })

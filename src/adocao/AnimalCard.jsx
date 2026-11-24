@@ -71,7 +71,7 @@ export function AnimalCard({ animal, favorite, onToggleFavorite, style }) {
           onPress={() => router.push(`/adocao/${animal.id}`)}
           accessibilityRole="link"
           accessibilityLabel={`Conhecer ${animal.nome}`}
-          style={({ pressed }) => [estilos.botao, pressed && { backgroundColor: cores.cafe }]}
+          style={({ pressed }) => [estilos.botao, pressed && { backgroundColor: cores.cafeFundo }]}
         >
           {({ pressed }) => (
             <>
@@ -105,7 +105,7 @@ const estilos = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 20,
-    backgroundColor: cores.branco,
+    backgroundColor: cores.papel,
   },
   favoritoPosicao: { position: 'absolute', top: 12, right: 12 },
   selo: {
@@ -115,7 +115,7 @@ const estilos = StyleSheet.create({
     paddingVertical: 5,
     paddingHorizontal: 10,
     borderRadius: 999,
-    backgroundColor: cores.cafeEscuro,
+    backgroundColor: cores.cafeEscuroFundo,
   },
   seloTexto: { fontSize: fs(15), letterSpacing: 0.24, color: cores.branco },
   processo: {
@@ -163,6 +163,6 @@ const estilos = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 16,
-    backgroundColor: cores.cafe,
+    backgroundColor: cores.cafeFundo,
   },
 })

@@ -15,7 +15,7 @@ export const calc = StyleSheet.create({
     borderWidth: 1,
     borderColor: cores.borda,
     borderRadius: 22,
-    backgroundColor: cores.branco,
+    backgroundColor: cores.papel,
     ...sombras.suave,
   },
   secaoSeguinte: { marginTop: 28, paddingTop: 26, borderTopWidth: 1, borderTopColor: cores.borda },
@@ -65,7 +65,7 @@ export const calc = StyleSheet.create({
     borderWidth: 1,
     borderColor: cores.borda,
     borderRadius: 20,
-    backgroundColor: cores.branco,
+    backgroundColor: cores.papel,
     ...sombras.suave,
   },
   itemTopo: { flexDirection: 'row', alignItems: 'flex-start', justifyContent: 'space-between', gap: 10 },
@@ -97,7 +97,7 @@ export function ProdutoTopo({ source, ilustracao, ajuste = 'inteira', etiquetas 
       <View style={estilos.produtoTexto}>
         <View style={estilos.produtoEtiquetas}>
           {etiquetas.filter(Boolean).map((e, i) => (
-            <Texto key={e} peso={700} style={[estilos.produtoEtiqueta, i === 0 && { backgroundColor: cores.caramelo }]}>
+            <Texto key={e} peso={700} style={[estilos.produtoEtiqueta, i === 0 && { backgroundColor: cores.caramelo, color: cores.cafeEscuroFundo }]}>
               {e}
             </Texto>
           ))}
@@ -287,7 +287,7 @@ const estilos = StyleSheet.create({
     borderStyle: 'dashed',
     borderColor: cores.bordaForte,
     borderRadius: 14,
-    backgroundColor: cores.branco,
+    backgroundColor: cores.papel,
   },
   pendItemFeito: { borderStyle: 'solid', borderColor: 'transparent', backgroundColor: cores.salviaFundo },
   pendMarca: {
@@ -310,9 +310,9 @@ const estilos = StyleSheet.create({
     borderWidth: 1.5,
     borderColor: cores.bordaForte,
     borderRadius: 4,
-    backgroundColor: cores.branco,
+    backgroundColor: cores.papel,
   },
-  caixaMarcada: { backgroundColor: cores.cafe, borderColor: cores.cafe },
+  caixaMarcada: { backgroundColor: cores.cafeFundo, borderColor: cores.cafe },
   checkTexto: { fontSize: fs(16), lineHeight: fs(23) },
   checkApoio: { fontSize: fs(16), lineHeight: fs(23), color: cores.taupe },
   numero: {
@@ -323,13 +323,13 @@ const estilos = StyleSheet.create({
     borderWidth: 1,
     borderColor: cores.borda,
     borderRadius: 10,
-    backgroundColor: cores.branco,
+    backgroundColor: cores.papel,
   },
   numeroRotulo: { fontSize: fs(15), color: cores.taupe },
   numeroValor: { marginTop: 2, fontSize: fs(18), color: cores.cafeEscuro },
   mensagem: { flexDirection: 'row', gap: 10, paddingVertical: 12, paddingHorizontal: 14, borderRadius: 10 },
   alerta: { backgroundColor: cores.erroFundo },
   aviso: { backgroundColor: cores.avisoFundo },
-  erro: { backgroundColor: cores.branco, borderWidth: 1, borderStyle: 'dashed', borderColor: cores.borda },
+  erro: { backgroundColor: cores.papel, borderWidth: 1, borderStyle: 'dashed', borderColor: cores.borda },
   mensagemTexto: { flex: 1, fontSize: fs(16), lineHeight: fs(23) },
 })

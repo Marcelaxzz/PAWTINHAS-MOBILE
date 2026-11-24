@@ -109,7 +109,7 @@ const estilos = StyleSheet.create({
     borderColor: cores.borda,
     borderRadius: 12,
   },
-  caixaFoco: { borderColor: cores.caramelo, backgroundColor: cores.branco },
+  caixaFoco: { borderColor: cores.caramelo, backgroundColor: cores.papel },
   caixaErro: { borderColor: cores.erro },
   entrada: {
     flex: 1,

@@ -133,7 +133,7 @@ const estilos = StyleSheet.create({
     borderWidth: 1,
     borderColor: cores.borda,
     borderRadius: 24,
-    backgroundColor: cores.branco,
+    backgroundColor: cores.papel,
   },
   topo: { flexDirection: 'row', alignItems: 'flex-start', gap: 14 },
   icone: {

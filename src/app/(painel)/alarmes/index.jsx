@@ -199,7 +199,7 @@ const estilos = StyleSheet.create({
     borderWidth: 1,
     borderColor: cores.caramelo,
     borderRadius: 24,
-    backgroundColor: cores.branco,
+    backgroundColor: cores.papel,
   },
   iotLinha: { gap: 16 },
   iotIcone: {
@@ -226,7 +226,7 @@ const estilos = StyleSheet.create({
     borderWidth: 1,
     borderColor: cores.borda,
     borderRadius: 10,
-    backgroundColor: cores.branco,
+    backgroundColor: cores.papel,
   },
   horaTexto: { fontSize: fs(20), color: cores.cafe, fontVariant: ['tabular-nums'] },
 })

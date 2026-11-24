@@ -116,7 +116,7 @@ const estilos = StyleSheet.create({
     borderColor: cores.bordaForte,
     borderRadius: 5,
   },
-  caixaMarcada: { backgroundColor: cores.cafe, borderColor: cores.cafe },
+  caixaMarcada: { backgroundColor: cores.cafeFundo, borderColor: cores.cafe },
   checkTexto: { fontSize: fs(16), color: cores.taupeEscuro },
 
   alerta: {
@@ -144,7 +144,7 @@ const estilos = StyleSheet.create({
     borderColor: cores.borda,
     borderRadius: 14,
   },
-  preenchido: { backgroundColor: cores.branco, borderColor: cores.cafe },
+  preenchido: { backgroundColor: cores.papel, borderColor: cores.cafe },
   digitoFoco: { borderColor: cores.caramelo },
   invalido: { borderColor: cores.erro },
   digitoTexto: { fontSize: fs(25), lineHeight: fs(32), color: cores.cafeEscuro },

@@ -18,11 +18,11 @@ import { useRecordActions } from '../../../web/hooks/useRecordActions.js'
 import { compareSchedule, formatDateBr, relativeDayLabel, todayIso } from '../../../web/utils/dates.js'
 import { AGENDA_TABS } from '../../../web/pages/panel/agendaTabs.js'
 import { imprimirDocumento } from '../../../plataforma/imprimir.js'
-import { cores, fs } from '../../../tema.js'
+import { cores, fs, vivo } from '../../../tema.js'
 
 const STATUS_CONSULTA = ['Agendado', 'Em andamento', 'Concluído', 'Cancelado']
 const STATUS_VACINA = ['Agendado', 'Pendente', 'Aplicada', 'Cancelado']
-const COR_STATUS = { Pendente: cores.aviso, Aplicada: cores.sucesso }
+const COR_STATUS = vivo(() => ({ Pendente: cores.aviso, Aplicada: cores.sucesso }))
 
 export default function ConsultasVacinas() {
   const { secao } = useLocalSearchParams()
@@ -348,7 +348,7 @@ const estilos = StyleSheet.create({
     borderStyle: 'dashed',
     borderColor: cores.caramelo,
     borderRadius: 18,
-    backgroundColor: cores.branco,
+    backgroundColor: cores.papel,
   },
   comprovanteMarca: { position: 'absolute', top: 18, right: 18, opacity: 0.6 },
   comprovanteClinica: { fontSize: fs(23), lineHeight: fs(28) },

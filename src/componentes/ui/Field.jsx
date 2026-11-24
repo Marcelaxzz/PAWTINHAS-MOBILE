@@ -3,11 +3,11 @@ import { FlatList, Modal, Pressable, StyleSheet, TextInput, View } from 'react-n
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { CheckIcon, ChevronDownIcon, CloseIcon, SearchIcon } from '../../web/components/Icons/Icons.jsx'
 import { normalize } from '../../web/utils/text.js'
-import { cores, texto, fs } from '../../tema.js'
+import { cores, texto, fs, vivo } from '../../tema.js'
 import { Texto, Titulo } from '../Texto.jsx'
 import { Grade } from './Grade.jsx'
 
-const FUNDOS = { branco: cores.branco, creme: cores.superficie, areia: cores.cremeClaro }
+const FUNDOS = vivo(() => ({ branco: cores.papel, creme: cores.superficie, areia: cores.cremeClaro }))
 
 /**
  * Campo de formulário das telas internas (Field do site).
@@ -65,7 +65,7 @@ export const Field = forwardRef(function Field(
         <View
           style={[
             estilos.caixa,
-            { backgroundColor: FUNDOS[variant] ?? cores.branco },
+            { backgroundColor: FUNDOS[variant] ?? cores.papel },
             area && estilos.caixaTexto,
             foco && estilos.caixaFoco,
             error && estilos.caixaErro,
@@ -137,7 +137,7 @@ function Seletor({ label, value, options, placeholder, onChange, error, icon: Ic
         accessibilityHint={error}
         style={[
           estilos.caixa,
-          { backgroundColor: fundo ?? cores.branco },
+          { backgroundColor: fundo ?? cores.papel },
           error && estilos.caixaErro,
           disabled && { opacity: 0.7 },
         ]}
@@ -296,7 +296,7 @@ const estilos = StyleSheet.create({
     borderWidth: 1,
     borderColor: cores.borda,
     borderRadius: 999,
-    backgroundColor: cores.branco,
+    backgroundColor: cores.papel,
   },
   opcao: {
     flexDirection: 'row',

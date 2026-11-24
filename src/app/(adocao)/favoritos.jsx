@@ -108,7 +108,7 @@ const estilos = StyleSheet.create({
     paddingVertical: 8,
     paddingHorizontal: 18,
     borderRadius: 999,
-    backgroundColor: cores.cafe,
+    backgroundColor: cores.cafeFundo,
   },
   card: {
     overflow: 'hidden',
@@ -151,6 +151,6 @@ const estilos = StyleSheet.create({
     borderWidth: 1,
     borderColor: cores.borda,
     borderRadius: 21,
-    backgroundColor: cores.branco,
+    backgroundColor: cores.papel,
   },
 })

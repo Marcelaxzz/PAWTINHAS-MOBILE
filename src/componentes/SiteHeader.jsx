@@ -16,7 +16,7 @@ import {
   SlidersIcon,
 } from '../web/components/Icons/Icons.jsx'
 import logo from '../web/assets/images/logo-horizontal.webp'
-import { cores, sombras, texto, fs } from '../tema.js'
+import { cores, sombras, texto, fs, temaAtual } from '../tema.js'
 import { Texto } from './Texto.jsx'
 
 export const ALTURA_HEADER = 68
@@ -91,7 +91,7 @@ export function SiteHeader({ links, homePath = '/', showBack = false, backFallba
       <View style={estilos.esquerda}>
         {Boolean(showBack) && <BackButton fallback={backFallback} />}
         <Pressable onPress={() => ir(homePath)} accessibilityRole="link" accessibilityLabel="Pawtinhas, página inicial">
-          <Image source={logo} style={estilos.logo} contentFit="contain" />
+          <Image source={logo} style={estilos.logo} contentFit="contain" tintColor={temaAtual() === 'escuro' ? cores.cafeEscuro : undefined} />
         </Pressable>
       </View>
 
@@ -265,7 +265,7 @@ const estilos = StyleSheet.create({
     borderRadius: 12,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: cores.cafe,
+    backgroundColor: cores.cafeFundo,
   },
   avatar: {
     width: 38,
@@ -308,7 +308,7 @@ const estilos = StyleSheet.create({
     borderWidth: 1,
     borderColor: cores.borda,
     borderRadius: 999,
-    backgroundColor: 'rgba(255, 255, 255, 0.85)',
+    backgroundColor: cores.vidroPapel,
   },
   buscaEntrada: {
     flex: 1,

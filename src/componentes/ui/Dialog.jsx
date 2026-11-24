@@ -139,7 +139,7 @@ const estilos = StyleSheet.create({
     paddingLeft: 20,
   },
   claro: { borderBottomWidth: 1, borderBottomColor: cores.borda },
-  escuro: { backgroundColor: cores.cafe },
+  escuro: { backgroundColor: cores.cafeFundo },
   titulo: { fontSize: fs(27), lineHeight: fs(33) },
   descricao: { marginTop: 6, fontSize: fs(16), lineHeight: fs(23), opacity: 0.85 },
   fechar: { width: 36, height: 36, alignItems: 'center', justifyContent: 'center', borderRadius: 18 },
@@ -166,7 +166,7 @@ const estilos = StyleSheet.create({
     justifyContent: 'center',
     borderRadius: 12,
   },
-  secundario: { borderWidth: 1, borderColor: cores.borda, backgroundColor: cores.branco },
+  secundario: { borderWidth: 1, borderColor: cores.borda, backgroundColor: cores.papel },
   perigo: { backgroundColor: cores.erro },
   botaoTexto: { fontSize: fs(16), color: cores.cafeEscuro },
 })

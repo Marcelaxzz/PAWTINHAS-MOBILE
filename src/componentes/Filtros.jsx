@@ -72,7 +72,7 @@ const estilos = StyleSheet.create({
     borderWidth: 1,
     borderColor: cores.borda,
     borderRadius: 18,
-    backgroundColor: cores.branco,
+    backgroundColor: cores.papel,
   },
   busca: {
     flexBasis: '100%',

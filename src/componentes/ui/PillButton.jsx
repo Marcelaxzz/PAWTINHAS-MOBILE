@@ -1,22 +1,22 @@
 import { Children, cloneElement, isValidElement } from 'react'
 import { ActivityIndicator, Linking, Pressable, StyleSheet } from 'react-native'
 import { useRouter } from 'expo-router'
-import { cores, fs } from '../../tema.js'
+import { cores, fs, vivo } from '../../tema.js'
 import { Texto } from '../Texto.jsx'
 
-const VARIANTES = {
-  solido: { fundo: cores.cafe, borda: 'transparent', texto: cores.branco, pressionado: cores.cafeHover },
+const VARIANTES = vivo(() => ({
+  solido: { fundo: cores.cafeFundo, borda: 'transparent', texto: cores.branco, pressionado: cores.cafeHover },
   contorno: { fundo: 'transparent', borda: cores.cafe, texto: cores.cafe, pressionado: 'rgba(110, 77, 54, 0.08)' },
-  caramelo: { fundo: cores.caramelo, borda: 'transparent', texto: cores.cafeEscuro, pressionado: cores.areia },
+  caramelo: { fundo: cores.caramelo, borda: 'transparent', texto: cores.cafeEscuroFundo, pressionado: cores.carameloEscuro },
   sucesso: {
     fundo: 'rgba(111, 143, 98, 0.1)',
     borda: cores.salvia,
     texto: cores.sucesso,
     pressionado: 'rgba(111, 143, 98, 0.2)',
   },
-  fantasma: { fundo: cores.branco, borda: cores.borda, texto: cores.cafeEscuro, pressionado: cores.creme },
+  fantasma: { fundo: cores.papel, borda: cores.borda, texto: cores.cafeEscuro, pressionado: cores.creme },
   perigo: { fundo: cores.erroFundo, borda: 'transparent', texto: cores.erro, pressionado: cores.erroFundoForte },
-}
+}))
 
 const TAMANHOS = {
   sm: { minHeight: 36, paddingVertical: 7, paddingHorizontal: 18, fontSize: fs(15) },

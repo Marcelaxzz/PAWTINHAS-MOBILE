@@ -310,7 +310,7 @@ const estilos = StyleSheet.create({
     borderWidth: 1,
     borderColor: cores.borda,
     borderRadius: 24,
-    backgroundColor: cores.branco,
+    backgroundColor: cores.papel,
   },
   cartaoTopo: {
     flexDirection: 'row',
@@ -324,6 +324,7 @@ const estilos = StyleSheet.create({
   toggle: { paddingVertical: 16, borderBottomWidth: 1, borderBottomColor: cores.borda },
   usuario: {
     flexDirection: 'row',
+    flexWrap: 'wrap',
     alignItems: 'center',
     gap: 12,
     paddingVertical: 12,
@@ -338,7 +339,7 @@ const estilos = StyleSheet.create({
     borderRadius: 18,
     backgroundColor: cores.caramelo,
   },
-  avatarTexto: { fontSize: fs(15), color: cores.cafeEscuro },
+  avatarTexto: { fontSize: fs(15), color: cores.cafeEscuroFundo },
   usuarioTexto: { flex: 1, minWidth: 140 },
   usuarioApoio: { fontSize: fs(15), color: cores.taupe },
   usuarioAcoes: { flexDirection: 'row', gap: 2, marginLeft: 'auto' },

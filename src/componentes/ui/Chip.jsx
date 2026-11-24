@@ -1,16 +1,16 @@
 import { StyleSheet, View } from 'react-native'
 import { statusTone } from '../../web/utils/status.js'
-import { cores, fs } from '../../tema.js'
+import { cores, fs, vivo } from '../../tema.js'
 import { Texto } from '../Texto.jsx'
 
-const TONS = {
+const TONS = vivo(() => ({
   neutro: { backgroundColor: 'rgba(110, 77, 54, 0.08)', color: cores.cafe },
   tag: { backgroundColor: 'rgba(216, 161, 107, 0.18)', color: cores.cafe },
   sucesso: { backgroundColor: cores.salviaFundo, color: cores.salviaTexto },
   perigo: { backgroundColor: cores.terracotaFundo, color: cores.terracotaTexto },
   alerta: { backgroundColor: cores.melFundo, color: cores.melTexto },
   info: { backgroundColor: cores.ceuFundo, color: cores.ceuTexto },
-}
+}))
 
 const TAMANHOS = {
   md: { paddingVertical: 4, paddingHorizontal: 12, fontSize: fs(16) },

@@ -252,7 +252,7 @@ export function ReportDialog({ open, onClose, title, description, stats = [], it
 
 const estilos = StyleSheet.create({
   topo: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', gap: 16, marginBottom: 18 },
-  foto: { width: 88, height: 88, borderRadius: 44, borderWidth: 3, borderColor: cores.branco, ...sombras.suave },
+  foto: { width: 88, height: 88, borderRadius: 44, borderWidth: 3, borderColor: cores.papel, ...sombras.suave },
   item: { gap: 2 },
   rotulo: { fontSize: fs(15), letterSpacing: 0.5, color: cores.taupe },
   valor: { fontSize: fs(17), color: cores.cafeEscuro },

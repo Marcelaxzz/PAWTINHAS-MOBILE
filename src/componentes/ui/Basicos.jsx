@@ -110,7 +110,7 @@ const estilos = StyleSheet.create({
     borderStyle: 'dashed',
     borderColor: cores.borda,
     borderRadius: 24,
-    backgroundColor: 'rgba(251, 246, 235, 0.6)',
+    backgroundColor: cores.vidroCremeLeve,
   },
   estadoErro: { borderColor: 'rgba(179, 38, 30, 0.25)' },
   estadoTexto: { textAlign: 'center', color: cores.taupe, lineHeight: fs(26) },
@@ -137,7 +137,7 @@ const estilos = StyleSheet.create({
   toggleRotulo: { fontSize: fs(17) },
   toggleDescricao: { fontSize: fs(15), lineHeight: fs(20), color: cores.taupe },
   chave: { width: 48, height: 26, borderRadius: 999, backgroundColor: cores.bordaForte },
-  ligada: { backgroundColor: cores.cafe },
+  ligada: { backgroundColor: cores.cafeFundo },
   bolinha: {
     position: 'absolute',
     top: 3,
@@ -145,7 +145,7 @@ const estilos = StyleSheet.create({
     width: 20,
     height: 20,
     borderRadius: 10,
-    backgroundColor: cores.branco,
+    backgroundColor: cores.papel,
     ...sombras.elevada,
   },
 })

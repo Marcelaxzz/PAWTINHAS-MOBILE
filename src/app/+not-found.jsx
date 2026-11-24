@@ -4,13 +4,13 @@ import { PillButton } from '../componentes/ui/PillButton.jsx'
 import { Texto, Titulo } from '../componentes/Texto.jsx'
 import { ArrowLeftIcon } from '../web/components/Icons/Icons.jsx'
 import logo from '../web/assets/images/logo-pawtinhas.webp'
-import { cores, sombras, fs } from '../tema.js'
+import { cores, sombras, fs, temaAtual } from '../tema.js'
 
 /** Página não encontrada (NotFound do site). */
 export default function NotFound() {
   return (
     <View style={estilos.pagina}>
-      <Image source={logo} style={estilos.logo} contentFit="contain" />
+      <Image source={logo} style={estilos.logo} contentFit="contain" tintColor={temaAtual() === 'escuro' ? cores.cafeEscuro : undefined} />
       <Texto peso={800} style={estilos.codigo}>
         404
       </Texto>

@@ -7,10 +7,10 @@ import { ArrowRightIcon } from '../web/components/Icons/Icons.jsx'
 import logo from '../web/assets/images/logo-pawtinhas.webp'
 import coelho from '../web/assets/images/coelho-oculos.webp'
 import gato from '../web/assets/images/gato-oculos.webp'
-import { cores, gradientes, sombras, texto, fs } from '../tema.js'
+import { cores, gradientes, sombras, texto, fs, vivo, temaAtual } from '../tema.js'
 import { Texto } from '../componentes/Texto.jsx'
 
-const LETRAS = [
+const LETRAS = vivo(() => ([
   { letra: 'P', cor: cores.cafeEscuro },
   { letra: 'A', cor: cores.cafeMedio },
   { letra: 'W', cor: cores.cafe },
@@ -21,7 +21,7 @@ const LETRAS = [
   { letra: 'A', cor: cores.cafeMedio },
   { letra: 'S', cor: cores.cafeEscuro },
   { letra: '!', cor: cores.cafeEscuro },
-]
+]))
 
 /** Boas-vindas (Welcome do site, no layout de celular). */
 export default function Welcome() {
@@ -59,6 +59,7 @@ export default function Welcome() {
       />
       <Image
         source={logo}
+        tintColor={temaAtual() === 'escuro' ? cores.cafeEscuro : undefined}
         accessibilityLabel="Pawtinhas"
         style={[
           estilos.logo,
@@ -154,7 +155,7 @@ const estilos = StyleSheet.create({
     paddingHorizontal: 34,
     borderRadius: 999,
   },
-  botaoLogin: { borderWidth: 1.5, borderColor: cores.bordaForte, backgroundColor: 'rgba(255, 253, 249, 0.75)' },
+  botaoLogin: { borderWidth: 1.5, borderColor: cores.bordaForte, backgroundColor: cores.vidroSuperficie },
   botaoTexto: { fontSize: fs(19) },
   sobre: { alignSelf: 'center', marginTop: 8 },
   sobreTexto: {

@@ -362,8 +362,8 @@ export default function Inicio() {
                     pressed && { backgroundColor: cores.areia },
                   ]}
                 >
-                  <Icone size={17} color={i === 0 ? cores.cafeEscuro : cores.branco} />
-                  <Texto peso={700} style={{ fontSize: fs(17), color: i === 0 ? cores.cafeEscuro : cores.branco }}>
+                  <Icone size={17} color={i === 0 ? cores.cafeEscuroFundo : cores.branco} />
+                  <Texto peso={700} style={{ fontSize: fs(17), color: i === 0 ? cores.cafeEscuroFundo : cores.branco }}>
                     {rotulo}
                   </Texto>
                 </Pressable>
@@ -549,7 +549,7 @@ const estilos = StyleSheet.create({
     borderLeftWidth: 5,
     borderColor: cores.borda,
     borderRadius: 16,
-    backgroundColor: cores.branco,
+    backgroundColor: cores.papel,
   },
   hora: { flexDirection: 'row', alignItems: 'center', gap: 6, minWidth: 72 },
   horaTexto: { fontSize: fs(18), color: cores.cafeEscuro },
@@ -564,7 +564,7 @@ const estilos = StyleSheet.create({
     borderWidth: 1,
     borderColor: cores.borda,
     borderRadius: 16,
-    backgroundColor: cores.branco,
+    backgroundColor: cores.papel,
   },
   petFoto: { width: '100%', aspectRatio: 1, marginBottom: 6 },
   petInicial: { alignItems: 'center', justifyContent: 'center', backgroundColor: cores.areia },
@@ -593,7 +593,7 @@ const estilos = StyleSheet.create({
     borderRadius: 14,
     backgroundColor: cores.cremeClaro,
   },
-  alarmeHora: { paddingVertical: 6, paddingHorizontal: 10, borderRadius: 10, backgroundColor: cores.cafe },
+  alarmeHora: { paddingVertical: 6, paddingHorizontal: 10, borderRadius: 10, backgroundColor: cores.cafeFundo },
   relatorio: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -603,7 +603,7 @@ const estilos = StyleSheet.create({
     borderWidth: 1,
     borderColor: cores.bordaForte,
     borderRadius: 14,
-    backgroundColor: cores.branco,
+    backgroundColor: cores.papel,
   },
   adocao: {
     flexDirection: 'row',

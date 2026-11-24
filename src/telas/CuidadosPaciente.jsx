@@ -273,7 +273,7 @@ const estilos = StyleSheet.create({
     borderWidth: 1,
     borderColor: cores.borda,
     borderRadius: 28,
-    backgroundColor: cores.branco,
+    backgroundColor: cores.papel,
   },
   topo: { flexDirection: 'row', flexWrap: 'wrap', alignItems: 'center', justifyContent: 'space-between', gap: 10 },
   subtitulo: { flexDirection: 'row', alignItems: 'center', gap: 8 },

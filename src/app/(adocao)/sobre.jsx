@@ -84,7 +84,7 @@ export default function Sobre() {
 
       <Grade colunas={3} quebras={{ 1100: 1 }} gap={24} style={{ marginTop: 24 }} accessibilityLabel="O que fazemos">
         {CARTOES.map(({ titulo, icone: Icone, texto, destaque }) => (
-          <View key={titulo} style={[estilos.cartao, sombras.suave, destaque && { backgroundColor: cores.branco }]}>
+          <View key={titulo} style={[estilos.cartao, sombras.suave, destaque && { backgroundColor: cores.papel }]}>
             <View style={estilos.cartaoIcone}>
               <Icone size={22} color={cores.ferrugem} />
             </View>
