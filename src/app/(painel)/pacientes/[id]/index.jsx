@@ -10,7 +10,6 @@ import { EmptyState, ErrorState, LoadingState } from '../../../../componentes/ui
 import { Texto, Titulo } from '../../../../componentes/Texto.jsx'
 import {
   DownloadIcon,
-  PawOutline,
   PencilIcon,
   PillIcon,
   TrashIcon,
@@ -24,6 +23,8 @@ import { formatNumber, formatQuantidade } from '../../../../web/utils/numbers.js
 import { Alimentacao, Tratamentos } from '../../../../telas/CuidadosPaciente.jsx'
 import { cores, sombras, fs } from '../../../../tema.js'
 import { Grade, useAte } from '../../../../componentes/ui/Grade.jsx'
+import { InicialPet } from '../../../../componentes/ui/InicialPet.jsx'
+import { aniversario, tomDaEspecie } from '../../../../web/utils/enfeites.js'
 
 const HISTORY = [
   'consultas',
@@ -110,6 +111,7 @@ export default function PacienteFicha() {
   const [confirming, setConfirming] = useState(false)
   const [deleting, setDeleting] = useState(false)
   const [baixando, setBaixando] = useState(false)
+  const [fotoFalhou, setFotoFalhou] = useState(null)
 
   const baixarFicha = async () => {
     setBaixando(true)
@@ -176,26 +178,35 @@ export default function PacienteFicha() {
   ].filter(([, value]) => value)
 
   const foto = lookup.petPhoto(pet.id)
+  const festa = aniversario(pet.dataNascimento)
 
   return (
     <Page title="Ficha do paciente" onRefresh={reload}>
       <View style={[estilos.perfil, largo && estilos.perfilLargo, sombras.suave]}>
         <View style={[estilos.foto, largo && estilos.fotoLarga, sombras.media]}>
-          {foto ? (
+          {foto && fotoFalhou !== foto ? (
             <Image
               source={{ uri: foto }}
               style={{ width: '100%', height: '100%' }}
               contentFit="cover"
               accessibilityLabel={`Foto de ${pet.nome}`}
+              onError={() => setFotoFalhou(foto)}
             />
           ) : (
-            <PawOutline size={60} color={cores.cafe} style={{ opacity: 0.4 }} />
+            <InicialPet
+              nome={pet.nome}
+              especie={pet.especie}
+              tamanho={largo ? 190 : 140}
+              style={{ width: '100%', height: '100%' }}
+            />
           )}
         </View>
         <View style={[estilos.dados, largo && estilos.dadosLargo]}>
           <View style={[estilos.nomeLinha, largo && [estilos.alinharInicio, estilos.nomeLinhaLarga]]}>
             <Titulo style={estilos.nome}>{pet.nome}</Titulo>
+            {pet.especie ? <Chip tone={tomDaEspecie(pet.especie)}>{pet.especie}</Chip> : null}
             {pet.idade ? <Chip>{pet.idade}</Chip> : null}
+            {festa ? <Chip tone="rosa">🎂 {festa.texto}</Chip> : null}
           </View>
           {/* No celular, duas colunas (o endereço ocupa a linha), como no site. */}
           <Grade

@@ -1,9 +1,10 @@
-import { Children, Fragment } from 'react'
+import { Children, Fragment, useState } from 'react'
 import { Pressable, StyleSheet, View } from 'react-native'
 import { Image } from 'expo-image'
 import { PawOutline } from '../../web/components/Icons/Icons.jsx'
 import { cores, sombras, fs } from '../../tema.js'
 import { Texto, Titulo } from '../Texto.jsx'
+import { InicialPet } from './InicialPet.jsx'
 
 /** No celular o site reduz as fotos: 120/110/100/96 → 80px e 80 → 64px. */
 const AVATAR_CELULAR = { 120: 80, 110: 80, 100: 80, 96: 80, 80: 64 }
@@ -11,9 +12,11 @@ const AVATAR_CELULAR = { 120: 80, 110: 80, 100: 80, 96: 80, 80: 64 }
 /**
  * Card das listas (cirurgias, banho, visitas, alarmes, pacientes…), no layout de celular do site:
  * foto e texto lado a lado, ações embaixo ocupando a largura.
+ * especie: sem foto, mostra a inicial na cor da espécie (cachorro mel, gato lavanda...).
  */
 export function PetCard({
   photo,
+  especie,
   title,
   badges,
   children,
@@ -25,6 +28,8 @@ export function PetCard({
   style,
 }) {
   const lado = AVATAR_CELULAR[avatar] ?? 80
+  const [fotoFalhou, setFotoFalhou] = useState(null)
+  const mostrarFoto = photo && fotoFalhou !== photo
   const Corpo = onPress ? Pressable : View
   return (
     <Corpo
@@ -39,14 +44,17 @@ export function PetCard({
     >
       <View style={estilos.linhaTopo}>
         <View style={[estilos.foto, { width: lado, height: lado, borderRadius: lado / 2 }]}>
-          {photo ? (
+          {mostrarFoto ? (
             <Image
               source={{ uri: photo }}
               style={estilos.imagem}
               contentFit="cover"
               transition={150}
               accessibilityIgnoresInvertColors
+              onError={() => setFotoFalhou(photo)}
             />
+          ) : especie && typeof title === 'string' ? (
+            <InicialPet nome={title} especie={especie} tamanho={lado} style={estilos.imagem} />
           ) : (
             <PawOutline size={lado * 0.4} color={cores.cafe} style={{ opacity: 0.4 }} />
           )}

@@ -4,6 +4,7 @@ import { ArrowRightIcon, HeartIcon, MapPinIcon } from '../web/components/Icons/I
 import { FotoInteira } from '../componentes/ui/FotoInteira.jsx'
 import { photoSrc } from '../plataforma/imagens.js'
 import { sexoEspecie } from '../web/utils/adocao.js'
+import { chegouHaPouco } from '../web/utils/enfeites.js'
 import { Texto, Titulo } from '../componentes/Texto.jsx'
 import { cores, sombras, fs } from '../tema.js'
 
@@ -42,13 +43,20 @@ export function AnimalCard({ animal, favorite, onToggleFavorite, style }) {
             {sexoEspecie(animal).toUpperCase()}
           </Texto>
         </View>
-        {animal.status === 'Em processo' && (
+        {animal.status === 'Em processo' ? (
           <View style={estilos.processo}>
             <Texto peso={700} style={estilos.processoTexto}>
               Em processo de adoção
             </Texto>
           </View>
-        )}
+        ) : chegouHaPouco(animal) ? (
+          // Verde fixo (fora do StyleSheet) para não virar verde-claro no modo escuro.
+          <View style={[estilos.processo, { backgroundColor: '#3f6a45', ...sombras.suave }]}>
+            <Texto peso={700} style={[estilos.processoTexto, { color: '#ffffff' }]}>
+              Novo por aqui
+            </Texto>
+          </View>
+        ) : null}
       </FotoInteira>
       <View style={estilos.corpo}>
         <View style={estilos.topo}>
@@ -127,7 +135,7 @@ const estilos = StyleSheet.create({
     borderRadius: 999,
     backgroundColor: cores.caramelo,
   },
-  processoTexto: { fontSize: fs(15), color: cores.cafeEscuro },
+  processoTexto: { fontSize: fs(15), color: cores.cafeEscuroFundo },
   corpo: { paddingTop: 20, paddingHorizontal: 24, paddingBottom: 24 },
   topo: { flexDirection: 'row', alignItems: 'baseline', justifyContent: 'space-between', gap: 12 },
   nome: { flexShrink: 1, fontSize: fs(25), lineHeight: fs(30) },

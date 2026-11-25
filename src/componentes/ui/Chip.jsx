@@ -10,6 +10,13 @@ const TONS = vivo(() => ({
   perigo: { backgroundColor: cores.terracotaFundo, color: cores.terracotaTexto },
   alerta: { backgroundColor: cores.melFundo, color: cores.melTexto },
   info: { backgroundColor: cores.ceuFundo, color: cores.ceuTexto },
+  // Tons por espécie e o de aniversário (mesmos do site).
+  mel: { backgroundColor: cores.melFundo, color: cores.melTexto },
+  lavanda: { backgroundColor: cores.lavandaFundo, color: cores.lavandaTexto },
+  salvia: { backgroundColor: cores.salviaFundo, color: cores.salviaTexto },
+  ceu: { backgroundColor: cores.ceuFundo, color: cores.ceuTexto },
+  rosa: { backgroundColor: cores.rosaFundo, color: cores.rosaTexto },
+  terracota: { backgroundColor: cores.terracotaFundo, color: cores.terracotaTexto },
 }))
 
 const TAMANHOS = {

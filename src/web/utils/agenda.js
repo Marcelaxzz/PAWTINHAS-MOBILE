@@ -131,3 +131,23 @@ export function petsInNext12Hours(timeline, now = new Date()) {
   )
   return pets.size
 }
+
+/** Quantos atendimentos de hoje (não cancelados) cada aba da agenda tem; emergências contam as em atendimento. */
+export function contagemDeHoje(data) {
+  const hoje = todayIso()
+  const valido = (item) => item.status !== 'Cancelado'
+  const doDia = (lista) => lista.filter((item) => item.data === hoje && valido(item)).length
+  const consultasVacinas = doDia(data.consultas) + doDia(data.vacinas)
+  const cirurgias = doDia(data.cirurgias)
+  const banhos = doDia(data.banhos)
+  const visitas = data.visitas.filter((v) => v.dataInicio <= hoje && v.dataFim >= hoje && valido(v)).length
+  const emergencias = data.emergencias.filter((e) => e.status === 'Em atendimento').length
+  return {
+    total: consultasVacinas + cirurgias + banhos + visitas + emergencias,
+    consultasVacinas,
+    cirurgias,
+    banhos,
+    visitas,
+    emergencias,
+  }
+}

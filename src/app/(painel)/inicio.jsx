@@ -27,6 +27,8 @@ import { cores, gradientes, MARGEM, sombras, fs } from '../../tema.js'
 import { Forte, Texto, Titulo } from '../../componentes/Texto.jsx'
 import { Chip, StatusChip } from '../../componentes/ui/Chip.jsx'
 import { Grade, useAte } from '../../componentes/ui/Grade.jsx'
+import { InicialPet } from '../../componentes/ui/InicialPet.jsx'
+import { aniversario, emojiDaHora, tomDaEspecie } from '../../web/utils/enfeites.js'
 
 const ICONES = { agenda: CalendarIcon, emergencias: AlertIcon, pacientes: UsersIcon, estoque: PillIcon }
 
@@ -96,6 +98,10 @@ export default function Inicio() {
   }, [])
 
   const painel = useMemo(() => (data ? montarPainel(data, lookup, estoque) : null), [data, lookup, estoque])
+  const aniversariantes = useMemo(
+    () => (data?.pets ?? []).filter((p) => aniversario(p.dataNascimento)?.hoje).slice(0, 4),
+    [data],
+  )
 
   const atualizar = async () => {
     setAtualizando(true)
@@ -205,17 +211,16 @@ export default function Inicio() {
               accessibilityRole="link"
               style={({ pressed }) => [estilos.pet, pressed && { borderColor: cores.caramelo }]}
             >
-              {photoSrc(p.foto) ? (
-                <Image source={{ uri: photoSrc(p.foto) }} style={estilos.petFoto} contentFit="cover" />
-              ) : (
-                <View style={[estilos.petFoto, estilos.petInicial]}>
-                  <Titulo style={{ fontSize: fs(30), lineHeight: fs(36), color: cores.cafe }}>{p.nome.slice(0, 1)}</Titulo>
+              <FotoOuInicial pet={p} />
+              {aniversario(p.dataNascimento) && (
+                <View style={[estilos.petBolo, { backgroundColor: cores.rosaFundo, borderColor: cores.papel }]}>
+                  <Texto style={estilos.petBoloTexto}>🎂</Texto>
                 </View>
               )}
               <Texto peso={700} numberOfLines={1} style={{ color: cores.cafeEscuro }}>
                 {p.nome}
               </Texto>
-              <Texto style={estilos.petEspecie}>{p.especie}</Texto>
+              <Texto style={[estilos.petEspecie, { color: cores[`${tomDaEspecie(p.especie)}Texto`] }]}>{p.especie}</Texto>
             </Pressable>
           ))}
       </Grade>
@@ -334,7 +339,7 @@ export default function Inicio() {
             </Texto>
             <Titulo style={[estilos.titulo, celular && { fontSize: fs(38), lineHeight: fs(43) }]}>
               {saudacao(agora.getHours())}
-              {firstName ? `, ${firstName}` : ''}!
+              {firstName ? `, ${firstName}` : ''}! {emojiDaHora(agora.getHours())}
             </Titulo>
             <Texto style={estilos.resumoTexto}>
               {!painel ? (
@@ -349,6 +354,25 @@ export default function Inicio() {
                 'Nenhum atendimento pendente no restante do dia.'
               )}
             </Texto>
+            {aniversariantes.length > 0 && (
+              <View style={estilos.festa}>
+                <Texto peso={600} style={estilos.festaTexto}>
+                  🎂 Hoje é aniversário de{' '}
+                  {aniversariantes.map((p, i) => (
+                    <Texto
+                      key={p.id}
+                      peso={700}
+                      onPress={() => router.push(`/pacientes/${encodeURIComponent(p.id)}`)}
+                      style={estilos.festaNome}
+                    >
+                      {i > 0 ? (i === aniversariantes.length - 1 ? ' e ' : ', ') : ''}
+                      {p.nome}
+                    </Texto>
+                  ))}
+                  !
+                </Texto>
+              </View>
+            )}
             <View style={estilos.atalhos}>
               {ATALHOS.map(({ to, rotulo, icone: Icone }, i) => (
                 <Pressable
@@ -567,7 +591,28 @@ const estilos = StyleSheet.create({
     backgroundColor: cores.papel,
   },
   petFoto: { width: '100%', aspectRatio: 1, marginBottom: 6 },
-  petInicial: { alignItems: 'center', justifyContent: 'center', backgroundColor: cores.areia },
+  petBolo: {
+    position: 'absolute',
+    top: 6,
+    right: 6,
+    width: 30,
+    height: 30,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderWidth: 2,
+    borderRadius: 15,
+  },
+  petBoloTexto: { fontSize: 15, lineHeight: 19 },
+  festa: {
+    alignSelf: 'flex-start',
+    marginTop: 12,
+    paddingVertical: 6,
+    paddingHorizontal: 14,
+    borderRadius: 18,
+    backgroundColor: 'rgba(255, 255, 255, 0.14)',
+  },
+  festaTexto: { fontSize: fs(16), lineHeight: fs(23), color: cores.cremeFixo },
+  festaNome: { color: cores.cremeFixo, textDecorationLine: 'underline' },
   petEspecie: { fontSize: fs(15), color: cores.taupe },
   barras: { flexDirection: 'row', gap: 8 },
   barraDia: { flex: 1, alignItems: 'center', gap: 4 },
@@ -615,3 +660,13 @@ const estilos = StyleSheet.create({
     backgroundColor: cores.rosaFundo,
   },
 })
+
+/** Foto do pet; sem foto (ou se ela não abrir), a inicial na cor da espécie. */
+function FotoOuInicial({ pet }) {
+  const [falhou, setFalhou] = useState(false)
+  const foto = photoSrc(pet.foto)
+  if (foto && !falhou) {
+    return <Image source={{ uri: foto }} style={estilos.petFoto} contentFit="cover" onError={() => setFalhou(true)} />
+  }
+  return <InicialPet nome={pet.nome} especie={pet.especie} tamanho={84} style={estilos.petFoto} />
+}

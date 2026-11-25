@@ -30,6 +30,7 @@ import { normalize } from '../web/utils/text.js'
 import logoContorno from '../web/assets/images/logo-pawtinhas-contorno.webp'
 import { cores, sombras, texto, fs, vivo } from '../tema.js'
 import { Grade } from '../componentes/ui/Grade.jsx'
+import { soltarConfete } from '../componentes/Confete.jsx'
 
 const STATUS_FILTRO = ['Todos', 'Disponível', 'Em processo', 'Adotado']
 const TONS = vivo(() => ({ cafe: cores.cafeEscuro, verde: cores.sucesso, ambar: cores.aviso, vermelho: cores.erro }))
@@ -81,7 +82,12 @@ export function AdminAdocoes() {
     try {
       const updated = await dataService.update('animais', editing.id, payload)
       patchLocal('animais', updated)
-      toast.success(`${updated.nome} foi atualizado(a)!`)
+      if (updated.status === 'Adotado' && editing.status !== 'Adotado') {
+        soltarConfete()
+        toast.success(`${updated.nome} encontrou um lar! 🎉`)
+      } else {
+        toast.success(`${updated.nome} foi atualizado(a)!`)
+      }
       fecharEdicao()
     } catch (err) {
       toast.error(err.message)

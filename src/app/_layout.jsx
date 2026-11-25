@@ -8,6 +8,7 @@ import { AuthProvider, ToastProvider } from '../contexto/Provedores.jsx'
 import { AlarmesDoCelular } from '../alarmes/AlarmesDoCelular.jsx'
 import { FONTES, cores, temaAtual, trocarTema } from '../tema.js'
 import { BotaoTema } from '../componentes/BotaoTema.jsx'
+import { CamadaConfete } from '../componentes/Confete.jsx'
 
 SplashScreen.preventAutoHideAsync().catch(() => {})
 
@@ -46,6 +47,7 @@ export default function RootLayout() {
             />
           </Fragment>
           <BotaoTema escuro={tema === 'escuro'} onTrocar={alternarTema} />
+          <CamadaConfete />
         </ToastProvider>
       </AuthProvider>
     </SafeAreaProvider>

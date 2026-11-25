@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { Pressable, StyleSheet, View } from 'react-native'
+import { LinearGradient } from 'expo-linear-gradient'
 import { ConfirmDialog } from '../componentes/ui/Dialog.jsx'
 import { PillButton } from '../componentes/ui/PillButton.jsx'
 import { StatusChip } from '../componentes/ui/Chip.jsx'
@@ -22,6 +23,45 @@ function fimDoTratamento(p) {
 }
 
 /** "Ativa" vira "Concluída" na tela quando o período já terminou. */
+/** Em que dia do tratamento estamos: "Dia 3 de 7" e quanto da barra preencher (igual ao site). */
+function progresso(p) {
+  const hoje = todayIso()
+  if (!p.inicio || !p.duracaoDias) return null
+  if (p.inicio > hoje) return { porcento: 0, texto: `Começa em ${formatDateBr(p.inicio)}` }
+  const passados = Math.round((new Date(`${hoje}T12:00:00`) - new Date(`${p.inicio}T12:00:00`)) / 86400000)
+  const dia = Math.min(p.duracaoDias, passados + 1)
+  const faltam = p.duracaoDias - dia
+  return {
+    porcento: (dia / p.duracaoDias) * 100,
+    texto: `Dia ${dia} de ${p.duracaoDias}${faltam === 0 ? ' · último dia' : ` · ${faltam === 1 ? 'falta 1 dia' : `faltam ${faltam} dias`}`}`,
+  }
+}
+
+function BarraDoTratamento({ p }) {
+  const andamento = progresso(p)
+  if (!andamento) return null
+  return (
+    <View style={estilos.progresso}>
+      <View
+        style={[estilos.progressoTrilho, { backgroundColor: cores.borda }]}
+        accessibilityRole="progressbar"
+        accessibilityValue={{ min: 0, max: 100, now: Math.round(andamento.porcento) }}
+        accessibilityLabel={`Andamento do tratamento com ${p.medicamento}`}
+      >
+        <LinearGradient
+          colors={[cores.caramelo, cores.salvia]}
+          start={{ x: 0, y: 0.5 }}
+          end={{ x: 1, y: 0.5 }}
+          style={[estilos.progressoNivel, { width: `${Math.max(andamento.porcento, 3)}%` }]}
+        />
+      </View>
+      <Texto peso={600} style={[estilos.progressoTexto, { color: cores.taupeEscuro }]}>
+        {andamento.texto}
+      </Texto>
+    </View>
+  )
+}
+
 function statusExibido(p) {
   return p.status === 'Ativa' && fimDoTratamento(p) < todayIso() ? 'Concluída' : p.status
 }
@@ -124,6 +164,7 @@ export function Tratamentos({ pet, prescricoes, patchLocal }) {
                   {formatDateBr(fimDoTratamento(p))} · 1ª dose às {p.horaPrimeiraDose} · total{' '}
                   {formatQuantidade(p.quantidadeTotal, p.unidade)}
                 </Texto>
+                {status === 'Ativa' ? <BarraDoTratamento p={p} /> : null}
                 {p.alarmeId ? (
                   <View style={estilos.apoioLinha}>
                     <ChipIcon size={14} color={cores.taupe} />
@@ -267,6 +308,10 @@ export function Alimentacao({ pet, planos, patchLocal }) {
 }
 
 const estilos = StyleSheet.create({
+  progresso: { gap: 5, marginTop: 8, marginBottom: 4 },
+  progressoTrilho: { height: 8, overflow: 'hidden', borderRadius: 4 },
+  progressoNivel: { height: '100%', borderRadius: 4 },
+  progressoTexto: { fontSize: fs(15) },
   cuidado: {
     paddingVertical: 22,
     paddingHorizontal: 18,

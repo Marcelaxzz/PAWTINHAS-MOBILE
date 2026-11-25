@@ -1,4 +1,4 @@
-import { forwardRef, useRef } from 'react'
+import { forwardRef, useEffect, useRef, useState } from 'react'
 import { KeyboardAvoidingView, Platform, Pressable, RefreshControl, ScrollView, StyleSheet, View } from 'react-native'
 import { usePathname, useRouter } from 'expo-router'
 import { LinearGradient } from 'expo-linear-gradient'
@@ -6,6 +6,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { PageHeading } from './ui/Basicos.jsx'
 import { cores, gradientes, MARGEM, sombras, fs } from '../tema.js'
 import { Texto } from './Texto.jsx'
+import { guardarContagem, lerContagem } from '../web/services/contagens.js'
 
 /**
  * Estrutura padrão das telas internas (Page do site): título centralizado, subtítulo,
@@ -91,6 +92,21 @@ export const Page = forwardRef(function Page(
 export function Abas({ tabs, titulo }) {
   const pathname = usePathname()
   const router = useRouter()
+  const contagens = useContagens(tabs)
+
+  const numero = (tab, ativa) => {
+    const n = contagens?.[tab.to]
+    if (!(n > 0)) return null
+    const fundo = ativa ? 'rgba(255, 255, 255, 0.22)' : tab.alerta ? cores.terracotaFundo : cores.borda
+    const cor = ativa ? cores.branco : tab.alerta ? cores.terracotaTexto : cores.cafe
+    return (
+      <View style={[estilos.abaNumero, { backgroundColor: fundo }]}>
+        <Texto peso={700} style={[estilos.abaNumeroTexto, { color: cor }]}>
+          {n > 99 ? '99+' : n}
+        </Texto>
+      </View>
+    )
+  }
 
   return (
     <View
@@ -119,12 +135,14 @@ export function Abas({ tabs, titulo }) {
                 <Texto peso={600} style={[estilos.abaTexto, { color: cores.branco }]}>
                   {tab.label}
                 </Texto>
+                {numero(tab, true)}
               </LinearGradient>
             ) : (
               <View style={estilos.aba}>
                 <Texto peso={600} style={estilos.abaTexto}>
                   {tab.label}
                 </Texto>
+                {numero(tab, false)}
               </View>
             )}
           </Pressable>
@@ -132,6 +150,31 @@ export function Abas({ tabs, titulo }) {
       })}
     </View>
   )
+}
+
+/** Números das abas (atendimentos de hoje, pacientes...), guardados por 1 minuto como no site. */
+function useContagens(tabs) {
+  const chave = tabs?.chaveContagem
+  const [valor, setValor] = useState(() => (chave ? lerContagem(chave) : null))
+
+  useEffect(() => {
+    if (!chave || !tabs.contar || lerContagem(chave)) return undefined
+    let ativo = true
+    tabs
+      .contar()
+      .then((novo) => {
+        guardarContagem(chave, novo)
+        if (ativo) setValor(novo)
+      })
+      .catch(() => {
+        // Sem número na aba se a busca falhar.
+      })
+    return () => {
+      ativo = false
+    }
+  }, [chave, tabs])
+
+  return valor
 }
 
 const estilos = StyleSheet.create({
@@ -153,7 +196,17 @@ const estilos = StyleSheet.create({
     backgroundColor: cores.superficie,
   },
   abaToque: { borderRadius: 999 },
-  aba: { paddingVertical: 8, paddingHorizontal: 18, borderRadius: 999 },
+  aba: { flexDirection: 'row', alignItems: 'center', paddingVertical: 8, paddingHorizontal: 18, borderRadius: 999 },
+  abaNumero: {
+    minWidth: 22,
+    height: 20,
+    marginLeft: 7,
+    paddingHorizontal: 6,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 10,
+  },
+  abaNumeroTexto: { fontSize: fs(12), lineHeight: fs(15) },
   abaTexto: { fontSize: fs(16), lineHeight: fs(20), color: cores.taupe },
   acoes: { flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'center', gap: 12, marginTop: 22 },
   conteudo: { width: '100%', alignSelf: 'center' },
